@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontCreateOrderAsCustomerOnCheckoutShippingPageActionGroup">
+        <arguments>
+            <argument name="shippingMethodsOnCheckout" defaultValue="FlatRateMethod"/>
+        </arguments>
+        <amOnPage url="{{StorefrontCheckoutShippingPage.url}}" stepKey="navigateToStorefrontCheckoutShippingPage"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <conditionalClick selector="{{StorefrontCheckoutShippingAddressSection.ShipMethod(shippingMethodsOnCheckout.shippingMethodsNameOnCheckout)}}"
+                          dependentSelector="{{StorefrontCheckoutShippingAddressSection.AmThemeShippingMethods}}"
+                          visible="false" stepKey="selectShippingMethod"/>
+        <conditionalClick selector="{{StorefrontCheckoutShippingAddressSection.ShipMethodLabel(shippingMethodsOnCheckout.shippingMethodsNameOnCheckout)}}"
+                          dependentSelector="{{StorefrontCheckoutShippingAddressSection.AmThemeShippingMethods}}"
+                          visible="true" stepKey="selectShippingMethodOnAmTheme"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <click selector="{{StorefrontCheckoutShippingAddressSection.Next}}" stepKey="clickNext"/>
+        <waitForPageLoad stepKey="waitForPageLoad3"/>
+    </actionGroup>
+</actionGroups>

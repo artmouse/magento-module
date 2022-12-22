@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Automatic Related Products MFTF 3 for Magento 2 (System)
+*/-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+    <section name="AdminRelatedProductRulesGridSection">
+        <element name="checkboxRulesGrid" type="checkbox" selector=".admin__control-checkbox[data-action=select-row]"/>
+        <element name="dropdownActions" type="select" selector="button[class=action-select]"/>
+        <element name="dropdownDeleteAction" type="button" selector="//span[contains(text(), 'Delete')]"/>
+    </section>
+</sections>

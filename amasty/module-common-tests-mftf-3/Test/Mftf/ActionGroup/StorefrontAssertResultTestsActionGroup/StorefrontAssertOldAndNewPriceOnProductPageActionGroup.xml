@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAssertOldAndNewPriceOnProductPageActionGroup">
+        <arguments>
+            <argument name="prices"/>
+            <argument name="product"/>
+        </arguments>
+        <amOnPage url="{{StorefrontProductPage.url(product.custom_attributes[url_key])}}" stepKey="goToProductPage"/>
+        <waitForPageLoad stepKey="waitForPageLoad"/>
+        <see selector="{{StorefrontProductPageSection.SpecialPriceProduct}}" userInput="{{prices.newPrice}}"
+             stepKey="assertNewPrice"/>
+        <see selector="{{StorefrontProductPageSection.RegularPriceProduct}}" userInput="{{prices.oldPrice}}"
+             stepKey="assertOldPrice"/>
+    </actionGroup>
+</actionGroups>

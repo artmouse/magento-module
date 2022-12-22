@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAskQuestionWithNotifyNotFillInDataActionGroup">
+        <arguments>
+            <argument name="question" defaultValue="defaultQuestion"/>
+            <argument name="customer"/>
+        </arguments>
+        <click selector="{{StorefrontAskQuestionSection.AskQuestion}}" stepKey="clickAskQuestion"/>
+        <fillField selector="{{StorefrontAskQuestionSection.Question}}" userInput="{{question.title}}" stepKey="fillQuestion"/>
+        <seeInField selector="{{StorefrontAskQuestionSection.Name}}" userInput="{{customer.firstname}}" stepKey="seeSenderName"/>
+        <click selector="{{StorefrontAskQuestionSection.GetNotification}}" stepKey="getNotifications"/>
+        <waitForPageLoad stepKey="waitForEmailField"/>
+        <seeInField selector="{{StorefrontAskQuestionSection.Email}}" userInput="{{customer.email}}" stepKey="seeEmail"/>
+        <click selector="{{StorefrontAskQuestionSection.SendQuestion}}" stepKey="sendQuestion"/>
+        <waitForPageLoad stepKey="waitForSendQuestion"/>
+        <seeElement selector="{{StorefrontAskQuestionSection.SuccessMessage(successMessage.sentQuestionWithNotifyFirst)}}" stepKey="seeQuestionIsSent"/>
+        <seeElement selector="{{StorefrontAskQuestionSection.SuccessMessage(successMessage.sentQuestionWithNotifySecond)}}" stepKey="seeQuestionIsSentSecond"/>
+    </actionGroup>
+</actionGroups>

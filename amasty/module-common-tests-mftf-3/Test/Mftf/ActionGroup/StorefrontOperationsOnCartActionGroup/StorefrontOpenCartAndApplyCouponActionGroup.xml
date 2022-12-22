@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontOpenCartAndApplyCouponActionGroup" extends="StorefrontApplyCouponActionGroup">
+        <amOnPage url="{{StorefrontCartPage.url}}" before="waitForCouponHeader" stepKey="navigateToShoppingCart1"/>
+        <waitForPageLoad after="navigateToShoppingCart1" stepKey="waitForPageLoadAfterOpenCartPage"/>
+    </actionGroup>
+</actionGroups>

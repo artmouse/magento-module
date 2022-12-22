@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAskQuestionWithNotifyActionGroup" extends="StorefrontAskQuestionWithoutNotifyActionGroup">
+        <arguments>
+            <argument name="question" defaultValue="defaultQuestion"/>
+        </arguments>
+        <click selector="{{StorefrontAskQuestionSection.GetNotification}}" after="fillSenderName" stepKey="getNotifications"/>
+        <waitForPageLoad after="getNotifications"  stepKey="waitForEmailField"/>
+        <fillField selector="{{StorefrontAskQuestionSection.Email}}" userInput="{{question.email}}"
+                   after="waitForEmailField" stepKey="fillEmail"/>
+        <seeElement selector="{{StorefrontAskQuestionSection.SuccessMessage(successMessage.sentQuestionWithNotifyFirst)}}" stepKey="seeQuestionIsSent"/>
+        <seeElement selector="{{StorefrontAskQuestionSection.SuccessMessage(successMessage.sentQuestionWithNotifySecond)}}"
+                    after="seeQuestionIsSent" stepKey="seeQuestionIsSentSecond"/>
+    </actionGroup>
+</actionGroups>

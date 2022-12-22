@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminAmWidgetSection">
+        <element name="BlockTitle" type="input" selector="//input[@name='parameters[block_title]']"/>
+        <element name="AnswerLength" type="input" selector="//input[@name='parameters[limit_short_answer]']"/>
+        <element name="SelectCategory" type="button" selector="//button[@title='Select Category...']"/>
+        <element name="CategoryTitleField" type="input" selector="//tr[@class='data-grid-filters']//input[@name='title']"/>
+        <element name="FirstRow" type="button" parameterized="true" selector="//tr[@title='#'][contains(string(),'{{category}}')]"/>
+        <element name="SelectedCategory" type="text" selector="//label[@class='label admin__field-label'][contains(string(),'FAQ Category')]//following::label[1][@class='widget-option-label']"/>
+        <element name="SearchBoxWidth" type="input" selector="//input[@name='parameters[search_box_width]']"/>
+        <element name="TagsLimit" type="input" selector="//input[@name='parameters[tags_limit]']"/>
+    </section>
+</sections>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminGridProductsSection">
+        <element name="FiltersButton" type="button" timeout="30"
+                 selector="//button[contains(string(), 'Filters')][contains(@data-bind, 'active')]"/>
+        <element name="InputNameFilters" type="input" timeout="30" selector="//input[@name='name']"/>
+        <element name="ApplyFiltersButton" type="button" timeout="30"
+                 selector="//button[@data-action='grid-filter-apply']"/>
+        <element name="ProductOnGrid" type="block" parameterized="true" timeout="10"
+                 selector="//tbody//tr[contains(string(), '{{productName}}')]//a[contains(string(), 'Edit')]"/>
+        <element name="FilterClearAllButton" type="button" timeout="10"
+                 selector="//div[@class='admin__data-grid-header']//button[@data-action='grid-filter-reset']"/>
+        <element name="MultiCheckDropdown" type="button"
+                 selector="div[data-role='grid-wrapper'] th.data-grid-multicheck-cell button.action-multicheck-toggle"/>
+        <element name="MultiCheckOptionAll" type="button"
+                 selector="//div[@data-role='grid-wrapper']//th[contains(@class, data-grid-multicheck-cell)]//li//span[text() = 'Select All']"/>
+        <element name="BulkActionDropdown" type="button"
+                 selector="div.admin__data-grid-header-row.row div.action-select-wrap button.action-select"/>
+        <element name="BulkActionOptionDelete" type="button"
+                 selector="//div[contains(@class,'admin__data-grid-header-row') and contains(@class, 'row')]//div[contains(@class, 'action-select-wrap')]//ul/li/span[text() = 'Delete']"/>
+        <element name="MessageConfirm" type="button" timeout="10"
+                 selector="aside.confirm .modal-footer button.action-accept"/>
+        <element name="SuccessDelete" type="text"
+                 selector="//div[@class='message message-success success']//div[contains(string(), 'record(s) have been deleted.')]"/>
+    </section>
+</sections>

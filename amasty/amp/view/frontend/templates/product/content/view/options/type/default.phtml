@@ -1,0 +1,18 @@
+<?php
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package AMP for Magento 2
+*/
+?>
+<?php
+/*
+ *  Override default Magento custom option
+ */
+
+$_option = $block->getOption();
+?>
+
+<p class="amamp-label">
+    <?= $block->escapeHtml($_option->getTitle()) ?>
+</p>

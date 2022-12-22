@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminCreateOrderChooseCustomerAndAddProductActionGroup">
+        <arguments>
+            <argument name="product" type="string"/>
+            <argument name="addProductQty" defaultValue="_enterQty1"/>
+            <argument name="customer"/>
+        </arguments>
+        <amOnPage url="{{AdminAllOrdersPage.url}}" stepKey="navigateToOrders"/>
+        <click selector="{{AdminOrdersGridSection.AddNewOrderButton}}" stepKey="clickCreateOrderButton"/>
+        <waitForPageLoad stepKey="waitForNewOrderPageLoad"/>
+        <click selector="{{AdminSelectCustomerNewOrderSection.CustomerEmail(customer.email)}}"
+               stepKey="selectCustomer"/>
+        <waitForPageLoad stepKey="waitForProductSelectPageLoad"/>
+        <click selector="{{AdminCreateOrderSection.AddProductsButton}}" stepKey="clickAddProductsButton"/>
+        <waitForPageLoad stepKey="waitForProductsTableLoad"/>
+        <fillField selector="{{AdminCreateOrderSection.TableProductsSearchSkuField}}" userInput="{{product}}"
+                   stepKey="enterSkuProductForAdd"/>
+        <click selector="{{AdminCreateOrderSection.TableProductsSearchButton}}" stepKey="clickSearchButton"/>
+        <waitForAjaxLoad stepKey="waitForSearchProduct"/>
+        <click selector="{{AdminCreateOrderSection.TableProductsCheckbox}}" stepKey="checkProduct"/>
+        <fillField selector="{{AdminCreateOrderSection.TableProductsQty}}" userInput="{{addProductQty.qty}}"
+                   stepKey="enterQtyProductForAdd"/>
+        <click selector="{{AdminCreateOrderSection.AddSelectedProductsButton}}" stepKey="addSelectedProduct"/>
+        <waitForPageLoad stepKey="waitForAddProduct"/>
+    </actionGroup>
+</actionGroups>

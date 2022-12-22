@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAssertQuestionPositionOnCategoryPageActionGroup">
+        <arguments>
+            <argument name="question" defaultValue="defaultQuestion"/>
+        </arguments>
+        <seeElement selector="{{StorefrontCategorySection.QuestionTitlePosition(question.position, question.title)}}" stepKey="assertQuestionPosition"/>
+    </actionGroup>
+</actionGroups>

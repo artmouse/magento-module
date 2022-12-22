@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqHomePageTest">
+        <annotations>
+            <features value="FAQ Home Page Settings"/>
+            <stories value="Assert FAQ Home Page Settings"/>
+            <title value="Default, Disabled, Custom FAQ Home Page"/>
+            <description value="Default, Disabled, Custom FAQ Home Page"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-37"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqConfigurations"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="simpleCategory"/>
+            <createData entity="SimpleProductByFusionBackpack" stepKey="simpleProduct">
+                <requiredEntity createDataKey="simpleCategory"/>
+            </createData>
+            <createData entity="apiFaqCategory" stepKey="faqCategory"/>
+            <createData entity="apiFaqQuestionWithCategory" stepKey="faqQuestion">
+                <requiredEntity createDataKey="faqCategory"/>
+                <requiredEntity createDataKey="simpleProduct"/>
+            </createData>
+            <createData entity="_newDefaultCmsPage" stepKey="createCmsPage"/>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+        </before>
+        <after>
+            <deleteData createDataKey="faqQuestion" stepKey="deleteFaqQuestion"/>
+            <deleteData createDataKey="faqCategory" stepKey="deleteFaqCategory"/>
+            <deleteData createDataKey="simpleProduct" stepKey="deleteProduct"/>
+            <deleteData createDataKey="simpleCategory" stepKey="deleteCategory"/>
+            <actionGroup ref="AdminFaqHomePageActionGroup" stepKey="setDefFaqHome"/>
+            <deleteData createDataKey="createCmsPage" stepKey="deleteCmsPage"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <actionGroup ref="AdminFaqHomePageActionGroup" stepKey="setFaqHome"/>
+        <actionGroup ref="StorefrontOpenFaqPageActionGroup" stepKey="openFaqPageToCheckDefFaqHome"/>
+        <actionGroup ref="StorefrontAssertPageTitleOnFaqPageActionGroup" stepKey="assertDefPageTitleAndBreadcrumb"/>
+        <actionGroup ref="AdminFaqHomePageActionGroup" stepKey="disableFaqHome">
+            <argument name="status" value="status.isDisabled"/>
+        </actionGroup>
+        <!--category page is opened instead of Faq page-->
+        <actionGroup ref="StorefrontOpenFaqPageActionGroup" stepKey="openDisabledFaqPage"/>
+        <actionGroup ref="StorefrontAssertCategoryTitleAndDescOnCategoryPageActionGroup" stepKey="assertCategoryIsOpened">
+            <argument name="category" value="$$faqCategory$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminFaqHomePageActionGroup" stepKey="setCustomFaqHome">
+            <argument name="cmsPage" value="$$createCmsPage.title$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenFaqPageActionGroup" stepKey="openFaqPageToCheckCustomFaqHome"/>
+        <actionGroup ref="StorefrontAssertPageTitleOnFaqPageActionGroup" stepKey="assertCustomPageTitleAndBreadcrumb">
+            <argument name="page" value="$$createCmsPage$$"/>
+        </actionGroup>
+    </test>
+</tests>

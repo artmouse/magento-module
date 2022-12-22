@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="faqQuestion" type="import">
+        <data key="importBehavior">add_update</data>
+        <data key="importFile">faq_question_import.csv</data>
+    </entity>
+
+    <entity name="importQuestion" type="faqQuestion">
+        <data key="status">Answered</data>
+        <data key="title">Imported Question</data>
+        <data key="url_key">imported-question</data>
+        <data key="stores">Default Store View</data>
+        <data key="short_answer">Imported Short answer for question.</data>
+        <data key="answer">Imported Full answer for question. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</data>
+        <data key="visibility">Public</data>
+        <data key="position">1</data>
+        <data key="name">John Doe</data>
+        <data key="email">john.doe@example.com</data>
+        <data key="meta_title">meta_title_imp_quest</data>
+        <data key="meta_description">meta_description_imp_quest</data>
+    </entity>
+</entities>

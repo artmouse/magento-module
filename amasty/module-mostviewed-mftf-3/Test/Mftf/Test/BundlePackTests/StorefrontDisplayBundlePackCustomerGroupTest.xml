@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Automatic Related Products MFTF 3 for Magento 2 (System)
+*/-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontDisplayBundlePackCustomerGroupTest">
+        <annotations>
+            <stories value="Bundle Pack"/>
+            <title value="Check display Bundle Pack based on different Customer Groups"/>
+            <description value="Check display Bundle based on different Customer Groups"/>
+            <testCaseId value="ARP-40"/>
+            <severity value="CRITICAL"/>
+            <group value="mostviewed"/>
+        </annotations>
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <!-- Create sample data -->
+            <createData entity="ApiCategory" stepKey="createCategory"/>
+            <createData entity="ApiSimpleProduct" stepKey="createSimpleProductOne">
+                <requiredEntity createDataKey="createCategory"/>
+                <field key="price">{{amTestBundlePack.product_price}}</field>
+            </createData>
+            <createData entity="ApiSimpleProduct" stepKey="createSimpleProductTwo">
+                <requiredEntity createDataKey="createCategory"/>
+                <field key="price">{{amTestBundlePack.product_price}}</field>
+            </createData>
+            <createData entity="Simple_US_Customer_NY" stepKey="createCustomer"/>
+        </before>
+        <!-- Delete sample data -->
+        <after>
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createSimpleProductOne" stepKey="deleteSimpleProductOne"/>
+            <deleteData createDataKey="createSimpleProductTwo" stepKey="deleteSimpleProductTwo"/>
+            <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+            <!-- Delete Bundle Pack -->
+            <actionGroup ref="AdminDeleteGridItemActionGroup" stepKey="goToBundlePacksGridForDelete"/>
+            <magentoCLI command="indexer:reindex" stepKey="reindex"/>
+            <magentoCLI command="cache:clean" stepKey="cacheClean"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+        <!-- Configure Bundle Pack -->
+        <actionGroup ref="AdminBundlePackConfigurationActionGroup" stepKey="goToRelatedProductsConfigurePage"/>
+        <magentoCLI command="cache:clean" stepKey="cacheCleanAfterSetConfig"/>
+        <!-- Create Bundle Pack -->
+        <actionGroup ref="AdminCreateBundlePackActionGroup" stepKey="goToBundlePacksGridForCreate">
+            <argument name="customerGroup" value="General"/>
+        </actionGroup>
+        <actionGroup ref="AdminAddMainProductForPackActionGroup" stepKey="addMainProduct">
+            <argument name="mainProduct" value="$$createSimpleProductTwo.product[name]$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminAddBundleProductForPackActionGroup" stepKey="addBundleProduct">
+            <argument name="bundleProduct" value="$$createSimpleProductOne.product[name]$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminSaveBundlePackActionGroup" stepKey="saveBundlePack"/>
+        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="openStorefrontProductPageAsGuest">
+            <argument name="productUrl" value="$$createSimpleProductTwo.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCheckNoBundlePackActionGroup" stepKey="checkNoBundlePackOnPDP"/>
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginAsCustomer">
+            <argument name="Customer" value="$$createCustomer$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="openStorefrontProductPage">
+            <argument name="productUrl" value="$$createSimpleProductTwo.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCheckBundlePackOnPDPActionGroup" stepKey="checkPDP">
+            <argument name="mainProduct" value="$$createSimpleProductTwo.product[name]$$"/>
+            <argument name="bundleProduct" value="$$createSimpleProductOne.product[name]$$"/>
+        </actionGroup>
+    </test>
+</tests>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminCreateBlockActionGroup">
+        <arguments>
+            <argument name="blockData" defaultValue="cmsBlock"/>
+        </arguments>
+        <amOnPage url="{{AdminBlockPage.url}}" stepKey="openBlockPage"/>
+        <waitForPageLoad stepKey="waitForAdminBlockPageLoad"/>
+        <fillField selector="{{AdminBlockSection.BlockTitle}}" userInput="{{cmsBlock.blockTitle}}" stepKey="fillBlockTitle"/>
+        <fillField selector="{{AdminBlockSection.Identifier}}" userInput="{{cmsBlock.blockIdentifier}}" stepKey="fillBlockIdentifier"/>
+        <fillField selector="{{AdminBlockSection.BlockText}}" userInput="{{cmsBlock.blockText}}" stepKey="fillBlockText"/>
+        <click selector="{{AdminBlockSection.Save}}" stepKey="saveBlock"/>
+        <waitForPageLoad stepKey="waitForBlockSave"/>
+        <seeElement selector="{{AdminBlockSection.SaveSuccessMsg}}" stepKey="seeSuccessSavedMessage"/>
+        <magentoCLI command="cache:clean" stepKey="cacheClean"/>
+    </actionGroup>
+</actionGroups>

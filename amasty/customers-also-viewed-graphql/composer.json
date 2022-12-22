@@ -1,0 +1,23 @@
+{
+    "name": "amasty\/customers-also-viewed-graphql",
+    "description": "Automatic Related Products Graphql By Amasty",
+    "require": {
+        "php": ">=7.3",
+        "amasty\/base": "*",
+        "amasty\/mostviewed": ">=2.12.2",
+        "magento\/framework": ">=103.0.3"
+    },
+    "type": "magento2-module",
+    "version": "2.0.0",
+    "license": [
+        "Commercial"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\MostviewedGraphQl\\": ""
+        }
+    }
+}

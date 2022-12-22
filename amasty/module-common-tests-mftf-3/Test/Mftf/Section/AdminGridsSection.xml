@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminGridsSection">
+        <element name="GridColumn" type="button" parameterized="true" timeout="10"
+                 selector="//div//table//thead//th[{{columnNumber}}]"/>
+        <element name="GridColumnAscend" type="button" parameterized="true" timeout="10"
+                 selector="//div//table//thead//th[{{columnNumber}}][contains(@class, 'ascend')]"/>
+        <element name="GridColumnDescend" type="button" parameterized="true" timeout="10"
+                 selector="//div//table//thead//th[{{columnNumber}}][contains(@class, 'descend')]"/>
+        <element name="FirstRowSortedColumn" type="text" parameterized="true"
+                 selector="//tbody//tr[contains(@class, 'data-row')][1]//td[{{columnNumber}}]"/>
+        <element name="LastRowSortedColumn" type="text" parameterized="true"
+                 selector="//tbody//tr[contains(@class, 'data-row')][last()]//td[{{columnNumber}}]"/>
+        <element name="dataRows" type="text" selector="//tr[contains(@class, 'data-row')]"/>
+        <element name="MessageConfirm" type="button" timeout="10"
+                 selector="aside.confirm .modal-footer button.action-accept"/>
+        <element name="MassActionsButton" type="button"
+                 selector="//div[contains(@data-bind,'massaction')]//button[@class='action-select']"/>
+        <element name="MassActionsItem" type="button" parameterized="true" timeout="10"
+                 selector="//div[contains(@data-bind,'massaction')]//div[@class='action-menu-items']//li[contains(string(),'{{action}}')]"/>
+        <element name="MassActionsItemValue" type="button" parameterized="true" timeout="10"
+                 selector="//div[contains(@data-bind,'massaction')]//div[@class='action-menu-items']//li[contains(string(),'{{action}}')]//li[contains(string(),'{{val}}')]"/>
+        <element name="MultiCheckSelect" type="button"
+                 selector="//table[@data-role]//button[contains(@class, 'action-multicheck-toggle')]" />
+        <element name="MultiCheckActive" type="button"
+                 selector="//table[@data-role]//button[contains(@class, 'action-multicheck-toggle _active')]" />
+        <element name="MultiCheckOption" type="button" parameterized="true"
+                 selector="//table[@data-role='grid']//ul[@class='action-menu']//span[text()='{{opt}}']"/>
+        <element name="TableValue" type="text" parameterized="true"
+                 selector=".//tr[@class][{{row}}]//td[not(@class)][count(//table[@data-role='grid']//span[text()='{{col}}']/parent::th//preceding-sibling::th[@data-bind])+1]"/>
+    </section>
+</sections>
+

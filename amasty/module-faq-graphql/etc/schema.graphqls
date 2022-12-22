@@ -1,0 +1,222 @@
+type Query {
+    getAmFaqSettings: AmFaqSettings
+        @resolver(class: "Amasty\\FaqGraphQl\\Model\\Resolver\\GetSettings")
+        @doc(description: "Get FAQ Module Settings."),
+    searchAmFaqCategories (
+        filter: AmFaqCategoryFilterInput
+        @doc(description: "Identifies which Categories to search for and return."),
+        pageSize: Int = 10
+        @doc(description: "Number of records to display."),
+        currentPage: Int = 1,
+        sort: AmFaqCategorySortInput
+        @doc(description: "Specifies which Categories to sort on, and whether to return the results in ascending or descending order.")
+    ): AmFaqCategoriesSearch
+        @resolver(class: "Amasty\\FaqGraphQl\\Model\\Resolver\\SearchCategories")
+        @doc(description: "Search all FAQ categories by keyword with filter and sortOrder.")
+    searchAmFaqQuestions (
+        search: String
+        @doc(description: "Performs a full-text search using the specified key words."),
+        filter: AmFaqQuestionFilterInput
+        @doc(description: "Identifies which Questions to search for and return."),
+        pageSize: Int = 10
+        @doc(description: "Number of records to display"),
+        currentPage: Int = 1,
+        sort: AmFaqQuestionSortInput
+        @doc(description: "Specifies which Questions to sort on, and whether to return the results in ascending or descending order.")
+    ): AmFaqQuestionsSearch
+        @resolver(class: "Amasty\\FaqGraphQl\\Model\\Resolver\\SearchQuestions")
+        @doc(description: "Search all FAQ questions with filter and sortOrder.")
+}
+
+type Mutation {
+    placeAmFaqQuestion(input: PlaceAmFaqQuestionInput): AmFaqCommonOutput
+        @doc(description: "Place new FAQ Question.")
+        @resolver(class: "Amasty\\FaqGraphQl\\Model\\Resolver\\Question\\PlaceQuestion")
+    rateAmFaqQuestion(input: RateAmFaqQuestionInput): AmFaqCommonOutput
+        @doc(description: "Rate FAQ Question.")
+        @resolver(class: "Amasty\\FaqGraphQl\\Model\\Resolver\\Question\\RateQuestion")
+}
+
+input AmFaqCategoryFilterInput {
+    category_id: FilterTypeInput @doc(description: "ID of a Category."),
+    title: FilterTypeInput @doc(description: "Title of a Category."),
+    question_id: FilterTypeInput @doc(description: "ID of a Question that is assigned to Category."),
+    store_id: FilterTypeInput @doc(description: "ID of a Store that Category is assigned to."),
+    customer_group_id: FilterTypeInput @doc(description: "ID of a Customer Group that Category is assigned to."),
+}
+
+input AmFaqQuestionFilterInput {
+    question_id: FilterTypeInput @doc(description: "ID of a Question."),
+    category_id: FilterTypeInput @doc(description: "ID of a Category that Question is assigned to."),
+    product_id: FilterTypeInput @doc(description: "ID of a Product that Question is assigned to."),
+    store_id: FilterTypeInput @doc(description: "ID of a Store that Question is assigned to."),
+    customer_group_id: FilterTypeInput @doc(description: "ID of a Customer Group that Question is assigned to."),
+    visibility: FilterTypeInput @doc(description: "Visibility of a Question."),
+    status: FilterTypeInput @doc(description: "Status of a Question."),
+    tag: FilterTypeInput @doc(description: "Title of a Tag that is assigned to a Question.")
+}
+
+input AmFaqCategorySortInput {
+    category_id: SortEnum @doc(description: "ID of a Category"),
+    visit_count: SortEnum @doc(description: "Visit count of a Category."),
+    title: SortEnum @doc(description: "Title of a Category."),
+    position: SortEnum @doc(description: "SortOrder of a Category.")
+}
+
+input AmFaqQuestionSortInput {
+    question_id: SortEnum @doc(description: "ID of a Question."),
+    visit_count: SortEnum @doc(description: "Visit Count of a Question."),
+    title: SortEnum @doc(description: "Title of a Question."),
+    position: SortEnum @doc(description: "SortOrder of a Question.")
+}
+
+input PlaceAmFaqQuestionInput {
+    title: String! @doc(description: "Asked Question Text."),
+    name: String @doc(description: "Name of Customer Who Asked the Question."),
+    email: String @doc(description: "Email of Customer Who Asked the Question."),
+    product_id: Int @doc(description: "ID of a Product From Wich Question Was Asked.")
+    category_id: Int @doc(description: "ID of a Category From Wich Question Was Asked.")
+}
+
+input RateAmFaqQuestionInput {
+    question_id: Int! @doc(description: "ID of a Rated Question."),
+    vote_type: AmFaqVoteTypeEnum! @doc(description: "Type of a Voting."),
+    value: String! @doc(description: "Voted value.")
+    is_revote: Boolean @doc(description: "Flag that identifyes is voting is revote."),
+    old_value: Boolean @doc(description: "Old voted value.")
+}
+
+type AmFaqCategoriesSearch {
+    items: [AmFaqCategory] @doc(description: "A list of FAQ Categories."),
+    page_info: SearchResultPageInfo @doc(description: "Pagination metadata.")
+    total_count: Int @doc(description: "The total number of return requests.")
+}
+
+type AmFaqQuestionsSearch {
+    items: [AmFaqQuestion] @doc(description: "A list of FAQ Questions."),
+    page_info: SearchResultPageInfo @doc(description: "Pagination metadata.")
+    total_count: Int @doc(description: "The total number of return requests.")
+}
+
+type AmFaqSettings {
+    isEnabled: Boolean @doc(description: "Is FAQ Module Enabled Flag."),
+    title: String @doc(description: "The Name of FAQ Page."),
+    urlPrefix: String @doc(description: "Base Url FAQ Prefix."),
+    isShowLinkToolbar: Boolean @doc(description: "Is FAQ Link Must Be Shown In Toolbar Flag."),
+    isShowLinkCategories: Boolean @doc(description: "Is FAQ Link Must Be Shown In Categories Menu Flag."),
+    isShowLinkFooter: Boolean @doc(description: "Is FAQ Link Must Be Shown In Footer Flag."),
+    isGuestQuestionsAllowed: Boolean @doc(description: "Is Not Logged In Customers Allowed to Ask Questions Flag."),
+    faqPageLayout: String @odc(description: "FAQ Page Layout Type."),
+    isShowBreadcrumbs: Boolean @doc(description: "Are Breadcrumbs Must Be Shown At FAQ Pages Flag."),
+    isShowAskQuestionButton: Boolean @doc(description: "Is Ask Question Buttons Must Be Shown Flag."),
+    questionsSort: String @doc(description: "Sorting Type for Questions."),
+    categoriesSort: String @doc(description: "Sorting Type for Categories."),
+    displayedAnswerLengthLimit: Int @doc(description: "Limit for Displayed Short Answer."),
+    isShowSearch: Boolean @doc(description: "Is Search Box Must Be Shown Flag."),
+    noResultText: String @doc(description: "Text To Be Shown When No Search Result Found."),
+    categoryPageSize: Int @doc(description: "Limit for Showed Questions on Category Page."),
+    searchPageSize: Int @doc(description: "Limit for Showed Questions on Search Result Page."),
+    shortAnswerBehavior: Int @doc(description: "Behavior of Short Answer."),
+    tagsLimit: Int @doc(description: "Limit for Tags in Menu."),
+    isShowProductQuestionsTab: Boolean @doc(description: "Is Product Questions Tab Must Be Shown at the Product Page Flag."),
+    productQuestionsTabName: String @doc(description: "Displayed Name of Product Questions Tab."),
+    productQuestionsTabPosition: Int @doc(description: "Position of Product Question Tab."),
+    isShowAskQuestionButtonProduct: Boolean @doc(description: "Is Ask Question Buttons on the Product Page Must Be Shown Flag."),
+    productPageSize: Int @doc(description: "Limit for Showed Questions on Product Page."),
+    shortAnswerBehaviorProduct: Int @doc(description: "Behavior of Short Answer on the Product Page."),
+    isRatingEnabled: Boolean @doc(description: "Is Rating Enabled Flag."),
+    ratingType: String @doc(description: "Rating Type."),
+    isHideZeroTotalRating: Boolean @doc(description: "Is Hide Zero Total Rating for Average Rating Type."),
+    isGuestRatingAllowed: Boolean @doc(description: "Is Not Logged In Customers Allowed to Rate Questions Flag."),
+    isEnableUrlSuffix: Boolean @doc(description: "Is Question and Category Url Suffix Enabled Flag."),
+    isRemoveTrailingSlash: Boolean @doc(description: "Is Trailing Slash Must Be Removed Flag."),
+    urlSuffix: String @doc(description: "Url Suffx."),
+    isUseCanonicalUrl: Boolean @doc(description: "Is Use Canonical Url on Pages Flag."),
+    isAddStructuredData: Boolean @doc(description: "Is Mark Up FAQ with Structured Data Flag."),
+    isAddRichDataBreadcrumbs: Boolean @doc(description: "Is Add Rich Data Breadcrumbs Flag."),
+    isAddRichDataOrganization: Boolean @doc(description: "Is Add Rich Data Organization Flag."),
+    richDataWebsiteUrl: String @doc(description: "The URL of the Website Associated With the Logo."),
+    richDataLogoUrl: String @doc(description: "The URL of a Logo That Is Representative of the Organization."),
+    richDataName: String @doc(description: "The Name of a Organization."),
+    isAddRichDataContact: Boolean @doc(description: "Is Add Rich Data Contact Information Flag."),
+    richDataContactType: String @doc(description: "Type of Organization Contact."),
+    richDataTelephone: String @doc(description: "Telephone of Organization."),
+    isEnableGdprConsent: Boolean @doc(description: "Is GDPR Consent Enabled Flag."),
+    gdprConsentText: String @doc(description: "GDPR Consent Text to Display."),
+    isSocialButtonsEnabled: Boolean @doc(description: "Is Social Buttons Enabled Flag."),
+    socialButtons: [AmFaqSocialButton] @doc(desciption: "List of Enabled Social Buttons.")
+}
+
+type AmFaqSocialButton {
+    name: String @doc(description: "Label of Social Button."),
+    imgName: String @doc(description: "Image File Name of Social Button."),
+    hrefTemplate: String @doc(description: "Link Template of Social Button."),
+    imagePath: String @doc(description: "Image Path of Social Button.")
+}
+
+type AmFaqQuestion {
+    question_id: Int @doc(description: "ID of a Question."),
+    title: String @doc(description: "Displayed Title of a Question."),
+    short_answer: String @doc(description: "Displayed Short Answer of a Question."),
+    answer: String @doc(description: "Displayed Full Answer of a Question."),
+    visibility: Int @doc(description: "Visibility Type of a Question."),
+    status: Int @doc(description: "Questions Status."),
+    name: String @doc(description: "Name of a Customer Who Asked a Question."),
+    email: String @doc(description: "Email of a Customer Who Asked a Question."),
+    position: Int @doc(description: "Sort Order of a Question."),
+    url_key: String @doc(description: "Url Key of a Question."),
+    positive_rating: Float @doc(description: "Positive Rating Value of a Question."),
+    negative_rating: Float @doc(description: "Negative Rating Value of a Question."),
+    total_rating: Float @doc(description: "Total Rating Vaue of a Question."),
+    meta_title: String @doc(description: "Meta Title of a Question."),
+    meta_description: String @doc(description: "Meta Description of a Question."),
+    meta_robots: String @doc(description: "Meta Robots of a Question."),
+    canonical_url: String @doc(description: "Canonical Url of a Question."),
+    nofollow: Boolean @doc(description: "Nofollow Flag of a Question."),
+    noindex: Boolean @doc(description: "Noindex Flag of a Question."),
+    is_show_full_answer: Boolean @doc(description: "Is Show Full Answer Flag."),
+    asked_from_store: String @doc(description: "ID of a Store from Wich Question Was Asked."),
+    avg_rating: Float @doc(description: "Average Rating Value."),
+    avg_total: Int @doc(description: "Average Total Value."),
+    category_ids: [Int] @doc(description: "FAQ Categories IDs Questions is Assigned To."),
+    store_ids: [Int] @doc(description: "Store IDs Question is Assigned To."),
+    tags: [String] @doc(description: "Tag Titles Assigned To a Question."),
+    product_ids: [Int] @doc(description: "Product IDs Question is Assigned To."),
+    product_category_ids: [Int] @doc(description: "Product Category IDs Question is Assigned To."),
+    customer_groups: [Int] @doc(description: "Customer Groud IDs Question is Assigned To.")
+}
+
+type AmFaqCategory {
+    category_id: Int @doc(description: "ID of a Category."),
+    title: String @doc(description: "Title of a Category."),
+    page_title: String @doc(description: "Title of a Category on a Category Page."),
+    position: Int @doc(description: "Sort Order of a Category."),
+    url_key: String @doc(description: "Url Key of a Category."),
+    status: Int @doc(description: "Status of a Category."),
+    meta_title: String @doc(description: "Meta Title of a Category."),
+    meta_description: String @doc(description: "Meta Description of a Category."),
+    canonical_url: String @doc(description: "Canonical Url of a Category."),
+    nofollow: Boolean @doc(description: "Nofollow Flag of a Category."),
+    noindex: Boolean @doc(description: "Noindex Flag of a Category."),
+    description: String @doc(description: "Description of a Category."),
+    icon: String @doc(description: "Icon Path of a Category."),
+    questions: [AmFaqQuestion] @doc(description: "Questions Assigned to the Category."),
+    store_ids: [Int] @doc(description: "Store IDs Category is Assigned To."),
+    customer_groups: [Int] @doc(description: "Customer Groud IDs Category is Assigned To.")
+}
+
+type AmFaqCommonOutput {
+    error: Boolean @doc(description: "Is an error occurred flag."),
+    message: String @doc(description: "Result message.")
+}
+
+interface ProductInterface {
+    amfaq_questions: [AmFaqQuestion] @doc (description: "List of FAQ Questions Assigned to a Product.")
+    @resolver(class: "Amasty\\FaqGraphQl\\Model\\Resolver\\Product\\GetQuestions")
+}
+
+enum AmFaqVoteTypeEnum @doc(description: "This enumeration defines types of question voting.") {
+    VOTING
+    YESNO
+    AVERAGE
+}

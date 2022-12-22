@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminEditProductTaxClassActionGroup">
+        <arguments>
+            <argument name="taxClass"/>
+        </arguments>
+        <selectOption selector="{{AdminProductSection.ProductTaxClass}}" userInput="{{taxClass}}"
+                      stepKey="selectTaxClass"/>
+        <click selector="{{AdminProductSection.Save}}" stepKey="SaveProductSetting"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSave"/>
+    </actionGroup>
+</actionGroups>

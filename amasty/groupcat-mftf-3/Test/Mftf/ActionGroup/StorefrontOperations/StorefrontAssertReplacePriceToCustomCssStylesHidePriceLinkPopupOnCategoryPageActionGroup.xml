@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontAssertReplacePriceToCustomCssStylesHidePriceLinkPopupOnCategoryPageActionGroup"
+                 extends="StorefrontAssertReplacePriceWithPopupOnCategoryPageActionGroup">
+        <remove keyForRemoval="assertPopupLinkOnCategoryPage"/>
+        <remove keyForRemoval="openPopupOnCategoryPage"/>
+        <seeElement selector="{{StorefrontSection.CustomCssStylesPopupLink}}" after="dontAssertProductPriceOnCategoryPage"
+                    stepKey="assertCustomCssStylesPopupLinkOnCategoryPage"/>
+        <click selector="{{StorefrontSection.CustomCssStylesPopupLink}}" before="waitForAjaxLoad" stepKey="openCustomCssStylesPopupOnCategoryPage"/>
+    </actionGroup>
+</actionGroups>

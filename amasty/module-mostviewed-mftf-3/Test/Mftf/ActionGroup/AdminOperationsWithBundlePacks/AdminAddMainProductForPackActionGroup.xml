@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Automatic Related Products MFTF 3 for Magento 2 (System)
+*/-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminAddMainProductForPackActionGroup">
+        <arguments>
+            <argument name="mainProduct"/>
+        </arguments>
+        <waitForElementVisible selector="{{AdminNewBundlePacksSection.displayMainProductsTab}}"
+                               stepKey="waitForElementMainProductsTabVisible"/>
+        <click selector="{{AdminNewBundlePacksSection.displayMainProductsTab}}"
+               stepKey="pressToExpandBundlePackMainProductsTab"/>
+        <waitForAjaxLoad stepKey="waitForBundleAjaxLoad"/>
+        <click selector="{{AdminNewBundlePacksSection.addMainProduct}}"
+               stepKey="pressToExpandBundlePackMainProductsGrid"/>
+        <waitForAjaxLoad stepKey="waitForBundleGridAjaxLoad"/>
+        <waitForElementVisible selector="{{AdminNewBundlePacksSection.filterButtonForMainProduct}}"
+                               stepKey="waitForFilterVisible"/>
+        <click selector="{{AdminNewBundlePacksSection.filterButtonForMainProduct}}"
+               stepKey="pressToExpandFilterMenuForMainProduct"/>
+        <waitForAjaxLoad stepKey="waitForFilterAjaxLoad"/>
+        <waitForElementVisible selector="{{AdminNewBundlePacksSection.productNameFieldForMainProduct}}"
+                               stepKey="waitForElementNameOfBundlePackFieldVisible"/>
+        <fillField selector="{{AdminNewBundlePacksSection.productNameFieldForMainProduct}}" userInput="{{mainProduct}}"
+                   stepKey="fillMainProductNameFilterField"/>
+        <waitForAjaxLoad stepKey="waitForBundleAjaxLoadAfterFillSearchField"/>
+        <click selector="{{AdminNewBundlePacksSection.applyFilterButton}}" stepKey="pressToApplyFilterForMainProduct"/>
+        <waitForElementVisible selector="{{AdminNewBundlePacksSection.bundlePackProductCheckBox(mainProduct)}}"
+                               stepKey="waitForElementAddToBundlePackVisibleMainProduct"/>
+        <click selector="{{AdminNewBundlePacksSection.bundlePackProductCheckBox(mainProduct)}}"
+               stepKey="pressToSelectMainProduct"/>
+        <click selector="{{AdminNewBundlePacksSection.addSelectedMainProductsToBundlePack}}"
+               stepKey="pressToAddSelectedMainProducts"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterAddProduct"/>
+    </actionGroup>
+</actionGroups>

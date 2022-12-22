@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Automatic Related Products MFTF 3 for Magento 2 (System)
+*/-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminCreateRelProdRuleOutOfStockProdActionGroup"
+                 extends="AdminCreateRelProdRuleActionGroup">
+        <click selector="{{AdminNewRelatedProductRulesSection.whereToDisplayConditionTab}}"
+               stepKey="pressToExpandWhereToDisplayConditionTab" after="pressAllStoreViewSelect"/>
+        <waitForElementVisible selector="{{AdminNewRelatedProductRulesSection.outOfStockProductToggle}}"
+                               stepKey="waitForOutOfStockProductToggle" after="pressToExpandWhereToDisplayConditionTab"/>
+        <click selector="{{AdminNewRelatedProductRulesSection.outOfStockProductToggle}}"
+               stepKey="pressToEnableDisplayForOutOfStockProduct" after="pressToExpandWhereToDisplayConditionTab"/>
+    </actionGroup>
+</actionGroups>

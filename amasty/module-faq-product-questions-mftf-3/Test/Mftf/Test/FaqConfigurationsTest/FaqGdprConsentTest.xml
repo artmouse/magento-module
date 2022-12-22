@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqGdprConsentTest">
+        <annotations>
+            <features value="Gdpr Consent"/>
+            <stories value="Gdpr Consent"/>
+            <title value="Assert Gdpr Consent on Product Page"/>
+            <description value="Assert Only Enabled GDPR Consent Is on Ask Question Form. Customer Can Not Ask Question Without GDPR Consent"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-77"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqConfigurations"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="simpleCategory"/>
+            <createData entity="SimpleProductByFusionBackpack" stepKey="simpleProduct">
+                <requiredEntity createDataKey="simpleCategory"/>
+            </createData>
+            <createData entity="Simple_US_Customer" stepKey="customer"/>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminFaqGdprConsentActionGroup" stepKey="setGdprConsent"/>
+        </before>
+        <after>
+            <deleteData createDataKey="simpleProduct" stepKey="deleteProduct"/>
+            <deleteData createDataKey="simpleCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="customer" stepKey="deleteCustomer"/>
+            <actionGroup ref="AdminDeleteAllQuestionsFromGridActionGroup" stepKey="deleteAllQuestionsFromGrid"/>
+            <actionGroup ref="AdminFaqGdprConsentActionGroup" stepKey="setDefGdprConsent"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginToStorefront">
+            <argument name="Customer" value="$$customer$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="openProductPage">
+            <argument name="productUrl" value="$$simpleProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenQuestionTabActionGroup" stepKey="openQuestionTab"/>
+        <actionGroup ref="StorefrontAssertNoFaqGdprActionGroup" stepKey="assertNoFaqGdpr"/>
+        <actionGroup ref="StorefrontAskQuestionWithoutNotifyActionGroup" stepKey="askQuestionWithoutNotify"/>
+        <!--enable GDPR Consent-->
+        <actionGroup ref="AdminFaqGdprConsentActionGroup" stepKey="enableGdprConsent">
+            <argument name="setting" value="enableGdpr"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="openProductPageWithEnabledGdpr">
+            <argument name="productUrl" value="$$simpleProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenQuestionTabActionGroup" stepKey="openQuestionTabWithGdpr"/>
+        <actionGroup ref="StorefrontAskQuestionWithGdprConsentActionGroup" stepKey="askQuestionWithGdprConsent"/>
+    </test>
+</tests>

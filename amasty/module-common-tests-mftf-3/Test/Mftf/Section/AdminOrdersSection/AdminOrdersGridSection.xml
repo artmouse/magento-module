@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminOrdersGridSection">
+        <element name="AddNewOrderButton" type="button" selector="//button[@id='add']" timeout="30"/>
+        <element name="LastOrder" type="button" selector="//tr[@data-repeat-index='0']"/>
+        <element name="PenultimateOrder" type="button" selector="//tr[@data-repeat-index='1']"/>
+    </section>
+</sections>

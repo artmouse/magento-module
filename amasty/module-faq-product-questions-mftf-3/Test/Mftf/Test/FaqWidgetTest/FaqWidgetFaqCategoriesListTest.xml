@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqWidgetFaqCategoriesListTest">
+        <annotations>
+            <features value="Widget Faq Categories List"/>
+            <stories value="Widget Faq Categories List"/>
+            <title value="Add Widget Faq Categories List"/>
+            <description value="Assert Widget Faq Categories List on Storefront"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-72"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqWidget"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="simpleCategory"/>
+            <createData entity="SimpleProductByFusionBackpack" stepKey="simpleProduct">
+                <requiredEntity createDataKey="simpleCategory"/>
+            </createData>
+            <createData entity="apiFaqCategory" stepKey="faqCategory"/>
+            <createData entity="apiFaqQuestionWithCategory" stepKey="faqQuestion">
+                <requiredEntity createDataKey="faqCategory"/>
+                <requiredEntity createDataKey="simpleProduct"/>
+            </createData>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminCreateFaqWidgetActionGroup" stepKey="createAmFaqWidget">
+                <argument name="widget" value="amFaqCategoriesListWidget"/>
+            </actionGroup>
+        </before>
+        <after>
+            <deleteData createDataKey="faqQuestion" stepKey="deleteFaqQuestion"/>
+            <deleteData createDataKey="faqCategory" stepKey="deleteFaqCategory"/>
+            <deleteData createDataKey="simpleProduct" stepKey="deleteProduct"/>
+            <deleteData createDataKey="simpleCategory" stepKey="deleteCategory"/>
+            <actionGroup ref="AdminDeleteWidgetActionGroup" stepKey="deleteAmFaqWidget">
+                <argument name="widget" value="amFaqCategoriesListWidget"/>
+            </actionGroup>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <amOnPage url="{{StorefrontMainPage.url}}" stepKey="openHomePage"/>
+        <waitForPageLoad stepKey="waitForHomePageLoad"/>
+        <actionGroup ref="StorefrontAssertCategoryTitleOnFaqPageActionGroup" stepKey="assertWidgetOnHomePage">
+            <argument name="categoryTitle" value="$$faqCategory.title$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenCategoryFromFaqPageActionGroup" stepKey="openCategory">
+            <argument name="category" value="$$faqCategory.title$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertOpenedCategoryInSidebarOnCategoryPageActionGroup" stepKey="assertCategory">
+            <argument name="category" value="$$faqCategory.title$$"/>
+        </actionGroup>
+    </test>
+</tests>

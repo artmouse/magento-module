@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminAssignCategoryToQuestionActionGroup">
+        <arguments>
+            <argument name="categoryName" type="string"/>
+        </arguments>
+        <conditionalClick selector="{{AdminQuestionSection.ProductCategoriesTab}}" dependentSelector="{{AdminQuestionSection.SelectCategories}}"
+                          visible="false" stepKey="openProductCategoriesTab"/>
+        <waitForPageLoad stepKey="waitForProductCategoriesTabLoad"/>
+        <click selector="{{AdminQuestionSection.SelectCategories}}" stepKey="openCategoriesDropdown"/>
+        <checkOption selector="{{AdminQuestionSection.Category(categoryName)}}" stepKey="selectCategory"/>
+        <click selector="{{AdminQuestionSection.Done}}" stepKey="clickDone"/>
+        <waitForPageLoad stepKey="waitForApplyCategory"/>
+        <click selector="{{AdminQuestionSection.SaveAndContinueEdit}}" stepKey="saveAndContinueEdit"/>
+        <seeElement selector="{{AdminQuestionSection.SaveSuccessMsg}}" stepKey="seeSaveSuccessMsg"/>
+        <waitForPageLoad stepKey="waitForQuestionSaved"/>
+    </actionGroup>
+</actionGroups>

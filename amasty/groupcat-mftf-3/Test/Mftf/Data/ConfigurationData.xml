@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="frontendOptions" type="generalConfig">
+        <data key="hidePriceText">Call for Price</data>
+        <data key="customCssStylesForHidePriceLink">background-color:red;color:black;</data>
+        <data key="fileName">amGroupcatImage.jpeg</data>
+        <data key="linkUrl">AmastyHidePricePopup</data>
+    </entity>
+
+</entities>

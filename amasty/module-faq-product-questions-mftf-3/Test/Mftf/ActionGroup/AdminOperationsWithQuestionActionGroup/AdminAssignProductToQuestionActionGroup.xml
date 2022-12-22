@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminAssignProductToQuestionActionGroup">
+        <arguments>
+            <argument name="productName" type="string"/>
+        </arguments>
+        <conditionalClick selector="{{AdminQuestionSection.ProductsTab}}" dependentSelector="{{AdminQuestionSection.AddProducts}}"
+                          visible="false" stepKey="openProductsTab"/>
+        <waitForPageLoad stepKey="waitForProductsTabLoad"/>
+        <click selector="{{AdminQuestionSection.AddProducts}}" stepKey="clickAddProducts"/>
+        <waitForPageLoad stepKey="waitForProductsGridLoad"/>
+        <conditionalClick selector="{{AdminQuestionSection.ClearAll}}" dependentSelector="{{AdminQuestionSection.ActiveFilters}}"
+                          visible="true" stepKey="clearAllFilters"/>
+        <waitForPageLoad stepKey="waitForCLearFilterDataLoad"/>
+        <conditionalClick selector="{{AdminQuestionSection.Filters}}" dependentSelector="{{AdminQuestionSection.ApplyFilters}}"
+                          visible="false" stepKey="openFilterSection"/>
+        <fillField selector="{{AdminQuestionSection.NameField}}" userInput="{{productName}}" stepKey="fillProductName"/>
+        <click selector="{{AdminQuestionSection.ApplyFilters}}" stepKey="clickApplyFiltersButton"/>
+        <waitForPageLoad stepKey="waitForFilteredDataLoad"/>
+        <checkOption selector="{{AdminQuestionSection.ProductCheckbox('productName')}}" stepKey="selectProduct"/>
+        <click selector="{{AdminQuestionSection.AddSelectedProducts}}" stepKey="clickAddSelectedProductsButton"/>
+        <waitForPageLoad stepKey="waitForAddProductToSource"/>
+        <click selector="{{AdminQuestionSection.SaveAndContinueEdit}}" stepKey="saveAndContinueEdit"/>
+        <seeElement selector="{{AdminQuestionSection.SaveSuccessMsg}}" stepKey="seeSaveSuccessMsg"/>
+        <waitForPageLoad stepKey="waitForQuestionSaved"/>
+    </actionGroup>
+</actionGroups>

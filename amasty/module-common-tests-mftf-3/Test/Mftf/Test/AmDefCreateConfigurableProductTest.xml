@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AmDefCreateConfigurableProductTest" extends="AdminCreateConfigurableProductBasedOnParentSkuTest">
+        <annotations>
+            <features value="Configurable Product"/>
+            <stories value="Create Configurable Product via Admin"/>
+            <title value="Create Configurable Product and Assert on Product Grid"/>
+            <description value="Create Configurable Product and Assert on Product Grid by Name"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmDef-08"/>
+            <group value="Amasty"/>
+            <group value="ConfigurableProduct"/>
+            <group value="AmDef"/>
+            <group value="AmDefCE"/>
+            <group value="AmDefAdmin"/>
+        </annotations>
+
+        <before>
+            <createData entity="dropdownProductAttribute" stepKey="createConfigProdAttr"/>
+        </before>
+        <after>
+            <remove keyForRemoval="deleteProductAttribute"/>
+            <actionGroup ref="AdminDeleteCreatedProductActionGroup" stepKey="deleteProducts">
+                <argument name="product" value="ApiConfigurableProduct"/>
+            </actionGroup>
+            <actionGroup ref="AdminClearProductGridActionGroup" after="deleteProducts" stepKey="clearFilterAfterDeleteProduct"/>
+            <deleteData createDataKey="createConfigProdAttr" stepKey="deleteConfigProductAttribute"/>
+        </after>
+
+        <actionGroup ref="AdminAddAttributeOptionsToConfigurableProductActionGroup" stepKey="createProductConfigurationAttribute">
+            <argument name="attribute" value="$$createConfigProdAttr$$"/>
+            <argument name="firstOption" value="colorConfigurableProductAttribute1"/>
+            <argument name="secondOption" value="colorConfigurableProductAttribute2"/>
+        </actionGroup>
+        <actionGroup ref="AdminFindAndOpenCreatedProductActionGroup" stepKey="openCreatedProduct">
+            <argument name="product" value="ApiConfigurableProduct"/>
+        </actionGroup>
+        <actionGroup ref="AdminClearProductGridActionGroup" stepKey="clearFilterAfterAssertProductOptionsOnGrid"/>
+    </test>
+</tests>

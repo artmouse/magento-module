@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAssertVoteTypeYesNoOnQuestionPageActionGroup">
+        <arguments>
+            <argument name="vote" defaultValue="positiveVoteYesNo"/>
+        </arguments>
+        <seeElement selector="{{StorefrontQuestionSection.YesNoVoted(vote.yesNoVoted)}}" stepKey="assertYesOrNoVoted"/>
+        <seeElement selector="{{StorefrontQuestionSection.PositiveRatingYesNo(vote.positiveRatingYesNo)}}" stepKey="assertPositiveRatingYesNo"/>
+        <seeElement selector="{{StorefrontQuestionSection.TotalRatingYesNo(vote.totalRatingYesNo)}}" stepKey="assertTotalRatingYesNo"/>
+    </actionGroup>
+</actionGroups>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataOperation.xsd">
+
+    <operation name="CreateFaqCategory" dataType="faqCategory" type="create" auth="adminOauth"
+               url="/V1/amasty_faq/category" method="POST">
+        <contentType>application/json</contentType>
+        <object key="category" dataType="faqCategory">
+            <field key="category_id">integer</field>
+            <field key="title">string</field>
+            <field key="relative_url">string</field>
+            <field key="position">integer</field>
+            <field key="url_key">string</field>
+            <field key="status">integer</field>
+            <field key="meta_title">string</field>
+            <field key="meta_description">string</field>
+            <field key="visit_count">integer</field>
+            <field key="exclude_sitemap">boolean</field>
+            <field key="created_at">string</field>
+            <field key="updated_at">string</field>
+            <field key="canonical_url">string</field>
+            <field key="noindex">boolean</field>
+            <field key="nofollow">boolean</field>
+            <field key="description">string</field>
+            <field key="icon">string</field>
+            <field key="stores">string</field>
+            <field key="questions">string</field>
+            <field key="customer_groups">string</field>
+        </object>
+    </operation>
+
+    <operation name="DeleteFaqCategory" dataType="faqCategory" type="delete" auth="adminOauth"
+               url="/V1/amasty_faq/category/{category_id}" method="DELETE">
+        <contentType>application/json</contentType>
+    </operation>
+</operations>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="GroupcatHideAddToCartButtonForGeneralCustomerGroupRuleTest"
+          extends="GroupcatHideAddToCartButtonRuleTest">
+        <annotations>
+            <features value="Creation Hide Add To Cart Button Customer Group Catalog Rule for General Customer Group"/>
+            <stories value="Check Hide Add To Cart Button Customer Group Catalog Rule for General Customer Group"/>
+            <title value="Check Hide Add To Cart Button Customer Group Catalog Rule for General Customer Group at Storefront Product Page"/>
+            <description value="Check Hide Add To Cart Button Customer Group Catalog Rule for General Customer Group at Storefront Product Page"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="AmGroupCatalog-13"/>
+            <group value="AmGroupCatalog"/>
+            <group value="AmHideButton"/>
+        </annotations>
+
+        <before>
+            <createData entity="Simple_US_Customer" after="firstSimpleProduct" stepKey="customer"/>
+        </before>
+
+        <after>
+            <deleteData createDataKey="customer" after="deleteRule" stepKey="deleteCustomer"/>
+        </after>
+
+        <remove keyForRemoval="addProduct"/>
+        <actionGroup ref="AdminSelectProductSKUForCustomerGroupOnRulePageActionGroup" after="hideAddToCartButton" stepKey="addCustomerGroupForProduct">
+            <argument name="product" value="$$firstSimpleProduct.sku$$"/>
+            <argument name="ruleData" value="ruleForGeneral.customerGroups"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertAddToCartButtonActionGroup" after="addCustomerGroupForProduct" stepKey="storefrontSecondCheckAddToCartButton">
+            <argument name="category" value="$category$"/>
+            <argument name="product" value="$$firstSimpleProduct.name$$"/>
+        </actionGroup>
+        <actionGroup ref="LoginToStorefrontActionGroup" before="storefrontCheckHideAddToCartButton" stepKey="loginToStorefront">
+            <argument name="Customer" value="$$customer$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCustomerLogoutActionGroup" after="storefrontCheckHideAddToCartButton" stepKey="customerLogout"/>
+    </test>
+</tests>

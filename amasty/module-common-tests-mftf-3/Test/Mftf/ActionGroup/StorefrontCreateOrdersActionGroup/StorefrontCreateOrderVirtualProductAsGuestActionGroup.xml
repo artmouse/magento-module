@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontCreateOrderVirtualProductAsGuestActionGroup">
+        <arguments>
+            <argument name="customer" defaultValue="newCustomerAddress"/>
+            <argument name="paymentMethods" defaultValue="paymentCheckMoneyOrder"/>
+        </arguments>
+        <amOnPage url="{{StorefrontCheckoutPaymentsPage.url}}" stepKey="navigateToCheckoutShippingPage"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenPage"/>
+        <fillField selector="{{StorefrontCheckoutPaymentAddressSection.Email}}" userInput="{{customer.email}}"
+                   stepKey="enterEmail"/>
+        <conditionalClick selector="{{StorefrontCheckoutPaymentAddressSection.PaymentMethodLabel(paymentMethods.paymentValue)}}"
+                          dependentSelector="{{StorefrontCheckoutPaymentAddressSection.PaymentMethodIsActive(paymentMethods.paymentValue)}}"
+                          visible="false" stepKey="choosePaymentMethod"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterChoosePayment"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterChoosePayment"/>
+        <fillField selector="{{StorefrontCheckoutPaymentAddressSection.FirstName}}" userInput="{{customer.firstname}}"
+                   stepKey="enterFirstName"/>
+        <fillField selector="{{StorefrontCheckoutPaymentAddressSection.LastName}}" userInput="{{customer.lastname}}"
+                   stepKey="enterLastName"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterEnterLastName"/>
+        <fillField selector="{{StorefrontCheckoutPaymentAddressSection.StreetAddress}}" userInput="{{customer.street}}"
+                   stepKey="enterStreet"/>
+        <fillField selector="{{StorefrontCheckoutPaymentAddressSection.City}}" userInput="{{customer.city}}" stepKey="enterCity"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterEnterCity"/>
+        <selectOption selector="{{StorefrontCheckoutPaymentAddressSection.Country}}" userInput="{{customer.country}}"
+                      stepKey="selectCountry"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterSelectCountry"/>
+        <fillField selector="{{StorefrontCheckoutPaymentAddressSection.Postcode}}" userInput="{{customer.postcode}}"
+                   stepKey="enterPostcode"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterEnterPostcode"/>
+        <fillField selector="{{StorefrontCheckoutPaymentAddressSection.PhoneNumber}}" userInput="{{customer.telephone}}"
+                   stepKey="enterTelephone"/>
+        <selectOption selector="{{StorefrontCheckoutPaymentAddressSection.State}}" userInput="{{customer.region}}"
+                      stepKey="selectRegion"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterSelectRegion"/>
+        <click selector="{{StorefrontCheckoutPaymentAddressSection.UpdateAddress}}" stepKey="clickToUpdateAddress"/>
+        <waitForPageLoad stepKey="waitForPageLoadBeforePlaceOrder"/>
+        <click selector="{{StorefrontCheckoutPaymentAddressSection.PlaceOrder}}" stepKey="waitForPlaceOrderButton"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterPlaceOrder"/>
+        <seeElement selector="{{StorefrontSuccessPageSection.SuccessMessage}}" stepKey="assertSuccessPage"/>
+        <waitForPageLoad stepKey="waitForPageLoadBeforeGrab"/>
+        <grabTextFrom selector="{{StorefrontSuccessPageSection.OrderNumberAfterPlaceOrderGuest}}" stepKey="grabOrderNumber"/>
+    </actionGroup>
+</actionGroups>

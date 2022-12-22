@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqCategoryIconTest">
+        <annotations>
+            <features value="FAQ Category Icon"/>
+            <stories value="Assert Category Icon"/>
+            <title value="Assert Category Icon on FAQ Page"/>
+            <description value="Assert Category Icon on FAQ Page"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-05"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqCategory"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminCreateCategoryWithIconActionGroup" stepKey="createCategoryWithIcon"/>
+        </before>
+        <after>
+            <actionGroup ref="AdminDeleteCategoryFromGridActionGroup" stepKey="deleteCategoryWithIcon"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <actionGroup ref="StorefrontOpenFaqPageActionGroup" stepKey="openFaqPage"/>
+        <actionGroup ref="StorefrontAssertCategoryIconOnFaqPageActionGroup" stepKey="assertCategoryIconOnFaqPage"/>
+    </test>
+</tests>

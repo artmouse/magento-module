@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AmDefCreateCatalogPriceRuleTest">
+        <annotations>
+            <features value="Catalog Price Rule"/>
+            <stories value="Create Catalog Price Rule via Admin"/>
+            <title value="Create Catalog Price Rule and Assert on Product Page, Category, Cart"/>
+            <description value="Create Catalog Price Rule and Assert on Product Page, Category, Cart"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmDef-11"/>
+            <group value="Amasty"/>
+            <group value="CatalogPriceRule"/>
+            <group value="AmDef"/>
+            <group value="AmDefCE"/>
+            <group value="AmDefAdmin"/>
+        </annotations>
+
+        <before>
+            <!-- Create Data for Test -->
+            <createData entity="_defaultCategory" stepKey="createCategory"/>
+            <createData entity="SimpleProductByWatchClamber" stepKey="createProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminCreateCatalogPriceRulesActionGroup" stepKey="createCatalogPriceRule">
+                <argument name="catalogRule" value="defaultCatalogPriceRuleFixedDiscount"/>
+            </actionGroup>
+            <magentoCLI command="indexer:reindex" stepKey="reindex"/>
+        </before>
+        <after>
+            <!-- Delete Created Data After Test -->
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createProduct" stepKey="deleteProduct"/>
+            <actionGroup ref="AdminSearchCatalogRuleInGridActionGroup" stepKey="searchCreatedCatalogRule">
+                <argument name="catalogRuleName" value="{{defaultCatalogPriceRuleFixedDiscount.name}}"/>
+            </actionGroup>
+            <actionGroup ref="AdminSelectCatalogRuleFromGridActionGroup" stepKey="selectCreatedCatalogRule">
+                <argument name="catalogRuleName" value="{{defaultCatalogPriceRuleFixedDiscount.name}}"/>
+            </actionGroup>
+            <actionGroup ref="AdminDeleteCatalogRuleActionGroup" stepKey="deleteTheCatalogRule"/>
+            <actionGroup ref="AdminClearFilterOnCatalogPriceRuleGridActionGroup" stepKey="clearFilterOnCatalogRuleGrid"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <!-- Assert Product Price with Catalog Rule -->
+        <actionGroup ref="StorefrontAssertOldAndNewProductPriceOnCategoryPageActionGroup"
+                     stepKey="openCategoryAndCheckProductPrices">
+            <argument name="prices" value="amDefCreateCatalogRule"/>
+            <argument name="product" value="$$createProduct$$"/>
+            <argument name="categoryName" value="$$createCategory.name$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertOldAndNewPriceOnProductPageActionGroup" stepKey="openProductPageAndCheckPrices">
+            <argument name="prices" value="amDefCreateCatalogRule"/>
+            <argument name="product" value="$$createProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAddProductToCartAssertOnMiniCartActionGroup" stepKey="addCreatedSimpleProductToCart">
+            <argument name="valueQty" value="_enterQty1"/>
+            <argument name="product" value="$$createProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenCartPageActionGroup" stepKey="openCartPage"/>
+        <actionGroup ref="StorefrontChooseShipMethodByLabelActionGroup" stepKey="chooseShipping"/>
+        <actionGroup ref="StorefrontAssertTotalsOnCartActionGroup" stepKey="assertCartSummary">
+            <argument name="subtotal" value="{{amDefCreateCatalogRule.newPrice}}"/>
+            <argument name="total" value="{{amDefCreateCatalogRule.newPriceOrder}}"/>
+        </actionGroup>
+    </test>
+</tests>

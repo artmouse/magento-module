@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminQuestionImportActionGroup">
+        <arguments>
+            <argument name="import" defaultValue="faqQuestion"/>
+            <argument name="checkedDataMsg" defaultValue="successMessage.checkedDataOneRow"/>
+        </arguments>
+        <selectOption selector="{{AdminFaqQuestionImportSection.ImportBehavior}}" userInput="{{import.importBehavior}}" stepKey="selectImportBehaviorOption"/>
+        <attachFile selector="{{AdminFaqQuestionImportSection.SelectFileToImport}}" userInput="{{import.importFile}}" stepKey="attachFileForImport"/>
+        <click selector="{{AdminFaqQuestionImportSection.CheckData}}" stepKey="checkData"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoadingMaskToDisappear"/>
+        <seeElement selector="{{AdminFaqQuestionImportSection.CheckedDataMsg(checkedDataMsg)}}" stepKey="seeCheckedDataMsg"/>
+        <seeElement selector="{{AdminFaqQuestionImportSection.FileValidMsg}}" stepKey="seeFileValidMsg"/>
+        <click selector="{{AdminFaqQuestionImportSection.ImportButton}}" stepKey="import"/>
+        <waitForPageLoad stepKey="waitForImport"/>
+        <seeElement selector="{{AdminFaqQuestionImportSection.ImportSuccess}}" stepKey="seeImportSuccessMsg"/>
+    </actionGroup>
+</actionGroups>

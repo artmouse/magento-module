@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="MailhogElementsSection">
+        <element name="MailBySubject" type="block" parameterized="true"
+                 selector="//div[@class='msglist-message row ng-scope']//span[contains(string(),'{{subject}}')]"/>
+        <element name="DeleteAllMessagesButton" type="block" selector="//a[@ng-click='deleteAll()']"/>
+        <element name="DeleteAllConfirmationButton" type="button"
+                 selector="//div[@class='modal-footer']//button[@ng-click='deleteAllConfirm()']"/>
+        <element name="FromSubjectToStatement" type="block" parameterized="true"
+                 selector="//tr/td[contains(string(),'{{statement}}')]"/>
+        <element name="MailContentDefaultStoreLogo" type="block" selector="//img[contains(@src,'{{var1}}')]"
+                 parameterized="true"/>
+    </section>
+
+</sections>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminCreateCategoryActionGroup">
+        <arguments>
+            <argument name="category" defaultValue="defaultCategory"/>
+            <argument name="storeView" defaultValue="defaultCategory.storeView"/>
+        </arguments>
+        <amOnPage url="{{AdminCategoryGridPage.url}}" stepKey="openFaqCategoryGridPage"/>
+        <waitForPageLoad stepKey="waitForFaqCategoryGridLoad"/>
+        <click selector="{{AdminCategoryGridSection.AddNewCategory}}" stepKey="clickAddNewCategory"/>
+        <waitForPageLoad stepKey="waitForNewFaqCategoryPageLoad"/>
+        <conditionalClick selector="{{AdminCategorySection.EnableCategory}}"
+                          dependentSelector="{{AdminCategorySection.CategoryEnabled(category.isEnabled)}}"
+                          visible="false" stepKey="enableCategory"/>
+        <fillField selector="{{AdminCategorySection.CategoryName}}" userInput="{{category.title}}" stepKey="fillCategoryName"/>
+        <clickWithLeftButton selector="{{AdminCategorySection.StoreView(storeView)}}" stepKey="setStoreView"/>
+        <selectOption selector="{{AdminCategorySection.CustomerGroups}}" parameterArray="[{{category.customerGroups}}]" stepKey="selectCustomerGroups"/>
+        <fillField selector="{{AdminCategorySection.Position}}" userInput="{{category.position}}" stepKey="fillPosition"/>
+        <conditionalClick selector="{{AdminCategorySection.ShowHideEditor}}"
+                          dependentSelector="{{AdminCategorySection.DescriptionIframe}}"
+                          visible="true" stepKey="showEditor"/>
+        <fillField selector="{{AdminCategorySection.Description}}" userInput="{{category.description}}" stepKey="fillDescription"/>
+        <fillField selector="{{AdminCategorySection.UrlKey}}" userInput="{{category.url_key}}" stepKey="fillUrlKey"/>
+        <click selector="{{AdminCategorySection.SaveAndContinueEdit}}" stepKey="saveAndContinueEdit"/>
+        <waitForPageLoad stepKey="waitForCategorySaved"/>
+        <seeElement selector="{{AdminCategorySection.SaveSuccessMsg}}" stepKey="seeSaveSuccessMsg"/>
+    </actionGroup>
+</actionGroups>

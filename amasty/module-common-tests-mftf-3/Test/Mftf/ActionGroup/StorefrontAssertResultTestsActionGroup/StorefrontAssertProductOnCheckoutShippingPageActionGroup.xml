@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAssertProductOnCheckoutShippingPageActionGroup">
+        <arguments>
+            <argument name="product"/>
+            <argument name="productQty" defaultValue="_enterQty1"/>
+        </arguments>
+        <amOnPage url="{{StorefrontCheckoutShippingPage.url}}" stepKey="navigateToCheckoutShippingPage"/>
+        <waitForPageLoad stepKey="waitForPageLoadShippingCheckout"/>
+        <conditionalClick selector="{{StorefrontCheckoutShippingAddressSection.ProductTab}}"
+                          dependentSelector="{{StorefrontCheckoutShippingAddressSection.ProductTabOpen}}" visible="false"
+                          stepKey="openProductTab"/>
+        <seeElement selector="{{StorefrontCheckoutShippingAddressSection.ProductOnCheckout(product.name)}}"
+                    stepKey="checkProductOnCheckout"/>
+        <see selector="{{StorefrontCheckoutShippingAddressSection.ProductQtyOnCheckout(product.name)}}"
+             userInput="{{productQty.qty}}" stepKey="checkQtyProduct"/>
+    </actionGroup>
+</actionGroups>

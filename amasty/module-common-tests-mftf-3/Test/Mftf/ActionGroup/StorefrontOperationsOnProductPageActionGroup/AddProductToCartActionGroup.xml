@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <!-- Don't using ActionGroup "AddProductToCartActionGroup",
+        them will be deleted after change in all test to "StorefrontAddCreatedProductToCartActionGroup" -->
+    <actionGroup name="AddProductToCartActionGroup">
+        <arguments>
+            <argument name="addProductQty"/>
+            <argument name="products"/>
+        </arguments>
+        <amOnPage url="/{{products.urlkey}}.html" stepKey="navigateProductPage"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenCart"/>
+        <fillField selector="{{StorefrontProductPageSection.QtyInput}}" userInput="{{addProductQty.qty}}"
+                   stepKey="enterQtyProduct"/>
+        <waitForAjaxLoad stepKey="waitForPageLoadAfterFillQty"/>
+        <click selector="{{StorefrontProductPageSection.AddToCartBtn}}" stepKey="addToCart"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterAddToCart"/>
+        <waitForElementVisible selector="{{StorefrontProductPageSection.SuccessMsg}}" stepKey="checkProductAdded"/>
+    </actionGroup>
+
+</actionGroups>

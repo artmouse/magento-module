@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontCheckShippingPriceOnCheckoutAsCustomerActionGroup">
+        <arguments>
+            <argument name="shippingPrices"/>
+            <argument name="shippingMethods" defaultValue="FlatRateMethod"/>
+        </arguments>
+        <amOnPage url="{{StorefrontCheckoutShippingPage.url}}" stepKey="navigateToCheckoutShippingPage"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpen"/>
+        <waitForElementNotVisible selector="{{StorefrontCartSection.CartTotalLoader}}"
+                                  stepKey="waitWhenNotVisibleLoaderTotals"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterOpenPage"/>
+        <scrollTo selector="{{StorefrontCheckoutShippingAddressSection.Next}}" stepKey="ScrollToDownPage"/>
+        <waitForPageLoad stepKey="waitForPageLoadBeforeCheck"/>
+        <see
+            selector="{{StorefrontCheckoutShippingAddressSection.ShippingMethodPrice(shippingMethods.shippingMethodsNameOnCheckout)}}"
+            userInput="{{shippingPrices}}" stepKey="checkFreeShipping"/>
+    </actionGroup>
+</actionGroups>

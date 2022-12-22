@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminFaqGeneralSettingsActionGroup">
+        <arguments>
+            <argument name="setting" defaultValue="defGeneralSettings"/>
+        </arguments>
+        <amOnPage url="{{AdminFaqConfigurationPage.url}}" stepKey="openConfigurationPage"/>
+        <waitForPageLoad stepKey="waitForConfigurationPageLoad"/>
+        <conditionalClick selector="{{AdminFaqConfigurationSection.GeneralSettingsTab}}" dependentSelector="{{AdminFaqConfigurationSection.Title}}"
+                          visible="false" stepKey="openGeneralSettingsTab"/>
+        <selectOption selector="{{AdminFaqConfigurationSection.EnableModule}}" userInput="{{setting.enableModule}}"
+                      stepKey="setEnableModule"/>
+        <fillField selector="{{AdminFaqConfigurationSection.Title}}" userInput="{{setting.title}}" stepKey="fillTitle"/>
+        <fillField selector="{{AdminFaqConfigurationSection.UrlPrefix}}" userInput="{{setting.urlPrefix}}" stepKey="fillUrlPrefix"/>
+        <selectOption selector="{{AdminFaqConfigurationSection.AddFaqToToolbar}}" userInput="{{setting.addFaqToToolbar}}"
+                      stepKey="setAddFaqToToolbar"/>
+        <selectOption selector="{{AdminFaqConfigurationSection.AddFaqToCategoriesMenu}}" userInput="{{setting.addFaqToCategoriesMenu}}"
+                      stepKey="setAddFaqToCategoriesMenu"/>
+        <selectOption selector="{{AdminFaqConfigurationSection.AddFaqToFooter}}" userInput="{{setting.addFaqToFooter}}"
+                      stepKey="setAddFaqToFooter"/>
+        <selectOption selector="{{AdminFaqConfigurationSection.AllowGuestAskQuestions}}" userInput="{{setting.allowGuestAskQuestions}}"
+                      stepKey="setAllowGuestAskQuestions"/>
+        <click selector="{{AdminFaqConfigurationSection.SaveConfig}}" stepKey="saveConfig"/>
+        <waitForPageLoad stepKey="waitForConfigSave"/>
+        <conditionalClick selector="{{AdminFaqConfigurationSection.GeneralSettingsTab}}" dependentSelector="{{AdminFaqConfigurationSection.Title}}"
+                          visible="true" stepKey="closeGeneralSettingsTab"/>
+        <magentoCLI command="cache:flush" arguments="config" stepKey="flushCache"/>
+    </actionGroup>
+</actionGroups>

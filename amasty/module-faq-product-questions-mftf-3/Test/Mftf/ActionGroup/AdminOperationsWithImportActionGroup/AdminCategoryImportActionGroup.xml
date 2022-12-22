@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminCategoryImportActionGroup">
+        <arguments>
+            <argument name="import" defaultValue="faqCategory"/>
+            <argument name="checkedDataMsg" defaultValue="successMessage.checkedDataOneRow"/>
+        </arguments>
+        <selectOption selector="{{AdminFaqCategoryImportSection.ImportBehavior}}" userInput="{{import.importBehavior}}" stepKey="selectImportBehaviorOption"/>
+        <attachFile selector="{{AdminFaqCategoryImportSection.SelectFileToImport}}" userInput="{{import.importFile}}" stepKey="attachFileForImport"/>
+        <click selector="{{AdminFaqCategoryImportSection.CheckData}}" stepKey="checkData"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoadingMaskToDisappear"/>
+        <seeElement selector="{{AdminFaqCategoryImportSection.CheckedDataMsg(checkedDataMsg)}}" stepKey="seeCheckedDataMsg"/>
+        <seeElement selector="{{AdminFaqCategoryImportSection.FileValidMsg}}" stepKey="seeFileValidMsg"/>
+        <click selector="{{AdminFaqCategoryImportSection.ImportButton}}" stepKey="import"/>
+        <waitForPageLoad stepKey="waitForImport"/>
+        <seeElement selector="{{AdminFaqCategoryImportSection.ImportSuccess}}" stepKey="seeImportSuccessMsg"/>
+    </actionGroup>
+</actionGroups>

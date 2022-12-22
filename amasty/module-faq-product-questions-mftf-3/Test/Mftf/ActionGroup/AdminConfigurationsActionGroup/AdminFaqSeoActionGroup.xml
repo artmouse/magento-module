@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminFaqSeoActionGroup">
+        <arguments>
+            <argument name="setting" defaultValue="defSeo"/>
+        </arguments>
+        <amOnPage url="{{AdminFaqConfigurationPage.url}}" stepKey="openConfigurationPage"/>
+        <waitForPageLoad stepKey="waitForConfigurationPageLoad"/>
+        <conditionalClick selector="{{AdminFaqConfigurationSection.SeoTab}}" dependentSelector="{{AdminFaqConfigurationSection.CanonicalUrl}}"
+                          visible="false" stepKey="openSeoTab"/>
+        <selectOption selector="{{AdminFaqConfigurationSection.CanonicalUrl}}" userInput="{{setting.canonicalUrl}}"
+                      stepKey="setCanonicalUrl"/>
+        <selectOption selector="{{AdminFaqConfigurationSection.StructuredData}}" userInput="{{setting.structuredData}}"
+                      stepKey="setStructuredData"/>
+        <selectOption selector="{{AdminFaqConfigurationSection.RichDataBreadcrumbs}}" userInput="{{setting.richDataBreadcrumbs}}"
+                      stepKey="setRichDataBreadcrumbs"/>
+        <selectOption selector="{{AdminFaqConfigurationSection.RichDataOrganization}}" userInput="{{setting.richDataOrganization}}"
+                      stepKey="setRichDataOrganization"/>
+        <click selector="{{AdminFaqConfigurationSection.SaveConfig}}" stepKey="saveConfig"/>
+        <waitForPageLoad stepKey="waitForConfigSave"/>
+        <conditionalClick selector="{{AdminFaqConfigurationSection.SeoTab}}" dependentSelector="{{AdminFaqConfigurationSection.CanonicalUrl}}"
+                          visible="true" stepKey="closeSeoTab"/>
+        <magentoCLI command="cache:flush" arguments="config" stepKey="flushCache"/>
+    </actionGroup>
+</actionGroups>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontCheckoutFillShippingAddressAsGuestActionGroup">
+        <arguments>
+            <argument name="customer" defaultValue="newCustomerAddress"/>
+            <argument name="shippingMethodsOnCheckout" defaultValue="FlatRateMethod"/>
+        </arguments>
+        <amOnPage url="{{StorefrontCheckoutShippingPage.url}}" stepKey="navigateToCheckoutShippingPage"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterNavigateToCheckout"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterNavigateToCheckout"/>
+        <fillField selector="{{StorefrontCheckoutShippingAddressSection.Email}}" userInput="{{customer.email}}"
+                   stepKey="enterEmail"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterEnterEmail"/>
+        <fillField selector="{{StorefrontCheckoutShippingAddressSection.FirstName}}" userInput="{{customer.firstname}}"
+                   stepKey="enterFirstName"/>
+        <fillField selector="{{StorefrontCheckoutShippingAddressSection.LastName}}" userInput="{{customer.lastname}}"
+                   stepKey="enterLastName"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterEnterLastName"/>
+        <fillField selector="{{StorefrontCheckoutShippingAddressSection.Street}}" userInput="{{customer.street}}"
+                   stepKey="enterStreet"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterEnterStreet"/>
+        <fillField selector="{{StorefrontCheckoutShippingAddressSection.City}}" userInput="{{customer.city}}"
+                   stepKey="enterCity"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterEnterCity"/>
+        <selectOption selector="{{StorefrontCheckoutShippingAddressSection.SelectForCountry}}" userInput="{{customer.country}}"
+                      stepKey="selectCountry"/>
+        <scrollTo selector="{{StorefrontCheckoutShippingAddressSection.Postcode}}" stepKey="ScrollToPostcode"/>
+        <fillField selector="{{StorefrontCheckoutShippingAddressSection.Postcode}}" userInput="{{customer.postcode}}"
+                   stepKey="enterPostcode"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterEnterPostcode"/>
+        <selectOption selector="{{StorefrontCheckoutShippingAddressSection.SelectForRegion}}" userInput="{{customer.region}}"
+                      stepKey="selectRegion"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterSelectRegion"/>
+        <scrollTo selector="{{StorefrontCheckoutShippingAddressSection.Telephone}}" stepKey="ScrollToTelephone"/>
+        <fillField selector="{{StorefrontCheckoutShippingAddressSection.Telephone}}" userInput="{{customer.telephone}}"
+                   stepKey="enterTelephone"/>
+        <waitForPageLoad stepKey="waitForPageLoad3"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterEnterTelephone"/>
+        <waitForElementNotVisible selector="{{StorefrontCheckoutShippingAddressSection.ShippingMethodsLoader}}"
+                                  stepKey="WaitForLoaderNotVisible"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadBeforeClickShipMethod"/>
+        <scrollTo selector="{{StorefrontCheckoutShippingAddressSection.Next}}" stepKey="ScrollToButtonNext"/>
+        <conditionalClick selector="{{StorefrontCheckoutShippingAddressSection.ShipMethod(shippingMethodsOnCheckout.shippingMethodsNameOnCheckout)}}"
+                          dependentSelector="{{StorefrontCheckoutShippingAddressSection.AmThemeShippingMethods}}"
+                          visible="false" stepKey="selectShippingMethod"/>
+        <conditionalClick selector="{{StorefrontCheckoutShippingAddressSection.ShipMethodLabel(shippingMethodsOnCheckout.shippingMethodsNameOnCheckout)}}"
+                          dependentSelector="{{StorefrontCheckoutShippingAddressSection.AmThemeShippingMethods}}"
+                          visible="true" stepKey="selectShippingMethodOnAmTheme"/>
+        <waitForPageLoad stepKey="waitForPageLoad4"/>
+        <click selector="{{StorefrontCheckoutShippingAddressSection.Next}}" stepKey="clickNext"/>
+        <waitForPageLoad stepKey="waitForPageLoad5"/>
+    </actionGroup>
+</actionGroups>

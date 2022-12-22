@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontCheckCartDiscountAmountActionGroup">
+        <arguments>
+            <argument name="discountAmount"/>
+        </arguments>
+        <amOnPage url="{{StorefrontCartPage.url}}" stepKey="navigateToShoppingCart"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenCart"/>
+        <see selector="{{StorefrontCartSection.DiscountAmount}}" userInput="{{discountAmount}}" stepKey="checkDiscountOne"/>
+    </actionGroup>
+</actionGroups>

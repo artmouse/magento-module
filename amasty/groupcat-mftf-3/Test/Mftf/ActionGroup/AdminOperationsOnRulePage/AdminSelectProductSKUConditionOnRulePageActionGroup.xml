@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminSelectProductSKUConditionOnRulePageActionGroup">
+        <arguments>
+            <argument name="product" type="string"/>
+            <argument name="ruleDataCondition" defaultValue="addCondition"/>
+        </arguments>
+        <scrollTo selector="{{AdminGroupcatRuleSection.ProductsSection}}" stepKey="scrollToProductsSection"/>
+        <click selector="{{AdminGroupcatRuleSection.Add}}" stepKey="clickConditionButton"/>
+        <selectOption selector="{{AdminGroupcatRuleSection.AddSkuConditionToProduct}}"
+                      userInput="{{ruleDataCondition.skuCondition}}" stepKey="selectProductCondition"/>
+        <waitForElementVisible selector="{{AdminGroupcatRuleSection.AddSku}}" stepKey="waitForVisibleConditionOperator"/>
+        <click selector="{{AdminGroupcatRuleSection.AddSku}}" stepKey="clickForAddConditionIfNoOutSelect"/>
+        <waitForElementVisible selector="{{AdminGroupcatRuleSection.Sku}}" stepKey="waitForVisibleConditionValueField"/>
+        <fillField selector="{{AdminGroupcatRuleSection.Sku}}" userInput="{{product}}" stepKey="fillProductName"/>
+        <click selector="{{AdminGroupcatRuleSection.SaveAndContinueEdit}}" stepKey="clickOnSave"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSave"/>
+        <seeElement selector="{{AdminGroupcatRuleSection.RuleSavedMessage}}" stepKey="seeRuleSavedMessage"/>
+        <magentoCLI command="indexer:reindex" stepKey="reindex"/>
+        <magentoCLI command="cache:clean" stepKey="cacheClean"/>
+    </actionGroup>
+</actionGroups>

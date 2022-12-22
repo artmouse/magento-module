@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Automatic Related Products MFTF 3 for Magento 2 (System)
+*/-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontBundlePackAllConditionWithCPRNoTest">
+        <annotations>
+            <stories value="Bundle Pack"/>
+            <title value="Check bundle pack discount and coupon on checkout"/>
+            <description value="Check bundle pack discount and coupon on checkout"/>
+            <testCaseId value="ARP-22"/>
+            <severity value="CRITICAL"/>
+            <group value="mostviewed"/>
+        </annotations>
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <!-- Create sample data -->
+            <createData entity="Simple_US_Customer_NY" stepKey="createCustomer"/>
+            <createData entity="ApiCategory" stepKey="createCategory"/>
+            <createData entity="ApiSimpleProduct" stepKey="createSimpleProductOne">
+                <requiredEntity createDataKey="createCategory"/>
+                <field key="price">30.00</field>
+            </createData>
+            <createData entity="ApiSimpleProduct" stepKey="createSimpleProductTwo">
+                <requiredEntity createDataKey="createCategory"/>
+                <field key="price">30.00</field>
+            </createData>
+            <createData entity="ApiSimpleProduct" stepKey="createSimpleProductThree">
+                <requiredEntity createDataKey="createCategory"/>
+                <field key="price">40.00</field>
+            </createData>
+            <createData entity="ApiSimpleProduct" stepKey="createSimpleProductFour">
+                <requiredEntity createDataKey="createCategory"/>
+                <field key="price">30.00</field>
+            </createData>
+            <createData entity="allBundlesCmsPageEnabled" stepKey="enableAllBundlesPage"/>
+            <!-- Configure Bundle Pack -->
+            <actionGroup ref="AdminBundlePackConfigurationActionGroup" stepKey="goToRelatedProductsConfigurePage"/>
+            <magentoCLI command="cache:clean" stepKey="cacheCleanAfterSetConfig"/>
+            <actionGroup ref="AdminCreateCartPriceRuleActionGroup" stepKey="createCartPriceRule">
+                <argument name="ruleName" value="defaultCartPriceRuleDiscountPercent50"/>
+            </actionGroup>
+            <actionGroup ref="AdminEditCartPriceRuleAddCouponCodeActionGroup" stepKey="addCouponCodeForCartPriceRule">
+                <argument name="cartRuleName" value="defaultCartPriceRuleDiscountPercent50.name"/>
+                <argument name="couponCode" value="defaultCartPriceRuleDiscountPercent50.code"/>
+            </actionGroup>
+        </before>
+        <after>
+            <!-- Delete sample data -->
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+            <deleteData createDataKey="createSimpleProductOne" stepKey="deleteSimpleProductOne"/>
+            <deleteData createDataKey="createSimpleProductTwo" stepKey="deleteSimpleProductTwo"/>
+            <deleteData createDataKey="createSimpleProductThree" stepKey="deleteSimpleProductThree"/>
+            <deleteData createDataKey="createSimpleProductFour" stepKey="deleteSimpleProductFour"/>
+            <actionGroup ref="DeleteCartPriceRuleByName" stepKey="deleteCartPriceRule">
+                <argument name="ruleName" value="{{defaultCartPriceRuleDiscountPercent50.name}}"/>
+            </actionGroup>
+            <!-- Delete Bundle Pack -->
+            <actionGroup ref="AdminDeleteGridItemActionGroup" stepKey="goToBundlePacksGridForDelete"/>
+            <createData entity="allBundlesCmsPageDisabled" stepKey="disableAllBundlesPage"/>
+            <magentoCLI command="cache:clean" stepKey="cacheClean"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+        <actionGroup ref="AdminCreateBundlePackActionGroup" stepKey="goToBundlePacksGridForCreate"/>
+        <actionGroup ref="AdminSetApplyIfConditionActionGroup" stepKey="setConditionForBundle"/>
+        <actionGroup ref="AdminAddMainProductForPackActionGroup" stepKey="addMainProduct">
+            <argument name="mainProduct" value="$$createSimpleProductTwo.product[name]$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminAddBundleProductForPackActionGroup" stepKey="addBundleProduct">
+            <argument name="bundleProduct" value="$$createSimpleProductOne.product[name]$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminAddBundleProductForPackActionGroup" stepKey="addSecondBundleProduct">
+            <argument name="bundleProduct" value="$$createSimpleProductFour.product[name]$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminSaveBundlePackActionGroup" stepKey="saveBundlePack"/>
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginAsCustomer">
+            <argument name="Customer" value="$$createCustomer$$"/>
+        </actionGroup>
+        <!-- Check Discount On StoreFront -->
+        <actionGroup ref="StorefrontAddBundlePackToCartActionGroup" stepKey="addBundlePackToCart">
+            <argument name="mainProduct" value="$$createSimpleProductTwo.product[name]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenCartAndApplyCouponActionGroup" stepKey="couponApplyOnShoppingCart">
+            <argument name="coupon" value="defaultCartPriceRuleDiscountPercent50"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCheckDiscountOnCartActionGroup" stepKey="checkDiscountOnCart">
+            <argument name="discount" value="amTestBundlePack.discount30"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontChangeQtyProductInCartActionGroup"
+                     stepKey="updateQty">
+            <argument name="product" value="$$createSimpleProductOne$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCheckDiscountOnCartActionGroup" stepKey="checkDiscountOnCartAfterQtyUpdate">
+            <argument name="discount" value="amTestBundlePack.discount30"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAddCreatedProductToCartActionGroup" stepKey="addThirdProductToCart">
+            <argument name="product" value="$$createSimpleProductThree$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCheckDiscountOnCartActionGroup" stepKey="checkDiscountOnCartAfterAddProduct">
+            <argument name="discount" value="amTestBundlePack.discount50"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontDeleteProductFromTheCartActionGroup" stepKey="deleteProduct">
+            <argument name="product" value="$$createSimpleProductFour$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCheckDiscountOnCartActionGroup"
+                     stepKey="checkDiscountOnCartAfterDeleteBundleProduct">
+            <argument name="discount" value="amTestBundlePack.discount65"/>
+        </actionGroup>
+    </test>
+</tests>

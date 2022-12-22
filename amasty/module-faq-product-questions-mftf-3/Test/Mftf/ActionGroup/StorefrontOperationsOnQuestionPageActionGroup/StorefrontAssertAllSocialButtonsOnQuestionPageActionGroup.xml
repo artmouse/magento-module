@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAssertAllSocialButtonsOnQuestionPageActionGroup">
+        <arguments>
+            <argument name="network" defaultValue="socialNetworks"/>
+        </arguments>
+        <seeElement selector="{{StorefrontQuestionSection.SocialNetwork(network.email)}}" stepKey="assertEmail"/>
+        <seeElement selector="{{StorefrontQuestionSection.SocialNetwork(network.whatsapp)}}" stepKey="assertWhatsapp"/>
+        <seeElement selector="{{StorefrontQuestionSection.SocialNetwork(network.facebook)}}" stepKey="assertFacebook"/>
+        <seeElement selector="{{StorefrontQuestionSection.SocialNetwork(network.twitter)}}" stepKey="assertTwitter"/>
+        <seeElement selector="{{StorefrontQuestionSection.SocialNetwork(network.reddit)}}" stepKey="assertReddit"/>
+        <seeElement selector="{{StorefrontQuestionSection.SocialNetwork(network.tumblr)}}" stepKey="assertTumblr"/>
+        <seeElement selector="{{StorefrontQuestionSection.SocialNetwork(network.google)}}" stepKey="assertGoogle"/>
+        <seeElement selector="{{StorefrontQuestionSection.SocialNetwork(network.digg)}}" stepKey="assertDigg"/>
+        <seeElement selector="{{StorefrontQuestionSection.SocialNetwork(network.stumbleUpon)}}" stepKey="assertStumbleUpon"/>
+        <seeElement selector="{{StorefrontQuestionSection.SocialNetwork(network.linkedin)}}" stepKey="assertLinkedin"/>
+        <seeElement selector="{{StorefrontQuestionSection.SocialNetwork(network.vkontakte)}}" stepKey="assertVkontakte"/>
+        <seeElement selector="{{StorefrontQuestionSection.SocialNetwork(network.buffer)}}" stepKey="assertBuffer"/>
+    </actionGroup>
+</actionGroups>

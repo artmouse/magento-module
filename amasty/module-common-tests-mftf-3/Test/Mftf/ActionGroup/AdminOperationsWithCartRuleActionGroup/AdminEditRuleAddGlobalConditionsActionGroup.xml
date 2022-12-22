@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminEditRuleAddGlobalConditionsActionGroup">
+        <arguments>
+            <argument name="actionsConditionOptions" defaultValue="_subtotal"/>
+            <argument name="actionsConditionOptionsParamIs" defaultValue="_equalsOrGreaterThan"/>
+            <argument name="conditionsData"/>
+            <argument name="ruleName"/>
+        </arguments>
+        <amOnPage url="{{AdminCartPriceRulePage.url}}" stepKey="navigateToCartPriceRulePage"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenCartRuleGrid"/>
+        <click selector="{{AdminRuleGridActionSection.ResetFilter}}" stepKey="resetFilter"/>
+        <fillField selector="{{AdminRuleGridActionSection.FilterByNameInput}}" userInput="{{ruleName}}"
+                   stepKey="filterByName"/>
+        <click selector="{{AdminRuleGridActionSection.SearchButton}}" stepKey="doFilter"/>
+        <click selector="{{AdminRuleGridActionSection.TableRowOne}}" stepKey="goToEditRulePage"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenRule"/>
+        <conditionalClick selector="{{AdminActionsCartPriceRuleSection.ConditionsTab}}"
+                          dependentSelector="{{AdminActionsCartPriceRuleSection.ConditionsTabOpen}}" visible="false"
+                          stepKey="openConditionsTab"/>
+        <scrollTo selector="{{AdminActionsCartPriceRuleSection.Priority}}" stepKey="scrollToConditions"/>
+        <click selector="{{AdminActionsCartPriceRuleSection.ButtonGlobalConditions}}" stepKey="clickButtonCondition"/>
+        <waitForElementVisible selector="{{AdminActionsCartPriceRuleSection.ConditionSelectOption}}"
+                               stepKey="waitForVisibleSelectConditionOption"/>
+        <selectOption selector="{{AdminActionsCartPriceRuleSection.ConditionSelectOption}}"
+                      userInput="{{actionsConditionOptions.optionsText}}" stepKey="selectConditionOption"/>
+        <waitForElementVisible
+            selector="{{AdminActionsCartPriceRuleSection.ConditionOperatorIs(actionsConditionOptions.optionsValue)}}"
+            stepKey="waitForVisibleConditionDefaultOperator"/>
+        <click selector="{{AdminActionsCartPriceRuleSection.ConditionOperatorIs(actionsConditionOptions.optionsValue)}}"
+               stepKey="clickForSelectOperator"/>
+        <waitForElementVisible
+            selector="{{AdminActionsCartPriceRuleSection.ConditionSelectOperator(actionsConditionOptions.optionsValue)}}"
+            stepKey="waitForVisibleSelectConditionOperators"/>
+        <selectOption
+            selector="{{AdminActionsCartPriceRuleSection.ConditionSelectOperator(actionsConditionOptions.optionsValue)}}"
+            userInput="{{actionsConditionOptionsParamIs.optionsValue}}" stepKey="selectOperator"/>
+        <waitForElementVisible
+            selector="{{AdminActionsCartPriceRuleSection.ConditionValueNoActive(actionsConditionOptions.optionsValue)}}"
+            stepKey="waitForVisibleConditionValueText"/>
+        <click
+            selector="{{AdminActionsCartPriceRuleSection.ConditionValueNoActive(actionsConditionOptions.optionsValue)}}"
+            stepKey="clickForAddConditionValue"/>
+        <conditionalClick
+            selector="{{AdminActionsCartPriceRuleSection.ConditionValueNoActive(actionsConditionOptions.optionsValue)}}"
+            dependentSelector="{{AdminActionsCartPriceRuleSection.ConditionInput(actionsConditionOptions.optionsValue)}}"
+            visible="false" stepKey="clickForAddConditionIfNoOutSelect"/>
+        <waitForElementVisible
+            selector="{{AdminActionsCartPriceRuleSection.ConditionInput(actionsConditionOptions.optionsValue)}}"
+            stepKey="waitForVisibleConditionValue"/>
+        <fillField selector="{{AdminActionsCartPriceRuleSection.ConditionInput(actionsConditionOptions.optionsValue)}}"
+                   userInput="{{conditionsData}}" stepKey="addConditionValue"/>
+        <click selector="{{AdminActionsCartPriceRuleSection.SaveAndContinueEdit}}" stepKey="clickOnSave"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSave"/>
+    </actionGroup>
+</actionGroups>

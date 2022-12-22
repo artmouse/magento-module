@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <!-- Don't using ActionGroup "AddConfigurableProductToCartActionGroup",
+         them will be deleted after change in all test to "StorefrontAddCreatedConfigurableProductToCartActionGroup" -->
+    <actionGroup name="AddConfigurableProductToCartActionGroup" extends="AddProductToCartActionGroup">
+        <arguments>
+            <argument name="size"/>
+            <argument name="color"/>
+        </arguments>
+        <click selector="{{StorefrontProductPageSection.SizeAttribute(size)}}" after="waitForPageLoadAfterFillQty"
+               stepKey="selectSize"/>
+        <click selector="{{StorefrontProductPageSection.ColorAttribute(color)}}" after="selectSize"
+               stepKey="selectColor"/>
+    </actionGroup>
+
+</actionGroups>

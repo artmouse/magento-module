@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontOpenNextCategoryPageActionGroup">
+        <scrollTo selector="{{StorefrontCategoryBottomToolbarSection.nextPages}}" stepKey="scrollToNextButton"/>
+        <click selector="{{StorefrontCategoryBottomToolbarSection.nextPages}}" stepKey="clickOnNextPage"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterGoToNextPage"/>
+    </actionGroup>
+</actionGroups>

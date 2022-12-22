@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Faq Graph Ql for Magento 2 (System)
+*/-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Amasty\FaqGraphQl\Model\CollectionProcessor\FilterProcessor" type="Magento\Framework\Api\SearchCriteria\CollectionProcessor\FilterProcessor">
+        <arguments>
+            <argument name="customFilters" xsi:type="array">
+                <item name="query" xsi:type="object">Amasty\FaqGraphQl\Model\CollectionProcessor\Question\Filter\Query</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\FaqGraphQl\Model\CollectionProcessor\JoinProcessor" type="Magento\Framework\Api\SearchCriteria\CollectionProcessor\JoinProcessor">
+        <arguments>
+            <argument name="customJoins" xsi:type="array">
+                <!-- Question joins -->
+                <item name="amasty_faq_question_category.category_id" xsi:type="object">Amasty\FaqGraphQl\Model\CollectionProcessor\Question\Join\CategoryId</item>
+                <item name="amasty_faq_question_product.product_id" xsi:type="object">Amasty\FaqGraphQl\Model\CollectionProcessor\Question\Join\ProductId</item>
+                <item name="amasty_faq_question_store.store_id" xsi:type="object">Amasty\FaqGraphQl\Model\CollectionProcessor\Question\Join\StoreId</item>
+                <item name="amasty_faq_question_customer_groups.customer_group_id" xsi:type="object">Amasty\FaqGraphQl\Model\CollectionProcessor\Question\Join\CustomerGroupId</item>
+                <item name="amasty_faq_tag.title" xsi:type="object">Amasty\FaqGraphQl\Model\CollectionProcessor\Question\Join\Tag</item>
+                <!-- Category joins -->
+                <item name="amasty_faq_question_category.question_id" xsi:type="object">Amasty\FaqGraphQl\Model\CollectionProcessor\Category\Join\QuestionId</item>
+                <item name="amasty_faq_category_store.store_id" xsi:type="object">Amasty\FaqGraphQl\Model\CollectionProcessor\Category\Join\StoreId</item>
+                <item name="amasty_faq_category_customer_groups.customer_group_id" xsi:type="object">Amasty\FaqGraphQl\Model\CollectionProcessor\Category\Join\CustomerGroupId</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\FaqGraphQl\Model\CollectionProcessor" type="Magento\Framework\Api\SearchCriteria\CollectionProcessor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="join" xsi:type="object">Amasty\FaqGraphQl\Model\CollectionProcessor\JoinProcessor</item>
+                <item name="filters" xsi:type="object">Amasty\FaqGraphQl\Model\CollectionProcessor\FilterProcessor</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Amasty\Faq\Model\QuestionRepository">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">Amasty\FaqGraphQl\Model\CollectionProcessor</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\Faq\Model\CategoryRepository">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">Amasty\FaqGraphQl\Model\CollectionProcessor</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\FaqGraphQl\Model\Resolver\SearchQuestions">
+        <arguments>
+            <argument name="filterFieldsMap" xsi:type="array">
+                <item name="category_id" xsi:type="string">amasty_faq_question_category.category_id</item>
+                <item name="product_id" xsi:type="string">amasty_faq_question_product.product_id</item>
+                <item name="store_id" xsi:type="string">amasty_faq_question_store.store_id</item>
+                <item name="customer_group_id" xsi:type="string">amasty_faq_question_customer_groups.customer_group_id</item>
+                <item name="tag" xsi:type="string">amasty_faq_tag.title</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\FaqGraphQl\Model\Resolver\SearchCategories">
+        <arguments>
+            <argument name="filterFieldsMap" xsi:type="array">
+                <item name="question_id" xsi:type="string">amasty_faq_question_category.question_id</item>
+                <item name="store_id" xsi:type="string">amasty_faq_category_store.store_id</item>
+                <item name="customer_group_id" xsi:type="string">amasty_faq_category_customer_groups.customer_group_id</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

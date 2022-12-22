@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Automatic Related Products MFTF 3 for Magento 2 (System)
+*/-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminSetQtyForBundleProductActionGroup">
+        <arguments>
+            <argument name="productQty" defaultValue="_enterQty2.qty"/>
+            <argument name="product"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoaded"/>
+        <scrollTo selector="{{AdminNewBundlePacksSection.displayMainProductsTab}}" stepKey="scrollToField"/>
+        <fillField selector="{{AdminNewBundlePacksSection.bundleProductQtyField(product)}}"
+                   userInput="{{productQty}}" stepKey="fillFieldWithBundleProductQty"/>
+    </actionGroup>
+</actionGroups>

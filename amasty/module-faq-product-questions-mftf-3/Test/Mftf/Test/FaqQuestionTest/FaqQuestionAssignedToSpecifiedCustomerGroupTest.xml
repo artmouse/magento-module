@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqQuestionAssignedToSpecifiedCustomerGroupTest">
+        <annotations>
+            <features value="Question Is Assigned to Specified Customer Group"/>
+            <stories value="Assert Question Is Assigned to Specified Customer Group"/>
+            <title value="Assert Question Is Available for Specified Customer Group. Question Is Not Available for Other Customer Group"/>
+            <description value="Assert Question Is Available for Specified Customer Group. Question Is Not Available for Other Customer Group"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-13"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqQuestion"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="firstCategory"/>
+            <createData entity="SimpleProductByFusionBackpack" stepKey="firstProduct">
+                <requiredEntity createDataKey="firstCategory"/>
+            </createData>
+            <createData entity="SimpleSubCategory" stepKey="secondCategory"/>
+            <createData entity="SimpleProductByDrivenBackpack" stepKey="secondProduct">
+                <requiredEntity createDataKey="secondCategory"/>
+            </createData>
+            <createData entity="Simple_US_Customer" stepKey="customer"/>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminCreateCategoryActionGroup" stepKey="createDefCategory"/>
+            <!--create question for all customers-->
+            <actionGroup ref="AdminCreateQuestionActionGroup" stepKey="createQuestionForAllCustomers"/>
+            <actionGroup ref="AdminAssignQuestionToFaqCategoryActionGroup" stepKey="assignQuestionForAllCustomersToCategory"/>
+            <actionGroup ref="AdminAssignProductToQuestionActionGroup" stepKey="assignFirstProductToQuestionForAllCustomers">
+                <argument name="productName" value="$$firstProduct.product[name]$$"/>
+            </actionGroup>
+            <actionGroup ref="AdminAssignCategoryToQuestionActionGroup" stepKey="assignSecondCategoryToQuestionForAllCustomers">
+                <argument name="categoryName" value="$$secondCategory.name$$"/>
+            </actionGroup>
+            <!--create question for general customers-->
+            <actionGroup ref="AdminCreateQuestionActionGroup" stepKey="createQuestionForGeneralCustomer">
+                <argument name="question" value="generalCustomerQuestion"/>
+            </actionGroup>
+            <actionGroup ref="AdminAssignQuestionToFaqCategoryActionGroup" stepKey="assignQuestionForGeneralCustomerToCategory"/>
+            <actionGroup ref="AdminAssignProductToQuestionActionGroup" stepKey="assignFirstProductToQuestionForGeneralCustomer">
+                <argument name="productName" value="$$firstProduct.product[name]$$"/>
+            </actionGroup>
+            <actionGroup ref="AdminAssignCategoryToQuestionActionGroup" stepKey="assignSecondCategoryToQuestionForGeneralCustomer">
+                <argument name="categoryName" value="$$secondCategory.name$$"/>
+            </actionGroup>
+        </before>
+        <after>
+            <deleteData createDataKey="firstProduct" stepKey="deleteFirstProduct"/>
+            <deleteData createDataKey="secondProduct" stepKey="deleteSecondProduct"/>
+            <deleteData createDataKey="firstCategory" stepKey="deleteFirstCategory"/>
+            <deleteData createDataKey="secondCategory" stepKey="deleteSecondCategory"/>
+            <deleteData createDataKey="customer" stepKey="deleteCustomer"/>
+            <actionGroup ref="AdminDeleteQuestionFromGridActionGroup" stepKey="deleteQuestionForAllCustomers"/>
+            <actionGroup ref="AdminDeleteQuestionFromGridActionGroup" stepKey="deleteQuestionForGeneralCustomer">
+                <argument name="questionTitle" value="generalCustomerQuestion.title"/>
+            </actionGroup>
+            <actionGroup ref="AdminDeleteCategoryFromGridActionGroup" stepKey="deleteDefCategory"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <!--assert questions on Faq page as guest-->
+        <actionGroup ref="StorefrontOpenFaqPageActionGroup" stepKey="openFaqPageAsGuest"/>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnFaqPageActionGroup" stepKey="assertQuestForAllCustomOnFaqPageAsGuest"/>
+        <actionGroup ref="StorefrontAssertNoQuestionTitleOnFaqPageActionGroup" stepKey="assertNoQuestForGeneralCustomOnFaqPageAsGuest">
+            <argument name="questionTitle" value="generalCustomerQuestion.title"/>
+        </actionGroup>
+        <!--assert questions on Faq Category page as guest-->
+        <actionGroup ref="StorefrontOpenCategoryFromFaqPageActionGroup" stepKey="openCategoryPageAsGuest"/>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnCategoryPageActionGroup" stepKey="assertQuestForAllCustomOnCatPageAsGuest"/>
+        <actionGroup ref="StorefrontAssertNoQuestionTitleOnCategoryPageActionGroup" stepKey="assertNoQuestForGeneralCustomOnCatPageAsGuest">
+            <argument name="questionTitle" value="generalCustomerQuestion.title"/>
+        </actionGroup>
+        <!--assert questions on Product page as guest-->
+        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="openFirstProductPageAsGuest">
+            <argument name="productUrl" value="$$firstProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnProductPageActionGroup" stepKey="assertQuestForAllCustomOnFirstProductAsGuest"/>
+        <actionGroup ref="StorefrontAssertNoQuestionTitleOnProductPageActionGroup" stepKey="assertNoQuestForGeneralCustomOnFirstProductAsGuest">
+            <argument name="questionTitle" value="generalCustomerQuestion.title"/>
+        </actionGroup>
+        <!--assert questions on Category Product page as guest-->
+        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="openSecondProductPageAsGuest">
+            <argument name="productUrl" value="$$secondProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnProductPageActionGroup" stepKey="assertQuestForAllCustomOnSecondProductAsGuest"/>
+        <actionGroup ref="StorefrontAssertNoQuestionTitleOnProductPageActionGroup" stepKey="assertNoQuestForGeneralCustomOnSecondProductAsGuest">
+            <argument name="questionTitle" value="generalCustomerQuestion.title"/>
+        </actionGroup>
+        <!--assert questions on Faq page as logged in customer-->
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginToStorefront">
+            <argument name="Customer" value="$$customer$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenFaqPageActionGroup" stepKey="openFaqPageAsLoggedInCustomer"/>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnFaqPageActionGroup" stepKey="assertQuestForAllCustomersOnFaqPageAsLoggedInCustom"/>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnFaqPageActionGroup" stepKey="assertQuestForGeneralCustomOnFaqPageAsLoggedInCustom">
+            <argument name="questionTitle" value="generalCustomerQuestion.title"/>
+        </actionGroup>
+        <!--assert questions on Category page as logged in customer-->
+        <actionGroup ref="StorefrontOpenCategoryFromFaqPageActionGroup" stepKey="openCategoryPageAsLoggedInCustom"/>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnCategoryPageActionGroup" stepKey="assertQuestForAllCustomOnCatPageAsLoggedInCustom"/>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnCategoryPageActionGroup" stepKey="assertQuestForGeneralCustomOnCatPageAsLoggedInCustom">
+            <argument name="questionTitle" value="generalCustomerQuestion.title"/>
+        </actionGroup>
+        <!--assert questions on Product page as logged in customer-->
+        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="openFirstProductPageAsLoggedCustomer">
+            <argument name="productUrl" value="$$firstProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnProductPageActionGroup" stepKey="assertQuestForAllCustomOnFirstProductAsLoggedCustomer"/>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnProductPageActionGroup" stepKey="assertQuestForGeneralCustomOnFirstProductAsLoggedCustomer">
+            <argument name="questionTitle" value="generalCustomerQuestion.title"/>
+        </actionGroup>
+        <!--assert questions on Category Product page as logged in customer-->
+        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="openSecondProductPageAsLoggedCustomer">
+            <argument name="productUrl" value="$$secondProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnProductPageActionGroup" stepKey="assertQuestForAllCustomOnSecondProductAsLoggedCustomer"/>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnProductPageActionGroup" stepKey="assertQuestForGeneralCustomOnSecondProductAsLoggedCustomer">
+            <argument name="questionTitle" value="generalCustomerQuestion.title"/>
+        </actionGroup>
+    </test>
+</tests>

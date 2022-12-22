@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontChangeQtyProductInCartActionGroup">
+        <arguments>
+            <argument name="product"/>
+            <argument name="productQty" defaultValue="_enterQty2"/>
+        </arguments>
+        <amOnPage url="{{StorefrontCartPage.url}}" stepKey="navigateToShoppingCart"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenCart"/>
+        <fillField selector="{{StorefrontCartSection.ProductQtyInput(product.sku)}}" userInput="{{productQty.qty}}"
+                   stepKey="changeProductQty"/>
+        <click selector="{{StorefrontCartSection.UpdateShoppingCart}}" stepKey="updateCart"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterUpdateCart"/>
+    </actionGroup>
+</actionGroups>

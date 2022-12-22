@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="StorefrontCustomerDashboardAccountInformationSection">
+        <element name="ContactInformation" type="textarea" selector="//div[contains(@class, '-information')]"/>
+        <element name="RecentlyOrderBlock" type="block"
+                 selector="//*[contains(@class, 'title order')][contains(string(), 'Recent Orders')]"/>
+        <element name="ViewOrderTheme" type="button" parameterized="true" timeout="10"
+                 selector="//tr[contains(string(), '{{orderId}}')]//a[@title='View Order']"/>
+        <element name="ViewOrder" type="button" parameterized="true" timeout="10"
+                 selector="//tr[contains(string(), '{{orderId}}')]//a[@class='action view']"/>
+        <element name="CompareClear" type="button" timeout="10" selector="//*[@id='compare-clear-all']"/>
+        <element name="CompareEmpty" type="block"
+                 selector="//div[contains(@class, 'compare')]//div[contains(@class,'empty')]"/>
+    </section>
+</sections>

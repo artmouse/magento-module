@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="GroupcatReplacePriceToRequestFormCustomCSSStylesHidePriceLinkPopupProductForNotLoggedInCustomerGroupRuleTest"
+        extends="GroupcatReplacePriceToRequestFormTextAndImageProductRuleTest">
+        <annotations>
+            <features value="Creation Replace Price To Request Form Custom CSS Styles Hide Price Link Pop-up Customer Group Catalog Rule For Not Logged In Customer Group"/>
+            <stories value="Check Replace Price To Request Form Custom CSS Styles Hide Price Link Pop-up Customer Group Catalog Rule For Not Logged In Customer Group"/>
+            <title value="Check Replace Price To Request Form Custom CSS Styles Hide Price Link Pop-up Customer Group Catalog Rule For Not Logged In Customer Group at Storefront Product Page"/>
+            <description value="Check Replace Price To Request Form Custom CSS Styles Hide Price Link Pop-up Customer Group Catalog Rule For Not Logged In Customer Group at Storefront Product Page"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="AmGroupCatalog-36"/>
+            <group value="AmGroupCatalog"/>
+            <group value="AmReplacePriceToRequestFormRule"/>
+        </annotations>
+
+        <before>
+            <remove keyForRemoval="setConfigurationFrontendOptions"/>
+            <createData entity="Simple_US_Customer" after="firstSimpleProduct" stepKey="customer"/>
+            <actionGroup ref="AdminConfigurationFrontendOptionsCustomCSSStylesForHidePriceLinkActionGroup" after="createDefRule"
+                         stepKey="setConfigurationFrontendOptionsCustomCSSStylesForHidePriceLinkActionGroup"/>
+        </before>
+
+        <after>
+            <remove keyForRemoval="clearConfigurationFrontendOptions"/>
+            <deleteData createDataKey="customer" after="deleteRule" stepKey="deleteCustomer"/>
+            <actionGroup ref="AdminConfigurationFrontendOptionsClearCustomCSSStylesForHidePriceLinkActionGroup" after="deleteRule"
+                         stepKey="clearConfigurationFrontendOptionsCustomCSSStylesForHidePriceLinkActionGroup"/>
+        </after>
+
+        <remove keyForRemoval="storefrontCheckReplaceWithTextAndImageProductPrice"/>
+        <remove keyForRemoval="addProduct"/>
+        <actionGroup ref="AdminSelectProductSKUForCustomerGroupOnRulePageActionGroup" after="replaceToRequestFormPrice" stepKey="addCustomerGroupForProduct">
+            <argument name="product" value="$$firstSimpleProduct.sku$$"/>
+            <argument name="ruleData" value="ruleForNotLoggedIn.customerGroups"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertReplacePriceToCustomCssStylesHidePriceLinkPopupOnCategoryPageActionGroup" after="addCustomerGroupForProduct"
+                     stepKey="storefrontCheckReplaceToCustomCssStylesHidePriceLinkPopupProductPriceOnCategoryPage">
+            <argument name="category" value="$category$"/>
+            <argument name="product" value="$$firstSimpleProduct.name$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertReplacePriceToCustomCssStylesHidePriceLinkPopupOnProductPageActionGroup" after="storefrontCheckReplaceToCustomCssStylesHidePriceLinkPopupProductPriceOnCategoryPage"
+                     stepKey="storefrontCheckReplaceToCustomCssStylesHidePriceLinkPopupProductPriceOnProductPage">
+            <argument name="category" value="$category$"/>
+            <argument name="product" value="$$firstSimpleProduct.name$$"/>
+        </actionGroup>
+        <actionGroup ref="LoginToStorefrontActionGroup" after="storefrontCheckReplaceToCustomCssStylesHidePriceLinkPopupProductPriceOnProductPage"
+                     stepKey="loginToStorefront">
+            <argument name="Customer" value="$$customer$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertProductPriceActionGroup" after="loginToStorefront" stepKey="storefrontSecondCheckProductPrice">
+            <argument name="category" value="$category$"/>
+            <argument name="product" value="$$firstSimpleProduct.name$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCustomerLogoutActionGroup" after="storefrontSecondCheckProductPrice" stepKey="customerLogout"/>
+    </test>
+</tests>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAddConfigProductToCartAssertOnMiniCartActionGroup"
+                 extends="StorefrontAddCreatedProductToCartActionGroup">
+        <arguments>
+            <argument name="optionValue" defaultValue="configurableProductOptions.optionOne"/>
+        </arguments>
+        <selectOption selector="{{StorefrontProductPageSection.SelectAttributeOption}}" userInput="{{optionValue}}"
+                      after="outOfInput" stepKey="selectOption"/>
+        <click selector="{{StorefrontProductMiniCartSection.MiniCartButton}}" after="waitForAddProductToCart"
+               stepKey="clickMiniCart"/>
+        <waitForAjaxLoad after="clickMiniCart" stepKey="waitMiniCartRendering"/>
+        <seeElement selector="{{StorefrontProductMiniCartSection.ProductOnMiniCart(product.name)}}"
+                    stepKey="checkProductAddedOnTheCart"/>
+    </actionGroup>
+</actionGroups>

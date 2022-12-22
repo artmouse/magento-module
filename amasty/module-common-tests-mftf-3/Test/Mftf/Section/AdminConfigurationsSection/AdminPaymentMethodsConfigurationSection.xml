@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminPaymentMethodsConfigurationSection">
+        <element name="OtherPaymentMethodsTab" type="button"
+                 selector="//a[@id='payment_us_other_payment_methods-head']"/>
+        <element name="Save" type="button" selector="//button[@id='save']" timeout="10"/>
+        <element name="PurchaseOrderTab" type="button" selector="//a[@id='payment_us_purchaseorder-head']"/>
+        <element name="PurchaseOrderTabOpen" type="button"
+                 selector="//a[@id='payment_us_purchaseorder-head'][@class='open']"/>
+        <element name="EnabledPurchaseOrder" type="select" selector="//select[@id='payment_us_purchaseorder_active']"/>
+        <element name="EnabledPurchaseOrderUseSystem" type="block"
+                 selector="//select[@id='payment_us_purchaseorder_active'][@disabled]"/>
+        <element name="CheckboxUseSystemEnabledPurchaseOrder" type="button"
+                 selector="//input[@id='payment_us_purchaseorder_active_inherit']"/>
+        <element name="BankTransferTab" type="button" selector="//a[@id='payment_us_banktransfer-head']"/>
+        <element name="BankTransferTabOpen" type="button"
+                 selector="//a[@id='payment_us_banktransfer-head'][@class='open']"/>
+        <element name="EnabledBankTransfer" type="select" selector="//select[@id='payment_us_banktransfer_active']"/>
+        <element name="EnabledBankTransferUseSystem" type="block"
+                 selector="//select[@id='payment_us_banktransfer_active'][@disabled]"/>
+        <element name="CheckboxUseSystemEnabledBankTransfer" type="button"
+                 selector="//input[@id='payment_us_banktransfer_active_inherit']"/>
+        <element name="CashOnDeliveryTab" type="button" selector="//a[@id='payment_us_cashondelivery-head']"/>
+        <element name="CashOnDeliveryTabOpen" type="button"
+                 selector="//a[@id='payment_us_cashondelivery-head'][@class='open']"/>
+        <element name="EnabledCashOnDelivery" type="select"
+                 selector="//select[@id='payment_us_cashondelivery_active']"/>
+        <element name="EnabledCashOnDeliveryUseSystem" type="block"
+                 selector="//select[@id='payment_us_cashondelivery_active'][@disabled]"/>
+        <element name="CheckboxUseSystemEnabledCashOnDelivery" type="button"
+                 selector="//input[@id='payment_us_cashondelivery_active_inherit']"/>
+    </section>
+</sections>

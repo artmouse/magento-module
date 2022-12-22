@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminDeleteCMSPageActionGroup" extends="AdminFindAndOpenCMSPageActionGroup">
+        <click selector="{{AdminPageSection.Delete}}" stepKey="clickToDelete"/>
+        <click selector="{{AdminPageSection.ConfirmAction}}" stepKey="clickToConfirmDelete"/>
+        <waitForPageLoad stepKey="waitForPageDeleteAfterConfirm"/>
+        <seeElement selector="{{AdminPageSection.SuccessMessageDelete}}" stepKey="seeSuccessMessage"/>
+    </actionGroup>
+</actionGroups>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="defRequest" type="popupData">
+        <data key="customerName" unique="suffix">name</data>
+        <data key="customerEmail">email1@example.com</data>
+        <data key="phoneNumber">+123456789</data>
+        <data key="comment">comment1</data>
+    </entity>
+
+</entities>

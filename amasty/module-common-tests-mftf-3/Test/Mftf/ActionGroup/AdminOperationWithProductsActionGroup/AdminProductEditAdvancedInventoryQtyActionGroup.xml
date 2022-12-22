@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminProductEditAdvancedInventoryQtyActionGroup">
+        <arguments>
+            <argument name="qty"/>
+        </arguments>
+        <scrollTo selector="{{AdminProductSection.Status}}" stepKey="scrollToAdvancedPricingSetting"/>
+        <click selector="{{AdminProductSection.AdvancedInventory}}" stepKey="openAdvancedInventorySetting"/>
+        <waitForAjaxLoad stepKey="waitForLoadAfterClickToAdvInventory"/>
+        <fillField selector="{{AdminProductSection.AdvancedInventoryQty}}" userInput="{{qty}}" stepKey="enterQty"/>
+        <click selector="{{AdminProductSection.CloseAdvancedInventory}}" stepKey="closeAdvancedInventorySetting"/>
+        <waitForAjaxLoad stepKey="waitForLoadAfterCloseAdvInventory"/>
+        <click selector="{{AdminProductSection.Save}}" stepKey="saveProductSetting"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSave"/>
+    </actionGroup>
+</actionGroups>

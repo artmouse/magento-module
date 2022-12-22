@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Automatic Related Products MFTF 3 for Magento 2 (System)
+*/-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+    <section name="StorefrontMultishippingSection">
+        <element name="addressForProduct" type="select" parameterized="true"
+                 selector="(//a[contains(text(), '{{product}}')])[{{number}}]/../../..//select"/>
+        <element name="discountForAddress" type="block" parameterized="true"
+                 selector="(//td[@data-th='Discount']//span[@class='price'][contains(text(), '{{discount}}')])[{{number}}]"/>
+    </section>
+</sections>
+
+

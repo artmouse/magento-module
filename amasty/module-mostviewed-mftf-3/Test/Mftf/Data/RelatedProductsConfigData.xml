@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Automatic Related Products MFTF 3 for Magento 2 (System)
+*/-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="relatedProductsConfigCLISettingsPaths" type="am_related_cli">
+        <data key="cms_page">ammostviewed/bundle_packs/cms_page</data>
+        <data key="position">ammostviewed/bundle_packs/position</data>
+        <data key="top_menu_enabled">ammostviewed/bundle_packs/top_menu_enabled</data>
+        <data key="display_options">ammostviewed/bundle_packs/display_options</data>
+        <data key="statistic_status">ammostviewed/bundle_packs/analytics/order_status</data>
+        <data key="statistic_recommendation">ammostviewed/bundle_packs/analytics/order_status_bought</data>
+        <data key="apply_cart_rule">ammostviewed/bundle_packs/apply_cart_rule</data>
+        <data key="apply_for_separately">ammostviewed/bundle_packs/apply_for_separately</data>
+        <data key="display_cart_message">ammostviewed/bundle_packs/display_cart_message</data>
+    </entity>
+    <entity name="relatedStatisticConfig" type="am_related_cli">
+        <data key="statistic_status">pending</data>
+        <data key="statistic_recommendation">pending</data>
+    </entity>
+    <entity name="useBaseConfig" type="am_related_cli">
+        <data key="enable">1</data>
+        <data key="disable">0</data>
+    </entity>
+    <entity name="amastyBundlePack" type="widget">
+        <data key="type">Amasty Related Products: Bundle Pack</data>
+        <data key="design_theme">Magento Luma</data>
+        <data key="name" unique="suffix">TestWidget</data>
+        <data key="sort_order">0</data>
+        <array key="store_ids">
+            <item>All Store Views</item>
+        </array>
+        <data key="display_on">All Pages</data>
+        <data key="container">Main Content Area</data>
+    </entity>
+    <entity name="defaultCartPriceRuleDiscountPercent50" extends="defaultCartPriceRuleDiscountWhole10" type="cartPriceRule">
+        <data key="discountAmount">50</data>
+        <data key="apply">Percent of product price discount</data>
+        <data key="code">AmDefTest50Percent</data>
+    </entity>
+    <entity name="defaultCartPriceRuleDiscountPercent25" extends="defaultCartPriceRuleDiscountWhole10" type="cartPriceRule">
+        <data key="discountAmount">25</data>
+        <data key="apply">Percent of product price discount</data>
+        <data key="code">AmDefTest25Percent</data>
+    </entity>
+    <entity name="defaultCartPriceRuleDiscountPercent15" extends="defaultCartPriceRuleDiscountWhole10" type="cartPriceRule">
+        <data key="discountAmount">15</data>
+        <data key="apply">Percent of product price discount</data>
+        <data key="code">AmDefTest15Percent</data>
+    </entity>
+    <entity name="defaultCartPriceRuleDiscount8Fixed" extends="defaultCartPriceRuleDiscountWhole10" type="cartPriceRule">
+        <data key="discountAmount">8</data>
+        <data key="apply">Fixed amount discount</data>
+        <data key="code">AmDefTest8Fixed</data>
+    </entity>
+</entities>

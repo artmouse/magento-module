@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Customer Group Auto Assign for Magento 2
+*/-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\GroupAssign\Api\Data\RuleInterface" type="Amasty\GroupAssign\Model\Rule" />
+    <preference for="Amasty\GroupAssign\Api\RuleRepositoryInterface" type="Amasty\GroupAssign\Model\Repository\RuleRepository" />
+    <preference for="Magento\Customer\Block\Adminhtml\Group\Edit\Form" type="Amasty\GroupAssign\Block\Adminhtml\Group\Edit\Form" />
+    <type name="Magento\Customer\Api\GroupRepositoryInterface">
+        <plugin name="Amasty_GroupAssign::Repository"
+                type="Amasty\GroupAssign\Plugin\Customer\Model\ResourceModel\GroupRepository\Repository"/>
+    </type>
+</config>

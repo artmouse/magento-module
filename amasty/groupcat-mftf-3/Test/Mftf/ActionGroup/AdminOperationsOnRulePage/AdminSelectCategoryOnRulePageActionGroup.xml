@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminSelectCategoryOnRulePageActionGroup">
+        <arguments>
+            <argument name="category" type="string"/>
+        </arguments>
+        <scrollTo selector="{{AdminGroupcatRuleSection.CategoriesSection}}" stepKey="scrollToCategoriesSection"/>
+        <conditionalClick selector="{{AdminGroupcatRuleSection.HideCategoryActiveButton}}" dependentSelector="{{AdminGroupcatRuleSection.HideCategoryInactiveValue}}"
+                          visible="true" stepKey="enableHideCategory"/>
+        <click selector="{{AdminGroupcatRuleSection.CategoriesDropdown}}" stepKey="openCategoriesList"/>
+        <checkOption selector="{{AdminGroupcatRuleSection.SelectCategory(category)}}" stepKey="selectCategory"/>
+        <click selector="{{AdminGroupcatRuleSection.Done}}" stepKey="clickDone"/>
+        <seeElement selector="{{AdminGroupcatRuleSection.CategoryName(category)}}" stepKey="seeCategoryName"/>
+        <click selector="{{AdminGroupcatRuleSection.SaveAndContinueEdit}}" stepKey="clickOnSave"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSave"/>
+        <seeElement selector="{{AdminGroupcatRuleSection.RuleSavedMessage}}" stepKey="seeRuleSavedMessage"/>
+        <magentoCLI command="cache:clean" stepKey="cacheClean"/>
+    </actionGroup>
+</actionGroups>

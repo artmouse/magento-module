@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminCreateOrderChooseShippingAndPlaceOrderActionGroup">
+        <arguments>
+            <argument name="shippingMethods" defaultValue="flatRateMethodOnCart"/>
+        </arguments>
+        <scrollTo selector="{{AdminCreateOrderSection.PaymentAndShippingSection}}"
+                  stepKey="scrollToSectionShippingAndPayment"/>
+        <click selector="{{AdminCreateOrderSection.GetShippingMethodsButton}}" stepKey="clickGetShippingMethodsButton"/>
+        <waitForAjaxLoad stepKey="waitForLoadMethods"/>
+        <click selector="{{AdminCreateOrderSection.ShippingMethods(shippingMethods.shippingMethodsName)}}"
+               stepKey="selectShippingMethod"/>
+        <waitForPageLoad stepKey="waitForSelectShippingMethod"/>
+        <click selector="{{AdminCreateOrderSection.SubmitOrderButton}}" stepKey="submitOrder"/>
+        <waitForPageLoad stepKey="waitForSubmitOrder"/>
+    </actionGroup>
+</actionGroups>

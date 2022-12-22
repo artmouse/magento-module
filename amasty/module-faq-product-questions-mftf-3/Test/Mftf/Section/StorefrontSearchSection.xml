@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="StorefrontSearchSection">
+        <element name="SearchField" type="input" selector="//input[@id='search-faq']"/>
+        <element name="SearchPageTitle" type="text" selector="//h1/span[contains(string(), 'FAQ Search Results')]"/>
+        <element name="SearchResult" type="text" parameterized="true" selector="//h1/span[contains(string(), 'Search results for &quot;{{result}}&quot;')]"/>
+        <element name="NoResult" type="text" parameterized="true" selector="//div[@class='am-no-items'][contains(string(), '{{noResultText}}')]"/>
+        <element name="ResultSelect" type="button" parameterized="true" selector="//li[@role='option'][contains(string(),'{{questionTitle}}')]"/>
+    </section>
+</sections>

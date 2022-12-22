@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontUpdateProductOnWishlistActionGroup">
+        <arguments>
+            <argument name="product"/>
+            <argument name="description" type="string"/>
+            <argument name="quantity"/>
+        </arguments>
+        <scrollTo selector="{{StorefrontCustomerWishlistProductSection.ProductInfoByName(product.name)}}" stepKey="scrollToProduct"/>
+        <moveMouseOver selector="{{StorefrontCustomerWishlistProductSection.ProductInfoByName(product.name)}}"
+                       stepKey="moveToProductFirst"/>
+        <fillField selector="{{StorefrontCustomerWishlistProductSection.ProductDescription(product.name)}}"
+                   userInput="{{description}}" stepKey="fillDescription"/>
+        <moveMouseOver selector="{{StorefrontCustomerWishlistProductSection.ProductInfoByName(product.name)}}"
+                       stepKey="moveToProductSecond"/>
+        <fillField selector="{{StorefrontCustomerWishlistProductSection.ProductQuantity(product.name)}}"
+                   userInput="{{quantity}}" stepKey="fillQuantity"/>
+        <moveMouseOver selector="{{StorefrontCustomerWishlistProductSection.ProductInfoByName(product.name)}}"
+                       stepKey="moveToProductThird"/>
+        <conditionalClick selector="{{StorefrontCustomerWishlistProductSection.ProductUpdateWishListTheme}}"
+                          dependentSelector="{{StorefrontCustomerWishlistProductSection.ProductUpdateWishListTheme}}"
+                          visible="true" stepKey="submitUpdateWishlistWithTheme"/>
+        <moveMouseOver selector="{{StorefrontCustomerWishlistProductSection.ProductAddAllToCart}}" stepKey="mouseOver"/>
+        <conditionalClick selector="{{StorefrontCustomerWishlistProductSection.ProductUpdateWishList}}"
+                          dependentSelector="{{StorefrontCustomerWishlistProductSection.ProductUpdateWishList}}"
+                          visible="true" stepKey="submitUpdateWishlist"/>
+        <seeElement selector="{{StorefrontCustomerWishlistProductSection.SuccessUpdateMessage(product.name)}}"
+                    stepKey="successMessage"/>
+    </actionGroup>
+</actionGroups>

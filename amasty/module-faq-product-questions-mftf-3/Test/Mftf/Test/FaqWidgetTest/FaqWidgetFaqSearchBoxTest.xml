@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqWidgetFaqSearchBoxTest" extends="FaqWidgetFaqCategoriesListTest">
+        <annotations>
+            <features value="Widget Faq Search Box"/>
+            <stories value="Widget Faq Search Box"/>
+            <title value="Add Widget Faq Search Box"/>
+            <description value="Assert Widget Faq Search Box on Storefront"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-75"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqWidget"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="AdminCreateFaqSearchBoxWidgetActionGroup" stepKey="createAmFaqWidget">
+                <argument name="widget" value="amFaqSearchBoxWidget"/>
+            </actionGroup>
+            <actionGroup ref="AdminCreateCategoryActionGroup" stepKey="createDefaultCategory"/>
+            <actionGroup ref="AdminCreateQuestionActionGroup" stepKey="createQuestion"/>
+            <actionGroup ref="AdminAssignQuestionToFaqCategoryActionGroup" stepKey="assignQuestionToCategory"/>
+        </before>
+        <after>
+            <actionGroup ref="AdminDeleteWidgetActionGroup" stepKey="deleteAmFaqWidget">
+                <argument name="widget" value="amFaqSearchBoxWidget"/>
+            </actionGroup>
+            <actionGroup ref="AdminDeleteQuestionFromGridActionGroup" after="deleteAmFaqWidget" stepKey="deleteQuestion"/>
+            <actionGroup ref="AdminDeleteCategoryFromGridActionGroup" after="deleteQuestion" stepKey="deleteDefaultCategory"/>
+        </after>
+
+        <remove keyForRemoval="openCategory"/>
+        <remove keyForRemoval="assertCategory"/>
+        <actionGroup ref="StorefrontSearchAndOpenSearchResultActionGroup" stepKey="assertWidgetOnHomePage">
+            <argument name="question" value="defaultQuestion"/>
+        </actionGroup>
+    </test>
+</tests>

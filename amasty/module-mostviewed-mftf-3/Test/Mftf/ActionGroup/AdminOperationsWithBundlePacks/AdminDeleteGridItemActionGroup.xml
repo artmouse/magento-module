@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Automatic Related Products MFTF 3 for Magento 2 (System)
+*/-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminDeleteGridItemActionGroup">
+        <arguments>
+            <argument name="urlGrid" defaultValue="AdminBundlePacksGridPage.url"/>
+            <argument name="item" defaultValue="amTestBundlePack.bundle_name"/>
+            <argument name="message" defaultValue="amastyARPMessage.bundle_deleted"/>
+        </arguments>
+        <amOnPage url="{{urlGrid}}" stepKey="amOnItemGridPageForDelete"/>
+        <scrollToTopOfPage stepKey="scrollToTop"/>
+        <conditionalClick selector="{{AdminDataGridFilterSection.clear}}"
+                          dependentSelector="{{AdminDataGridFilterSection.clear}}" visible="true"
+                          stepKey="clearExistingFilters"/>
+        <waitForPageLoad stepKey="waitForFiltersReset"/>
+        <seeElement selector="{{AdminBundlePacksGridSection.bundlePackName(item)}}" stepKey="checkBundleOnGrid"/>
+        <click selector="{{AdminBundlePacksGridSection.selectAction(item)}}" stepKey="pressBundlePackAction"/>
+        <click selector="{{AdminBundlePacksGridSection.deleteAction(item)}}" stepKey="pressBundlePackDeleteAction"/>
+        <waitForElementVisible selector="{{AdminPageSection.ConfirmAction}}" stepKey="waitForPopup"/>
+        <click selector="{{AdminPageSection.ConfirmAction}}" stepKey="confirmDeleteBundlePackPopUp"/>
+        <waitForAjaxLoad stepKey="waitForBundleGridAjaxLoadAfterDelete"/>
+        <waitForElementVisible selector="{{AdminStoresGridSection.successMessage}}"
+                               stepKey="waitForSuccessMessageVisible"/>
+        <see selector="{{AdminStoresGridSection.successMessage}}" userInput="{{message}}"
+             stepKey="checkRuleSuccessMessage"/>
+    </actionGroup>
+</actionGroups>

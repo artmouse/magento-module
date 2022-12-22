@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontCheckNoFreeShippingActionGroup">
+        <arguments>
+            <argument name="shippingMethods" defaultValue="flatRateMethodOnCart"/>
+        </arguments>
+        <amOnPage url="{{StorefrontCartPage.url}}" stepKey="navigateToShoppingCart"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenCart"/>
+        <conditionalClick selector="{{StorefrontCartSection.EstimateShippingAndTax}}"
+                          dependentSelector="{{StorefrontCartSection.ZipShipping}}" visible="false"
+                          stepKey="OpenTabWithShippingInCart"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenShippingEstimate"/>
+        <dontSeeElement selector="{{StorefrontCartSection.ShippingZero(shippingMethods.shippingMethodsName)}}"
+                        stepKey="StorefrontCheckNoFreeShippingActionGroup"/>
+        <conditionalClick selector="{{StorefrontCartSection.EstimateShippingAndTax}}"
+                          dependentSelector="{{StorefrontCartSection.ZipShipping}}" visible="true"
+                          stepKey="CloseTabWithShippingInCart"/>
+    </actionGroup>
+</actionGroups>

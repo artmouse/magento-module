@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontCreateOrderBillingAsShippingGuestActionGroup"
+                 extends="StorefrontCreateOrderAsCustomerWithPaymentMethodsActionGroup">
+        <checkOption selector="{{StorefrontCheckoutPaymentAddressSection.BillingAsShipping}}"
+                     after="waitForAjaxLoadAfterChoosePayment" stepKey="checkBillAsShip"/>
+        <conditionalClick selector="{{StorefrontCheckoutPaymentAddressSection.BillingAsShipping}}"
+                          dependentSelector="{{StorefrontCheckoutPaymentAddressSection.FirstName}}"
+                          after="checkBillAsShip" visible="true" stepKey="checkBillAsShipFirstNameIsTrue"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterAssertSuccessPage"/>
+        <grabTextFrom selector="{{StorefrontSuccessPageSection.OrderNumberAfterPlaceOrderGuest}}" stepKey="grabOrderNumber"/>
+    </actionGroup>
+</actionGroups>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminCheckTotalsInOrderWithTaxActionGroup" extends="AdminOpenOrderOnIdActionGroup">
+        <arguments>
+            <argument name="totalsWithTax"/>
+        </arguments>
+        <see selector="{{AdminOpenOrderSection.GrandTotal}}" userInput="{{totalsWithTax.orderTotal}}"
+             stepKey="checkGrandTotal"/>
+        <see selector="{{AdminOpenOrderSection.Subtotal}}" userInput="{{totalsWithTax.cartSubtotal}}" stepKey="checkSubtotal"/>
+        <see selector="{{AdminOpenOrderSection.Tax}}" userInput="{{totalsWithTax.tax}}" stepKey="checkTax"/>
+    </actionGroup>
+</actionGroups>

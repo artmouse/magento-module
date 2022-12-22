@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontOpenOrderFromMyAccountByIdActionGroup">
+        <arguments>
+            <argument name="orderId" type="string"/>
+        </arguments>
+        <amOnPage url="{{StorefrontCustomerDashboardPage.url}}" stepKey="onAccountPage"/>
+        <waitForPageLoad stepKey="waitForPage"/>
+        <scrollTo selector="{{StorefrontCustomerDashboardAccountInformationSection.RecentlyOrderBlock}}" stepKey="scroll"/>
+        <conditionalClick selector="{{StorefrontCustomerDashboardAccountInformationSection.ViewOrder(orderId)}}"
+                          dependentSelector="{{StorefrontCustomerDashboardAccountInformationSection.ViewOrder(orderId)}}"
+                          visible="true" stepKey="clickToOrder"/>
+        <conditionalClick selector="{{StorefrontCustomerDashboardAccountInformationSection.ViewOrderTheme(orderId)}}"
+                          dependentSelector="{{StorefrontCustomerDashboardAccountInformationSection.ViewOrderTheme(orderId)}}"
+                          visible="true" stepKey="clickToOrderIfTheme"/>
+        <waitForPageLoad stepKey="waitForViewOrder"/>
+    </actionGroup>
+</actionGroups>

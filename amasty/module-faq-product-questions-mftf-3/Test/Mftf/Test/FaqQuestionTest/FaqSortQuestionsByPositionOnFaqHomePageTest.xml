@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqSortQuestionsByPositionOnFaqHomePageTest">
+        <annotations>
+            <features value="FAQ Question Position"/>
+            <stories value="Assert Question Position"/>
+            <title value="Assert Question Position on FAQ Home Page"/>
+            <description value="Assert Question Position on FAQ Home Page"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-19"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqQuestion"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminCreateCategoryActionGroup" stepKey="createCategory"/>
+            <actionGroup ref="AdminCreateQuestionWithPositionActionGroup" stepKey="createSecondPositionQuestion">
+                <argument name="question" value="secondPositionQuestion"/>
+            </actionGroup>
+            <actionGroup ref="AdminAssignQuestionToFaqCategoryActionGroup" stepKey="assignSecondPositionQuestionToCategory"/>
+            <actionGroup ref="AdminCreateQuestionWithPositionActionGroup" stepKey="createFirstPositionQuestion"/>
+            <actionGroup ref="AdminAssignQuestionToFaqCategoryActionGroup" stepKey="assignDefQuestionToCategory"/>
+        </before>
+        <after>
+            <actionGroup ref="AdminDeleteQuestionFromGridActionGroup" stepKey="deleteSecondPositionQuestionOnGrid">
+                <argument name="questionTitle" value="secondPositionQuestion.title"/>
+            </actionGroup>
+            <actionGroup ref="AdminDeleteQuestionFromGridActionGroup" stepKey="deleteQuestionOnGrid"/>
+            <actionGroup ref="AdminDeleteCategoryFromGridActionGroup" stepKey="deleteCategoryOnGrid"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <actionGroup ref="StorefrontOpenFaqPageActionGroup" stepKey="openFaqPage"/>
+        <actionGroup ref="StorefrontAssertQuestionPositionOnFaqPageActionGroup" stepKey="assertDefQuestionPositionOnFaqPage"/>
+        <actionGroup ref="StorefrontAssertQuestionPositionOnFaqPageActionGroup" stepKey="assertSecondQuestionPositionOnFaqPage">
+            <argument name="question" value="secondPositionQuestion"/>
+        </actionGroup>
+    </test>
+</tests>

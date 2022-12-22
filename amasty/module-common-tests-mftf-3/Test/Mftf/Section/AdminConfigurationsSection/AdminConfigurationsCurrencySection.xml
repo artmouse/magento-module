@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminConfigurationsCurrencySection">
+        <element name="CurrencyOptionsTab" type="button"
+                 selector="//div[@class='accordion']//a[@id='currency_options-head']" timeout="30"/>
+        <element name="CurrencyOptionsTabClose" type="block"
+                 selector="//div[@class='accordion']//div[@class='section-config']//a[@id='currency_options-head']"/>
+        <element name="CurrencyOptionsTabOpen" type="block"
+                 selector="//div[@class='accordion']//div[@class='section-config active']//a[@id='currency_options-head']"/>
+        <element name="CurrencySelectOptions" type="select"
+                 selector="//tr[@id='row_currency_options_allow']//select[@id='currency_options_allow']" timeout="30"/>
+    </section>
+</sections>

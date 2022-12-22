@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontApplyCouponCodeOnTheCheckoutActionGroup">
+        <arguments>
+            <argument name="coupon"/>
+        </arguments>
+        <waitForElement selector="{{StorefrontCheckoutPaymentAddressSection.couponHeader}}" stepKey="waitForCouponHeader"/>
+        <conditionalClick selector="{{StorefrontCheckoutPaymentAddressSection.couponHeader}}"
+                          dependentSelector="{{StorefrontSalesRuleCartCouponSection.discountBlockActive}}"
+                          visible="false" stepKey="clickCouponHeader"/>
+        <waitForElementVisible selector="{{StorefrontCheckoutPaymentAddressSection.couponField}}" stepKey="waitForCouponField"/>
+        <fillField userInput="{{coupon.code}}" selector="{{StorefrontCheckoutPaymentAddressSection.couponField}}"
+                   stepKey="fillCouponField"/>
+        <click selector="{{StorefrontCheckoutPaymentAddressSection.applyButton}}" stepKey="clickApplyButton"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterApply"/>
+    </actionGroup>
+</actionGroups>

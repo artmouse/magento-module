@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="StorefrontProductPageSection">
+        <element name="QtyInput" type="input" selector="//input[@name='qty']"/>
+        <element name="Message" type="block"
+                 selector="//div[contains(@class, 'message')]//div[contains(text(), 'You cleared the comparison list')]" />
+        <element name="SelectAttributeOption" type="select"
+                 selector="//div[@class='product-add-form']//div//select[contains(@name, 'attribute')]"/>
+        <element name="QtyLabel" type="block" selector="//label[@for='qty']"/>
+        <element name="AddToCartBtn" type="button" selector="//button[@id='product-addtocart-button']" timeout="10"/>
+        <element name="SuccessMsg" type="text" selector="//div[@data-ui-id='message-success']"/>
+        <element name="AddToWishList" type="button" selector="//a[@data-action='add-to-wishlist']"/>
+        <element name="SpecialPriceProduct" type="text"
+                 selector="//div[@class='product-info-main']//span[@data-price-type='finalPrice']//span[@class='price']"/>
+        <element name="RegularPriceProduct" type="text"
+                 selector="//div[@class='product-info-main']//span[@data-price-type='oldPrice']//span[@class='price']"/>
+        <element name="AddProductToWishList" type="button" timeout="10"
+                 selector="//div[@class='column main']/div[contains(@class, 'product')][1]//*[@data-action='add-to-wishlist']"/>
+        <element name="SuccessAddToWishList" type="block" parameterized="true"
+                 selector="//div[@data-ui-id='message-success']//div[contains(string(), '{{productName}} has been added to your Wish List.')]"/>
+        <element name="SizeAttribute" type="block" parameterized="true"
+                 selector="//div[@class='product-add-form']//div[@option-label='{{size}}']"/>
+        <element name="ColorAttribute" type="block" parameterized="true"
+                 selector="//div[@class='product-add-form']//div[@option-label='{{color}}']"/>
+        <element name="ProductName" type="block" selector="//*[@class='page-title']"/>
+    </section>
+</sections>

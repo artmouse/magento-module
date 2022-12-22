@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminFaqConfigurationSection">
+        <element name="SaveConfig" type="button" selector="//button[@id='save']"/>
+        <!--General Settings tab-->
+        <element name="GeneralSettingsTab" type="button" selector="//a[@id='amastyfaq_general-head']"/>
+        <element name="EnableModule" type="select" selector="#amastyfaq_general_enabled"/>
+        <element name="Title" type="input" selector="#amastyfaq_general_label"/>
+        <element name="UrlPrefix" type="input" selector="#amastyfaq_general_url_key"/>
+        <element name="AddFaqToToolbar" type="select" selector="#amastyfaq_general_add_to_toolbar_menu"/>
+        <element name="AddFaqToCategoriesMenu" type="select" selector="#amastyfaq_general_add_to_category_menu"/>
+        <element name="AddFaqToFooter" type="select" selector="#amastyfaq_general_add_to_footer_menu"/>
+        <element name="AllowGuestAskQuestions" type="select" selector="#amastyfaq_general_unregistered_customers_questions"/>
+        <!--FAQ Home Page tab-->
+        <element name="FaqHomePageTab" type="button" selector="//a[@id='amastyfaq_faq_home_page-head']"/>
+        <element name="UseFaqHomePage" type="select" selector="#amastyfaq_faq_home_page_use_faq_home_page"/>
+        <element name="SelectCmsPage" type="select" selector="#amastyfaq_faq_home_page_cmspages_faq_home_page"/>
+        <element name="SelectFaqPagesLayout" type="select" selector="#amastyfaq_faq_home_page_layout"/>
+        <!--FAQ Search, Navigation and Sorting tab-->
+        <element name="SearchNavigationSortingTab" type="button" selector="//a[@id='amastyfaq_faq_page-head']"/>
+        <element name="ShowBreadcrumbs" type="select" selector="#amastyfaq_faq_page_show_breadcrumbs"/>
+        <element name="ShowAskQuestionButton" type="select" selector="#amastyfaq_faq_page_show_ask"/>
+        <element name="SortCategoriesBy" type="select" selector="#amastyfaq_faq_page_category_sort"/>
+        <element name="SortQuestionsBy" type="select" selector="#amastyfaq_faq_page_question_sort"/>
+        <element name="LimitDisplayedAnswerLength" type="input" selector="#amastyfaq_faq_page_limit_short_answer"/>
+        <element name="ShowSearchBox" type="select" selector="#amastyfaq_faq_page_show_search"/>
+        <element name="NoResultsText" type="input" selector="#amastyfaq_faq_page_no_result"/>
+        <element name="LimitQuestionsInCategory" type="input" selector="#amastyfaq_faq_page_limit_question_category"/>
+        <element name="LimitQuestionsInSearch" type="input" selector="#amastyfaq_faq_page_limit_question_search"/>
+        <element name="ShortAnswerBehavior" type="select" selector="#amastyfaq_faq_page_short_answer_behavior"/>
+        <element name="LimitTagsInMenu" type="input" selector="#amastyfaq_faq_page_tag_menu_limit"/>
+        <!--Product Page tab-->
+        <element name="ProductPageTab" type="button" selector="//a[@id='amastyfaq_product_page-head']"/>
+        <element name="ShowProductQuestionsTab" type="select" selector="#amastyfaq_product_page_show_tab"/>
+        <element name="ProductQuestionsTabName" type="input" selector="#amastyfaq_product_page_tab_name"/>
+        <element name="ProductQuestionsTabPosition" type="input" selector="#amastyfaq_product_page_tab_position"/>
+        <element name="ShowAskQuestionButtonProdPage" type="select" selector="#amastyfaq_product_page_show_link"/>
+        <element name="LimitQuestionsNumber" type="input" selector="#amastyfaq_product_page_limit_question_product"/>
+        <element name="ShortAnswerBehaviorProdPage" type="select" selector="#amastyfaq_product_page_short_answer_behavior"/>
+        <!--Social Buttons tab-->
+        <element name="RatingTab" type="button" selector="//a[@id='amastyfaq_rating-head']"/>
+        <element name="EnableRating" type="select" selector="//select[@id='amastyfaq_rating_enabled']"/>
+        <element name="RatingType" type="select" selector="//select[@id='amastyfaq_rating_type']"/>
+        <element name="HideZeroTotalRating" type="select" selector="//select[@id='amastyfaq_rating_avg_hide_empty_total']"/>
+        <element name="AllowRatingForGuests" type="select" selector="//select[@id='amastyfaq_rating_allow_guests']"/>
+        <!--Social Buttons tab-->
+        <element name="SocialButtonsTab" type="button" selector="//a[@id='amastyfaq_social-head']"/>
+        <element name="EnableSocialButtons" type="select" selector="//select[@id='amastyfaq_social_enabled']"/>
+        <element name="SocialNetworks" type="select" selector="//select[@id='amastyfaq_social_buttons']"/>
+        <!--Social Buttons tab-->
+        <element name="SeoTab" type="button" selector="//a[@id='amastyfaq_seo-head']"/>
+        <element name="CanonicalUrl" type="select" selector="//select[@id='amastyfaq_seo_canonical_url']"/>
+        <element name="StructuredData" type="select" selector="//select[@id='amastyfaq_seo_add_structureddata']"/>
+        <element name="RichDataBreadcrumbs" type="select" selector="//select[@id='amastyfaq_seo_add_richdata_breadcrumbs']"/>
+        <element name="RichDataOrganization" type="select" selector="//select[@id='amastyfaq_seo_add_richdata_organization']"/>
+        <!--GDPR Consent tab-->
+        <element name="GdprTab" type="button" selector="//a[@id='amastyfaq_gdpr-head']"/>
+        <element name="EnableConsent" type="select" selector="//select[@id='amastyfaq_gdpr_enabled']"/>
+    </section>
+</sections>

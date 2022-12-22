@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqQuestionQuantityOnTagTest">
+        <annotations>
+            <features value="Question Tag"/>
+            <stories value="Assert Question Tags"/>
+            <title value="Assert Question Tags Block"/>
+            <description value="Add Tags to Questions by Admin. Assert Tags Block Is on FAQ and Category Page. Questions Qty on Tag Is Correct"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-20"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqQuestion"/>
+            <group value="AmFaqTag"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminCreateCategoryActionGroup" stepKey="createCategory"/>
+            <actionGroup ref="AdminCreateQuestionWithTagActionGroup" stepKey="createDefaultQuestionWithTag"/>
+            <actionGroup ref="AdminAssignQuestionToFaqCategoryActionGroup" stepKey="assignDefaultQuestionToCategory"/>
+            <actionGroup ref="AdminCreateQuestionWithTagActionGroup" stepKey="createSecondQuestionWithTag">
+                <argument name="question" value="secondQuestion"/>
+            </actionGroup>
+            <actionGroup ref="AdminAssignQuestionToFaqCategoryActionGroup" stepKey="assignSecondQuestionToCategory"/>
+        </before>
+        <after>
+            <actionGroup ref="AdminDeleteQuestionFromGridActionGroup" stepKey="deleteDefaultQuestionOnGrid"/>
+            <actionGroup ref="AdminDeleteQuestionFromGridActionGroup" stepKey="deleteSecondQuestionOnGrid">
+                <argument name="questionTitle" value="secondQuestion.title"/>
+            </actionGroup>
+            <actionGroup ref="AdminDeleteCategoryFromGridActionGroup" stepKey="deleteCategoryOnGrid"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <!--assert tag block on faq page-->
+        <actionGroup ref="StorefrontOpenFaqPageActionGroup" stepKey="openFaqPage"/>
+        <actionGroup ref="StorefrontAssertTagBlockOnFaqPageActionGroup" stepKey="assertTagBlockOnFaqPage"/>
+        <actionGroup ref="StorefrontAssertTagOnFaqPageActionGroup" stepKey="assertDefaultTagOnFaqPage"/>
+        <actionGroup ref="StorefrontAssertTagOnFaqPageActionGroup" stepKey="assertCustomTagOfDefaultQuestionOnFaqPage">
+            <argument name="tag" value="defaultQuestion.customTag"/>
+            <argument name="qty" value="tagQty.one"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertTagOnFaqPageActionGroup" stepKey="assertCustomTagOfSecondQuestionOnFaqPage">
+            <argument name="tag" value="secondQuestion.customTag"/>
+            <argument name="qty" value="tagQty.one"/>
+        </actionGroup>
+        <!--assert tag block on category page-->
+        <actionGroup ref="StorefrontOpenFaqCategoryPageActionGroup" stepKey="openDefCategoryPage"/>
+        <actionGroup ref="StorefrontAssertTagBlockOnCategoryPageActionGroup" stepKey="assertTagBlockOnCategoryPage"/>
+        <actionGroup ref="StorefrontAssertTagOnCategoryPageActionGroup" stepKey="assertDefaultTagOnCategoryPage"/>
+        <actionGroup ref="StorefrontAssertTagOnCategoryPageActionGroup" stepKey="assertCustomTagOfDefaultQuestionOnCategoryPage">
+            <argument name="tag" value="defaultQuestion.customTag"/>
+            <argument name="qty" value="tagQty.one"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertTagOnCategoryPageActionGroup" stepKey="assertCustomTagOfSecondQuestionOnCategoryPage">
+            <argument name="tag" value="secondQuestion.customTag"/>
+            <argument name="qty" value="tagQty.one"/>
+        </actionGroup>
+    </test>
+</tests>

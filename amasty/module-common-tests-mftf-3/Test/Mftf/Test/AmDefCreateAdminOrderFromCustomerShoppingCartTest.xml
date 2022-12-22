@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AmDefCreateAdminOrderFromCustomerShoppingCartTest" extends="AddConfigurableProductToOrderFromShoppingCartTest">
+        <annotations>
+            <features value="Create Order"/>
+            <stories value="Create Order From Customer Shopping Cart via Admin"/>
+            <title value="Create Order From Customer Shopping Cart on Admin Area"/>
+            <description value="Create Order From Customer Shopping Cart on Admin Area"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmDef-25"/>
+            <group value="Amasty"/>
+            <group value="ConfigurableProduct"/>
+            <group value="AmDef"/>
+            <group value="AmDefCE"/>
+            <group value="AmDefAdmin"/>
+        </annotations>
+
+        <before>
+            <createData entity="CommonCustomerArizona" stepKey="createCustomer"/>
+            <magentoCLI command="cache:flush" stepKey="flushCache"/>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+        </before>
+        <after>
+            <remove keyForRemoval="customerLogout"/>
+            <magentoCLI command="cache:flush" stepKey="flushCache"/>
+        </after>
+
+        <remove keyForRemoval="loginAsAdmin"/>
+        <actionGroup ref="StorefrontAddConfigProductToCartAssertOnMiniCartActionGroup" stepKey="addConfigurableProductToCart">
+            <argument name="product" value="$$createConfigProduct$$"/>
+        </actionGroup>
+    </test>
+</tests>

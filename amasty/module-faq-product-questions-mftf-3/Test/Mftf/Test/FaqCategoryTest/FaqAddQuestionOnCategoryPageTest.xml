@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqAddQuestionOnCategoryPageTest">
+        <annotations>
+            <features value="FAQ Question"/>
+            <stories value="Add Question to Category"/>
+            <title value="Assert Question Is Added From Category Page Is on FAQ Page and on Category Page. Not Added Question to Category Is Not on FAQ Page and Category Page"/>
+            <description value="Assert Question Is Added From Category Page Is on FAQ Page and on Category Page. Not Added Question to Category Is Not on FAQ Page and Category Page"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-09"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqCategory"/>
+            <group value="AmFaqQuestion"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminCreateQuestionActionGroup" stepKey="createDefQuestion"/>
+            <actionGroup ref="AdminCreateQuestionActionGroup" stepKey="createSecQuestion">
+                <argument name="question" value="secondQuestion"/>
+            </actionGroup>
+            <actionGroup ref="AdminCreateCategoryActionGroup" stepKey="createCategory"/>
+            <actionGroup ref="AdminAddQuestionFromCategoryPageActionGroup" stepKey="addQuestionFromCategoryPage"/>
+        </before>
+        <after>
+            <actionGroup ref="AdminDeleteQuestionFromGridActionGroup" stepKey="deleteDefQuestionOnGrid"/>
+            <actionGroup ref="AdminDeleteQuestionFromGridActionGroup" stepKey="deleteSecQuestionOnGrid">
+                <argument name="questionTitle" value="secondQuestion.title"/>
+            </actionGroup>
+            <actionGroup ref="AdminDeleteCategoryFromGridActionGroup" stepKey="deleteCategoryOnGrid"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <actionGroup ref="StorefrontOpenFaqPageActionGroup" stepKey="openFaqPage"/>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnFaqPageActionGroup" stepKey="assertAssignedToCatQuestionOnFaqPage"/>
+        <actionGroup ref="StorefrontAssertNoQuestionTitleOnFaqPageActionGroup" stepKey="assertNotAssignedToCatQuestionOnFaqPage">
+            <argument name="questionTitle" value="secondQuestion.title"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenCategoryFromFaqPageActionGroup" stepKey="openCategoryFromFaqPage"/>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnCategoryPageActionGroup" stepKey="assertAssignedQuestionOnCategoryPage"/>
+        <actionGroup ref="StorefrontAssertNoQuestionTitleOnCategoryPageActionGroup" stepKey="assertNotAssignedQuestionOnCategoryPage">
+            <argument name="questionTitle" value="secondQuestion.title"/>
+        </actionGroup>
+    </test>
+</tests>

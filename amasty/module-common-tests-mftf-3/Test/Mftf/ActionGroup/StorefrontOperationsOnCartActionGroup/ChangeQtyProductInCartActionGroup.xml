@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <!-- Don't using ActionGroup "ChangeQtyProductInCartActionGroup",
+        them will be deleted after change in all test to "StorefrontChangeQtyProductInCart" -->
+    <actionGroup name="ChangeQtyProductInCartActionGroup">
+        <arguments>
+            <argument name="addProductQty"/>
+            <argument name="products"/>
+        </arguments>
+        <amOnPage url="{{StorefrontCartPage.url}}" stepKey="navigateToShoppingCart1"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+        <fillField selector="{{StorefrontCartSection.ProductQtyInput(products.productSKU)}}" userInput="{{addProductQty.qty}}"
+                   stepKey="changeProductQty"/>
+        <click selector="{{StorefrontCartSection.UpdateShoppingCart}}" stepKey="updateCart"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterUpdateCart"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterUpdateCart"/>
+    </actionGroup>
+
+</actionGroups>

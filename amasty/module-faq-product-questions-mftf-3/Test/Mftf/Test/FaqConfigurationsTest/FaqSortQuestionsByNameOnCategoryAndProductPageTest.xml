@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqSortQuestionsByNameOnCategoryAndProductPageTest" extends="FaqSortQuestionsByPositionOnCategoryAndProductPageTest">
+        <annotations>
+            <features value="Sort Questions By"/>
+            <stories value="Sort Questions By Name"/>
+            <title value="Assert Question Are Sorted By Name on Category Page, Added Product And Category Product"/>
+            <description value="Assert Question Are Sorted By Name on Category Page, Added Product And Category Product"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-44"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqQuestion"/>
+            <group value="AmFaqConfigurations"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="AdminCreateQuestionWithPositionActionGroup" stepKey="createSecondPositionQuestion">
+                <argument name="question" value="secondNamePositionQuestion"/>
+            </actionGroup>
+            <actionGroup ref="AdminCreateQuestionWithPositionActionGroup" stepKey="createFirstPositionQuestion">
+                <argument name="question" value="firstNamePositionQuestion"/>
+            </actionGroup>
+            <actionGroup ref="AdminFaqSearchNavigationSortingActionGroup" stepKey="setSortQuestionBy">
+                <argument name="setting" value="sortQuestionsByName"/>
+            </actionGroup>
+        </before>
+        <after>
+            <actionGroup ref="AdminDeleteQuestionFromGridActionGroup" stepKey="deleteSecondPositionQuestionOnGrid">
+                <argument name="questionTitle" value="secondNamePositionQuestion.title"/>
+            </actionGroup>
+            <actionGroup ref="AdminDeleteQuestionFromGridActionGroup" stepKey="deleteQuestionOnGrid">
+                <argument name="questionTitle" value="firstNamePositionQuestion.title"/>
+            </actionGroup>
+            <actionGroup ref="AdminFaqSearchNavigationSortingActionGroup" before="logout" stepKey="setDefSearchNavigationSorting"/>
+        </after>
+
+        <remove keyForRemoval="assertDefQuestionPositionOnCategoryPage"/>
+        <remove keyForRemoval="assertSecondQuestionPositionOnCategoryPage"/>
+        <remove keyForRemoval="assertDefQuestionPositionOnFirstProductPage"/>
+        <remove keyForRemoval="assertSecondQuestionPositionOnOnFirstProductPage"/>
+        <remove keyForRemoval="assertDefQuestionPositionOnSecondProductPage"/>
+        <remove keyForRemoval="assertSecondQuestionPositionOnOnSecondProductPage"/>
+        <actionGroup ref="StorefrontAssertQuestionPositionOnCategoryByNameActionGroup" after="openFirstProductPage" stepKey="assertQuestionsPositionOnCategoryByName"/>
+        <!--assert question on added product-->
+        <actionGroup ref="StorefrontAssertQuestionPositionOnProductByNameActionGroup" after="openFirstProductPage" stepKey="assertQuestionsPositionOnProductByName"/>
+        <!--assert question on added category product-->
+        <actionGroup ref="StorefrontAssertQuestionPositionOnProductByNameActionGroup" after="openSecondProductPage" stepKey="assertQuestionsPositionOnCatProdByName"/>
+    </test>
+</tests>

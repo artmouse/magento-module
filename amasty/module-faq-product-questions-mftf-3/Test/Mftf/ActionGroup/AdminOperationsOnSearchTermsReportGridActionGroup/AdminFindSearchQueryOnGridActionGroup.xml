@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminFindSearchQueryOnGridActionGroup">
+        <arguments>
+            <argument name="searchQuery"/>
+            <argument name="qtyRecordsFound" defaultValue="qtyRecordFound.1_record"/>
+        </arguments>
+        <amOnPage url="{{AdminSearchTermsReportGridPage.url}}" stepKey="openSearchTermsReportGrid"/>
+        <waitForPageLoad stepKey="waitForSearchTermsReportGridLoad"/>
+        <conditionalClick selector="{{AdminSearchTermsReportGridSection.ClearAllFilters}}" dependentSelector="{{AdminSearchTermsReportGridSection.ActiveFilters}}"
+                          visible="true" stepKey="clearAllFilters"/>
+        <waitForPageLoad stepKey="waitForCLearFilterDataLoad"/>
+        <conditionalClick selector="{{AdminSearchTermsReportGridSection.FiltersButton}}" dependentSelector="{{AdminSearchTermsReportGridSection.ApplyFilter}}"
+                          visible="false" stepKey="openFilter"/>
+        <fillField selector="{{AdminSearchTermsReportGridSection.SearchQuery}}" userInput="{{searchQuery}}" stepKey="fillSearchQuery"/>
+        <click selector="{{AdminSearchTermsReportGridSection.ApplyFilter}}" stepKey="applyFilter"/>
+        <waitForPageLoad stepKey="waitForFilteredDataLoad"/>
+        <seeElement selector="{{AdminSearchTermsReportGridSection.RecordsFoundMessage(qtyRecordsFound)}}" stepKey="seeCorrectQtyRecordsFound"/>
+    </actionGroup>
+</actionGroups>

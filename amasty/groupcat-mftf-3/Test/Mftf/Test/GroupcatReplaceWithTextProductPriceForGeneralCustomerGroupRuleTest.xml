@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="GroupcatReplaceWithTextProductPriceForGeneralCustomerGroupRuleTest"
+          extends="GroupcatReplaceWithTextProductPriceRuleTest">
+        <annotations>
+            <features value="Creation Hide Product Price Customer Group Catalog Rule for General Customer Group"/>
+            <stories value="Check Replace With Text Product Price Customer Group Catalog Rule for General Customer Group"/>
+            <title value="Check Replace With Text Product Price Customer Group Catalog Rule for General Customer Group at Storefront Product Page"/>
+            <description value="Check Replace With Text Product Price Customer Group Catalog Rule for General Customer Group at Storefront Product Page"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="AmGroupCatalog-22"/>
+            <group value="AmGroupCatalog"/>
+            <group value="AmReplacePriceToRequestFormRule"/>
+        </annotations>
+
+        <before>
+            <createData entity="Simple_US_Customer" after="firstSimpleProduct" stepKey="customer"/>
+        </before>
+
+        <after>
+            <deleteData createDataKey="customer" after="deleteRule" stepKey="deleteCustomer"/>
+        </after>
+
+        <remove keyForRemoval="addProduct"/>
+        <actionGroup ref="AdminSelectProductSKUForCustomerGroupOnRulePageActionGroup" after="replaceWithTextPrice" stepKey="addCustomerGroupForProduct">
+            <argument name="product" value="$$firstSimpleProduct.sku$$"/>
+            <argument name="ruleData" value="ruleForGeneral.customerGroups"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertProductPriceActionGroup" after="addCustomerGroupForProduct" stepKey="storefrontSecondCheckProductPrice">
+            <argument name="category" value="$category$"/>
+            <argument name="product" value="$$firstSimpleProduct.name$$"/>
+        </actionGroup>
+        <actionGroup ref="LoginToStorefrontActionGroup" before="storefrontCheckReplaceWithTextProductPrice" stepKey="loginToStorefront">
+            <argument name="Customer" value="$$customer$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCustomerLogoutActionGroup" after="storefrontCheckReplaceWithTextProductPrice" stepKey="customerLogout"/>
+    </test>
+</tests>

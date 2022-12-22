@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="statusYesNo" type="statusData">
+        <data key="isYes">Yes</data>
+        <data key="isNo">No</data>
+    </entity>
+
+    <entity name="statusEnableDisable" type="statusData">
+        <data key="isEnable">Enable</data>
+        <data key="isDisable">Disable</data>
+    </entity>
+
+    <entity name="statusActiveInactive" type="statusData">
+        <data key="isActive">Active</data>
+        <data key="isInactive">Inactive</data>
+    </entity>
+
+    <entity name="statusOrders" type="statusData">
+        <data key="isClosed">Closed</data>
+        <data key="isPending">Pending</data>
+        <data key="isComplete">Complete</data>
+        <data key="isProcessing">Processing</data>
+        <data key="isOnHold">On Hold</data>
+        <data key="isCanceled">Canceled</data>
+        <data key="isOpen">Open</data>
+        <data key="isPendingPayment">Pending Payment</data>
+        <data key="isPaymentReview">Payment Review</data>
+    </entity>
+
+    <entity name="stockStatus" type="statusData">
+        <data key="inStock">In Stock</data>
+        <data key="outStock">Out of Stock</data>
+    </entity>
+
+</entities>

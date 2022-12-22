@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Automatic Related Products MFTF 3 for Magento 2 (System)
+*/-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminBundlePackCreationAndDeletionTest">
+        <annotations>
+            <stories value="Bundle Pack"/>
+            <title value="Check creation and deletion of a new Bundle Pack"/>
+            <description value="Create and delete a new Bundle Pack in the admin panel"/>
+            <testCaseId value="ARP-1"/>
+            <severity value="CRITICAL"/>
+            <group value="mostviewed"/>
+        </annotations>
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <!-- Create sample data -->
+            <createData entity="ApiCategory" stepKey="createCategory"/>
+            <createData entity="ApiSimpleProduct" stepKey="createSimpleProductOne">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="ApiSimpleProduct" stepKey="createSimpleProductTwo">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <magentoCLI command="cache:clean" stepKey="cacheClean"/>
+        </before>
+        <after>
+            <!-- Delete sample data -->
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createSimpleProductOne" stepKey="deleteSimpleProductOne"/>
+            <deleteData createDataKey="createSimpleProductTwo" stepKey="deleteSimpleProductTwo"/>
+            <!-- Delete Bundle Pack -->
+            <actionGroup ref="AdminDeleteGridItemActionGroup" stepKey="goToBundlePacksGridForDelete"/>
+            <actionGroup ref="AdminDeleteGridItemUsingMassActionActionGroup"
+                         stepKey="goToBundlePacksGridForDeleteSecond">
+                <argument name="item" value="amTestBundlePackTwo.bundle_name"/>
+            </actionGroup>
+            <magentoCLI command="cache:clean" stepKey="cacheClean"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+        <!-- Create Bundle Pack -->
+        <actionGroup ref="AdminCreateBundlePackActionGroup" stepKey="goToBundlePacksGridForCreate"/>
+        <actionGroup ref="AdminAddMainProductForPackActionGroup" stepKey="addMainProduct">
+            <argument name="mainProduct" value="$$createSimpleProductTwo.product[name]$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminAddBundleProductForPackActionGroup" stepKey="addBundleProduct">
+            <argument name="bundleProduct" value="$$createSimpleProductOne.product[name]$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminSaveBundlePackActionGroup" stepKey="saveBundlePack"/>
+        <!-- Create Second Bundle Pack -->
+        <actionGroup ref="AdminCreateBundlePackActionGroup" stepKey="goToBundlePacksGridForCreateSecond">
+            <argument name="am_test_bundle" value="amTestBundlePackTwo"/>
+        </actionGroup>
+        <actionGroup ref="AdminAddMainProductForPackActionGroup" stepKey="addMainProductSecond">
+            <argument name="mainProduct" value="$$createSimpleProductTwo.product[name]$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminAddBundleProductForPackActionGroup" stepKey="addBundleProductSecond">
+            <argument name="bundleProduct" value="$$createSimpleProductOne.product[name]$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminSaveBundlePackActionGroup" stepKey="saveSecondBundlePack"/>
+    </test>
+</tests>

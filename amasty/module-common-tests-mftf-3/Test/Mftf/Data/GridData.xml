@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="gridNumbers" type="gridElementNumber">
+        <data key="gridOne">1</data>
+        <data key="gridTwo">2</data>
+        <data key="gridThree">3</data>
+        <data key="gridFour">4</data>
+        <data key="gridFive">5</data>
+        <data key="gridSix">6</data>
+        <data key="gridSeven">7</data>
+        <data key="gridEight">8</data>
+        <data key="gridNine">9</data>
+        <data key="gridTen">10</data>
+    </entity>
+
+    <entity name="mainMassActions" type="gridMassActions">
+        <data key="delete">Delete</data>
+        <data key="disable">Disable</data>
+        <data key="enable">Enable</data>
+        <data key="edit">Edit</data>
+    </entity>
+
+    <entity name="prodMassActions" type="gridMassActions">
+        <data key="changeStatus">Change status</data>
+        <data key="updateAttr">Update attributes</data>
+        <data key="assignInv">Assign Inventory Source</data>
+        <data key="unassignInv">Unassign Inventory Source</data>
+        <data key="transferInv">Transfer Inventory To Source</data>
+    </entity>
+
+    <entity name="orderMassActions" type="gridMassActions">
+        <data key="cancel">Cancel</data>
+        <data key="hold">Hold</data>
+        <data key="unhold">Unhold</data>
+        <data key="printInv">Print Invoices</data>
+        <data key="printPack">Print Packing Slips</data>
+        <data key="printCred">Print Credit Memos</data>
+        <data key="printAll">Print All</data>
+        <data key="printShip">Print Shipping Labels</data>
+        <data key="moveToArch">Move to Archive</data>
+    </entity>
+
+    <entity name="customerMassActions" type="gridMassActions">
+        <data key="subscribe">Subscribe to Newsletter</data>
+        <data key="unsubscribe">Unsubscribe from Newsletter</data>
+        <data key="assignCustGroup">Assign a Customer Group</data>
+    </entity>
+
+    <entity name="optionsMultiCheck" type="gridMultiCheck">
+        <data key="selectAll">Select All</data>
+        <data key="deselectAll">Deselect All</data>
+        <data key="selectAllPage">Select All on This Page</data>
+        <data key="deselectAllPage">Deselect All on This Page</data>
+    </entity>
+</entities>

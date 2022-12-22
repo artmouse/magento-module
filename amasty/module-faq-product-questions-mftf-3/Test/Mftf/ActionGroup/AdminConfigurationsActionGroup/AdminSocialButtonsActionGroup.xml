@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminSocialButtonsActionGroup" extends="AdminDisableSocialButtonsActionGroup">
+        <arguments>
+            <argument name="setting" defaultValue="defSocialButtons"/>
+        </arguments>
+        <selectOption selector="{{AdminFaqConfigurationSection.SocialNetworks}}" parameterArray="[{{setting.socialNetworks}}]"
+                      after="setSocialButtons" stepKey="selectSocialNetworks"/>
+    </actionGroup>
+</actionGroups>

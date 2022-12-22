@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontDeleteProductFromTheCartActionGroup">
+        <arguments>
+            <argument name="product"/>
+        </arguments>
+        <amOnPage url="{{StorefrontCartPage.url}}" stepKey="navigateToShoppingCart"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenCart"/>
+        <click selector="{{StorefrontCartSection.DeleteProductButton(product.name)}}" stepKey="deleteProductFromTheCart"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterDeleteProductFromCart"/>
+    </actionGroup>
+</actionGroups>

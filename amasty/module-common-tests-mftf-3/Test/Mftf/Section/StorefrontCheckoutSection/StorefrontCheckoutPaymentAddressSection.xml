@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="StorefrontCheckoutPaymentAddressSection">
+        <element name="PlaceOrder" type="button"
+                 selector="//div[contains(@class, 'active')]//button[@title='Place Order']" timeout="10"/>
+        <element name="couponHeader" type="block" selector="#block-discount-heading"/>
+        <element name="couponField" type="input" selector="//input[contains(@id,'discount-code')][@type='text']"/>
+        <element name="discountBlockActive" type="block"
+                 selector="//span[@id='block-discount-heading']/parent::div[@aria-selected='true']"/>
+        <element name="applyButton" type="button" selector="//form[@id='discount-form']//button[contains(@class, 'apply')]" timeout="30"/>
+        <element name="cancelButton" type="button"
+                 selector="//form[@id='discount-form']//button[@class='action action-cancel']" timeout="30"/>
+        <element name="DiscountAmount" type="block" selector="//tr[@class='totals discount']/td[@class='amount']/span"/>
+        <element name="Discount" type="button" selector="//span[text()='Discount']"/>
+        <element name="PaymentMethodButton" type="button" parameterized="true"
+                 selector="//input[@value='{{paymentMethod}}']"/>
+        <element name="PaymentMethodLabel" type="button" parameterized="true"
+                 selector="//label[@for='{{paymentMethod}}']"/>
+        <element name="PaymentMethodIsActive" type="button" parameterized="true"
+                 selector="//label[@for='{{paymentMethod}}']/parent::div/parent::div[contains(@class, 'active')]//button[@title='Place Order']"/>
+        <element name="PurchaseOrderNumber" type="input" selector="//input[@id='po_number']"/>
+        <element name="Email" type="input"
+                 selector="//form[@data-role='email-with-possible-login']//input[@name='username']"/>
+        <element name="FirstName" type="input"
+                 selector="//div[@class='payment-method _active']//input[@name='firstname']"/>
+        <element name="LastName" type="input"
+                 selector="//div[@class='payment-method _active']//input[@name='lastname']"/>
+        <element name="StreetAddress" type="input"
+                 selector="//div[@class='payment-method _active']//input[@name='street[0]']"/>
+        <element name="City" type="input" selector="//div[@class='payment-method _active']//input[@name='city']"/>
+        <element name="Country" type="select"
+                 selector="//div[@class='payment-method _active']//select[@name='country_id']"/>
+        <element name="State" type="select"
+                 selector="//div[@class='payment-method _active']//select[@name='region_id']"/>
+        <element name="Postcode" type="input"
+                 selector="//div[@class='payment-method _active']//input[@name='postcode']"/>
+        <element name="PhoneNumber" type="input"
+                 selector="//div[@class='payment-method _active']//input[@name='telephone']"/>
+        <element name="UpdateAddress" type="button"
+                 selector="//div[@class='payment-method _active']//button[@class='action action-update']"/>
+        <element name="BillingAsShipping" type="input"
+                 selector="//div[@class='payment-method _active']//input[@name='billing-address-same-as-shipping']//following-sibling::label"/>
+        <element name="ProductTab" type="block" selector="//div[contains(@class,'opc-block-summary')]//div[@role='tab']"/>
+        <element name="ProductTabOpen" type="block"
+                 selector="//div[contains(@class, 'active')]//div[@role='tab']//span[contains(string(), 'Item')]"/>
+        <element name="ProductOnCheckout" type="block" parameterized="true"
+                 selector="//div[@class='content minicart-items']//following::strong[contains(string(),'{{productName}}')]"/>
+        <element name="ProductQtyOnCheckout" type="block" parameterized="true"
+                 selector="//div[@class='content minicart-items']//following::strong[contains(string(),'{{productName}}')]//following-sibling::div[@class='details-qty']//span[@class='value']"/>
+    </section>
+</sections>

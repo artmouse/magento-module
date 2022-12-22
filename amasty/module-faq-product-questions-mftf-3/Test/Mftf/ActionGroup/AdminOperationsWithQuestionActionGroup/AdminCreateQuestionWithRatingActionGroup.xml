@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminCreateQuestionWithRatingActionGroup" extends="AdminCreateQuestionActionGroup">
+        <fillField selector="{{AdminQuestionSection.PositiveRating}}" userInput="{{question.positiveRating}}"
+                   after="selectVisibility" stepKey="fillPositiveRating"/>
+        <fillField selector="{{AdminQuestionSection.NegativeRating}}" userInput="{{question.negativeRating}}"
+                   after="fillPositiveRating" stepKey="fillNegativeRating"/>
+        <fillField selector="{{AdminQuestionSection.AverageRating}}" userInput="{{question.averageRating}}"
+                   after="fillNegativeRating" stepKey="fillAverageRating"/>
+    </actionGroup>
+</actionGroups>

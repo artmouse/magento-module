@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontCancelCouponCodeOnTheCheckoutActionGroup">
+        <waitForElement selector="{{StorefrontCheckoutPaymentAddressSection.couponHeader}}" stepKey="waitForCouponHeader"/>
+        <conditionalClick selector="{{StorefrontCheckoutPaymentAddressSection.couponHeader}}"
+                          dependentSelector="{{StorefrontCheckoutPaymentAddressSection.discountBlockActive}}" visible="false"
+                          stepKey="clickCouponHeader"/>
+        <waitForElementVisible selector="{{StorefrontCheckoutPaymentAddressSection.couponField}}" stepKey="waitForCouponField"/>
+        <click selector="{{StorefrontCheckoutPaymentAddressSection.cancelButton}}" stepKey="clickCancelButton"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterCancel"/>
+    </actionGroup>
+</actionGroups>

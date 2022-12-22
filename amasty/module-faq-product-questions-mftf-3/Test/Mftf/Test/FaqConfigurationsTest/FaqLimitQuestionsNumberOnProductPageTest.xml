@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqLimitQuestionsNumberOnProductPageTest">
+        <annotations>
+            <features value="Limit Questions Number on Product Page"/>
+            <stories value="Limit Questions Number on Product Page"/>
+            <title value="Assert Limit Questions Number on Product Page"/>
+            <description value="Assert Only Set Questions Quantity Is Available on Product Page. Question Quantity Is Correct on Question Tab"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-54"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqQuestion"/>
+            <group value="AmFaqConfigurations"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="simpleCategory"/>
+            <createData entity="SimpleProductByFusionBackpack" stepKey="simpleProduct">
+                <requiredEntity createDataKey="simpleCategory"/>
+            </createData>
+            <createData entity="apiFaqCategory" stepKey="faqCategory"/>
+            <createData entity="apiFaqQuestionWithCategory" stepKey="firstFaqQuestion">
+                <requiredEntity createDataKey="faqCategory"/>
+                <requiredEntity createDataKey="simpleProduct"/>
+            </createData>
+            <createData entity="apiFaqQuestionWithCategory" stepKey="secondFaqQuestion">
+                <requiredEntity createDataKey="faqCategory"/>
+                <requiredEntity createDataKey="simpleProduct"/>
+            </createData>
+            <createData entity="apiFaqQuestionWithCategory" stepKey="thirdFaqQuestion">
+                <requiredEntity createDataKey="faqCategory"/>
+                <requiredEntity createDataKey="simpleProduct"/>
+            </createData>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminFaqProductPageActionGroup" stepKey="setThreeQuestionOnPage"/>
+        </before>
+        <after>
+            <deleteData createDataKey="firstFaqQuestion" stepKey="deleteFirstFaqQuestion"/>
+            <deleteData createDataKey="secondFaqQuestion" stepKey="deleteSecondFaqQuestion"/>
+            <deleteData createDataKey="thirdFaqQuestion" stepKey="deleteThirdFaqQuestion"/>
+            <deleteData createDataKey="faqCategory" stepKey="deleteFaqCategory"/>
+            <deleteData createDataKey="simpleProduct" stepKey="deleteProduct"/>
+            <deleteData createDataKey="simpleCategory" stepKey="deleteCategory"/>
+            <actionGroup ref="AdminFaqProductPageActionGroup" stepKey="setDefProductPageOptions"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <!--assert three questions are on product page-->
+        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="openProductPage">
+            <argument name="productUrl" value="$$simpleProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTabOptionsActionGroup" stepKey="assertQuestionTabDefConfig">
+            <argument name="questionQty" value="questionQty.threeQuestion"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenQuestionTabActionGroup" stepKey="openQuestionTab"/>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnProductPageActionGroup" stepKey="assertFirstQuestionDefConf">
+            <argument name="questionTitle" value="$$firstFaqQuestion.title$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnProductPageActionGroup" stepKey="assertSecondQuestionDefConf">
+            <argument name="questionTitle" value="$$secondFaqQuestion.title$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnProductPageActionGroup" stepKey="assertThirdQuestionDefConf">
+            <argument name="questionTitle" value="$$thirdFaqQuestion.title$$"/>
+        </actionGroup>
+        <!--assert only two questions are on product page-->
+        <actionGroup ref="AdminFaqProductPageActionGroup" stepKey="setTwoQuestionOnPage">
+            <argument name="setting" value="twoQuestionsOnProductPage"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="openProductPageThreeQuest">
+            <argument name="productUrl" value="$$simpleProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTabOptionsActionGroup" stepKey="assertQuestionTabCustomConfig">
+            <argument name="questionQty" value="questionQty.twoQuestion"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenQuestionTabActionGroup" stepKey="openQuestionTabCustomConfig"/>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnProductPageActionGroup" stepKey="assertFirstQuestionCustomConfig">
+            <argument name="questionTitle" value="$$firstFaqQuestion.title$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnProductPageActionGroup" stepKey="assertSecondQuestionCustomConfig">
+            <argument name="questionTitle" value="$$secondFaqQuestion.title$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertNoQuestionTitleOnProductPageActionGroup" stepKey="assertNoThirdQuestionCustomConfig">
+            <argument name="questionTitle" value="$$thirdFaqQuestion.title$$"/>
+        </actionGroup>
+    </test>
+</tests>

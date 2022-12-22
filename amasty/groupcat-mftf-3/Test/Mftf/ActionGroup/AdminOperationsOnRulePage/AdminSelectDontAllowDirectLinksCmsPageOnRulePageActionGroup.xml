@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminSelectDontAllowDirectLinksCmsPageOnRulePageActionGroup">
+        <arguments>
+            <argument name="directLinks" defaultValue="actionOnForbid"/>
+            <argument name="directLinks" defaultValue="cmsPageRedirectTo"/>
+        </arguments>
+        <scrollTo selector="{{AdminGroupcatRuleSection.DirectLinks}}" stepKey="scrollToDirectLinksOptions"/>
+        <conditionalClick selector="{{AdminGroupcatRuleSection.AllowDirectLinksActiveButton}}" dependentSelector="{{AdminGroupcatRuleSection.AllowDirectLinksInactiveValue}}"
+                          visible="false" stepKey="disableAllowDirectLinks"/>
+        <waitForElementVisible selector="{{AdminGroupcatRuleSection.ActionOnForbid}}" stepKey="waitForAppearsActionOnForbidOption"/>
+        <selectOption selector="{{AdminGroupcatRuleSection.ActionOnForbid}}" userInput="{{actionOnForbid.redirectToCmsPage}}" stepKey="selectShowCmsPageOption"/>
+        <waitForElementVisible selector="{{AdminGroupcatRuleSection.DefaultTestCMSPage}}" stepKey="waitForAppearsDefaultTestCMSPageOption"/>
+        <selectOption selector="{{AdminGroupcatRuleSection.DefaultTestCMSPage}}" userInput="{{cmsPageRedirectTo.pageTitle}}" stepKey="selectShowDefaultTestCMSPagePageOption"/>
+    </actionGroup>
+</actionGroups>

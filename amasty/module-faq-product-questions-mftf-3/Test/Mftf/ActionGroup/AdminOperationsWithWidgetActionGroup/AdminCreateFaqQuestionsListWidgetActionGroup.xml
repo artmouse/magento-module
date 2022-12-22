@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminCreateFaqQuestionsListWidgetActionGroup" extends="AdminCreateWidgetActionGroup">
+        <arguments>
+            <argument name="category"/>
+        </arguments>
+        <fillField selector="{{AdminAmWidgetSection.BlockTitle}}" userInput="{{widget.blockTitle}}" stepKey="fillBlockTitle"/>
+        <fillField selector="{{AdminAmWidgetSection.AnswerLength}}" userInput="{{widget.answerLength}}" stepKey="fillAnswerLength"/>
+        <click selector="{{AdminAmWidgetSection.SelectCategory}}" stepKey="clickSelectCategory"/>
+        <waitForPageLoad stepKey="waitForCategoriesLoad"/>
+        <fillField selector="{{AdminAmWidgetSection.CategoryTitleField}}" userInput="{{category}}" stepKey="fillCategoryTitle"/>
+        <pressKey selector="{{AdminAmWidgetSection.CategoryTitleField}}" parameterArray="[\Facebook\WebDriver\WebDriverKeys::ENTER]" stepKey="search"/>
+        <waitForPageLoad stepKey="waitForSearchResult"/>
+        <click selector="{{AdminAmWidgetSection.FirstRow(category)}}" stepKey="clickFirstCategory"/>
+        <waitForPageLoad stepKey="waitForCategoryAdded"/>
+        <see selector="{{AdminAmWidgetSection.SelectedCategory}}" userInput="{{category}}" stepKey="seeSelectedCategory"/>
+        <click selector="{{AdminMainActionsSection.save}}" stepKey="clickSaveWidget"/>
+        <waitForPageLoad stepKey="waitForWidgetSave"/>
+        <see selector="{{AdminMessagesSection.success}}" userInput="{{successMessage.widgetSaved}}" stepKey="seeSuccessMessage"/>
+        <magentoCLI command="cache:flush" stepKey="flushCache"/>
+    </actionGroup>
+</actionGroups>

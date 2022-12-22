@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontOpenCategoryFromFaqPageActionGroup">
+        <arguments>
+            <argument name="category" defaultValue="defaultCategory.title"/>
+        </arguments>
+        <click selector="{{StorefrontFaqSection.CategoryViewAll(category)}}" stepKey="openCategory"/>
+        <waitForPageLoad stepKey="waitForCategoryPageLoad"/>
+    </actionGroup>
+</actionGroups>

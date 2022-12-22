@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqSocialButtonsTest">
+        <annotations>
+            <features value="Social Buttons"/>
+            <stories value="Assert Social Buttons on Question Page"/>
+            <title value="Assert Set Social Buttons on Question Page"/>
+            <description value="Assert Set Social Buttons Are on Question Page. No Social Buttons if Block Is Disabled"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-56"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqConfigurations"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="simpleCategory"/>
+            <createData entity="SimpleProductByFusionBackpack" stepKey="simpleProduct">
+                <requiredEntity createDataKey="simpleCategory"/>
+            </createData>
+            <createData entity="apiFaqCategory" stepKey="faqCategory"/>
+            <createData entity="apiFaqQuestionWithCategory" stepKey="faqQuestion">
+                <requiredEntity createDataKey="faqCategory"/>
+                <requiredEntity createDataKey="simpleProduct"/>
+            </createData>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminSocialButtonsActionGroup" stepKey="setAllSocialButtons">
+                <argument name="setting" value="allSocialButtons"/>
+            </actionGroup>
+        </before>
+        <after>
+            <deleteData createDataKey="faqQuestion" stepKey="deleteFaqQuestion"/>
+            <deleteData createDataKey="faqCategory" stepKey="deleteFaqCategory"/>
+            <deleteData createDataKey="simpleProduct" stepKey="deleteProduct"/>
+            <deleteData createDataKey="simpleCategory" stepKey="deleteCategory"/>
+            <actionGroup ref="AdminSocialButtonsActionGroup" stepKey="setDefSocialButtons"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <actionGroup ref="StorefrontOpenFaqQuestionPageActionGroup" stepKey="openQuestionPageAssertNetworks">
+            <argument name="question" value="$$faqQuestion$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertSocialButtonsBlockOnQuestionPageActionGroup" stepKey="assertSocialButtonsBlock"/>
+        <actionGroup ref="StorefrontAssertAllSocialButtonsOnQuestionPageActionGroup" stepKey="assertAllSocialButtons"/>
+        <!--disable social buttons-->
+        <actionGroup ref="AdminDisableSocialButtonsActionGroup" stepKey="disableSocialButtons"/>
+        <actionGroup ref="StorefrontOpenFaqQuestionPageActionGroup" stepKey="openQuestionPageAssertNoNetworksBlock">
+            <argument name="question" value="$$faqQuestion$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertNoSocialButtonsBlockOnQuestionPageActionGroup" stepKey="assertNoSocialButtonsBlock"/>
+    </test>
+</tests>

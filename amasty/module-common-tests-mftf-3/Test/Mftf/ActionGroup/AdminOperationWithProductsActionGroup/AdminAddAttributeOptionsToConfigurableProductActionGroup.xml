@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminAddAttributeOptionsToConfigurableProductActionGroup"
+                 extends="AddNewProductConfigurationAttributeActionGroup">
+        <remove keyForRemoval="clickOnNewAttribute"/>
+        <remove keyForRemoval="waitForIFrame"/>
+        <remove keyForRemoval="switchToNewAttributeIFrame"/>
+        <remove keyForRemoval="fillDefaultLabel"/>
+        <remove keyForRemoval="clickOnNewAttributePanel"/>
+        <remove keyForRemoval="waitForSaveAttribute"/>
+        <remove keyForRemoval="switchOutOfIFrame"/>
+        <remove keyForRemoval="waitForFilters"/>
+        <fillField userInput="{{attribute.attribute_code}}"
+                   selector="{{AdminCreateProductConfigurationsPanel.attributeCode}}"
+                   stepKey="fillFilterAttributeCodeField"/>
+        <fillField userInput="{{firstOption.name}}" selector="{{AdminCreateProductConfigurationsPanel.attributeName}}"
+                   stepKey="fillFieldForNewFirstOption"/>
+        <fillField userInput="{{secondOption.name}}" selector="{{AdminCreateProductConfigurationsPanel.attributeName}}"
+                   stepKey="fillFieldForNewSecondOption"/>
+    </actionGroup>
+</actionGroups>

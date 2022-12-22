@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataOperation.xsd">
+
+    <operation name="CreateFaqQuestion" dataType="faqQuestion" type="create" auth="adminOauth"
+               url="/V1/amasty_faq/question" method="POST">
+        <contentType>application/json</contentType>
+        <object key="question" dataType="faqQuestion">
+            <field key="question_id">integer</field>
+            <field key="title">string</field>
+            <field key="answer">string</field>
+            <field key="relative_url">string</field>
+            <field key="short_answer">string</field>
+            <field key="visibility">integer</field>
+            <field key="status">integer</field>
+            <field key="name">string</field>
+            <field key="email">string</field>
+            <field key="position">integer</field>
+            <field key="url_key">string</field>
+            <field key="positive_rating">integer</field>
+            <field key="negative_rating">integer</field>
+            <field key="total_rating">integer</field>
+            <field key="meta_title">string</field>
+            <field key="meta_description">string</field>
+            <field key="created_at">string</field>
+            <field key="stores">string</field>
+            <field key="categories">string</field>
+            <array key="tags">
+                <object dataType="faqTag">
+                    <field key="tag_id">integer</field>
+                    <field key="title">string</field>
+                </object>
+            </array>
+            <field key="visit_count">integer</field>
+            <field key="exclude_sitemap">boolean</field>
+            <field key="updated_at">string</field>
+            <field key="canonical_url">string</field>
+            <field key="noindex">boolean</field>
+            <field key="nofollow">boolean</field>
+            <field key="show_full_answer">boolean</field>
+            <field key="product_ids">string</field>
+            <field key="customer_groups">string</field>
+        </object>
+    </operation>
+
+    <operation name="DeleteFaqQuestion" dataType="faqQuestion" type="delete" auth="adminOauth"
+               url="/V1/amasty_faq/question/{question_id}" method="DELETE">
+        <contentType>application/json</contentType>
+    </operation>
+</operations>

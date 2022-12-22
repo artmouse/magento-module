@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminSelectMultiCheckOptionGridActionGroup">
+        <arguments>
+            <argument name="option" defaultValue="optionsMultiCheck.selectAll" />
+        </arguments>
+        <conditionalClick selector="{{AdminGridsSection.MultiCheckSelect}}"
+                          dependentSelector="{{AdminGridsSection.MultiCheckActive}}"
+                          visible="false" stepKey="clickToMultiCheck" />
+        <waitForElementVisible selector="{{AdminGridsSection.MultiCheckOption(option)}}" stepKey="waitOption" />
+        <click selector="{{AdminGridsSection.MultiCheckOption(option)}}" stepKey="clickToOption" />
+        <waitForPageLoad stepKey="waitLoadAfterClickOption" />
+    </actionGroup>
+</actionGroups>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAssertNoFaqLinksActionGroup" extends="StorefrontAssertFaqLinksActionGroup">
+        <arguments>
+            <argument name="setting" defaultValue="notAddFaqLink"/>
+        </arguments>
+        <dontSeeElement selector="{{StorefrontFaqSection.FaqToolbar(setting.urlPrefix, setting.title)}}" stepKey="assertFaqInToolbar"/>
+        <dontSeeElement selector="{{StorefrontFaqSection.FaqCategoryMenu(setting.urlPrefix, setting.title)}}" stepKey="assertFaqInCategoryMenu"/>
+        <dontSeeElement selector="{{StorefrontFaqSection.FaqFooter(setting.urlPrefix, setting.title)}}" stepKey="assertFaqInFooter"/>
+    </actionGroup>
+</actionGroups>

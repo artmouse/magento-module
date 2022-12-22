@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAssertQuestionTitleOnQuestionPageActionGroup">
+        <annotations>
+            <description>Action Group Asserts Question Title, Breadcrumbs, URL</description>
+        </annotations>
+        <arguments>
+            <argument name="question" defaultValue="defaultQuestion"/>
+        </arguments>
+        <seeElement selector="{{StorefrontQuestionSection.QuestionTitle(question.title)}}" stepKey="seeQuestionTitleInPageTitle"/>
+        <seeElement selector="{{StorefrontQuestionSection.QuestionInBreadcrumbs(question.title)}}" stepKey="seeQuestionInBreadcrumbs"/>
+        <seeInCurrentUrl url="{{question.url_key}}" stepKey="seeQuestionTitleInUrl"/>
+    </actionGroup>
+</actionGroups>

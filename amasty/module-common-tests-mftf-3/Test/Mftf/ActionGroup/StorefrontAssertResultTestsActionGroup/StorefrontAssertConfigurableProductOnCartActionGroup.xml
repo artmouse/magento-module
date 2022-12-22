@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAssertConfigurableProductOnCartActionGroup" extends="StorefrontAssertProductOnCartActionGroup">
+        <arguments>
+            <argument name="productConfigOption" defaultValue="configurableProductOptions.optionOne"/>
+            <argument name="productChild"/>
+        </arguments>
+        <seeInField selector="{{StorefrontCartSection.ProductQtyOnCart(productChild.sku)}}" userInput="{{productQty.qty}}"
+                    stepKey="checkQtyProduct"/>
+        <see selector="{{StorefrontCartSection.ProductConfigOptionOnCart(product.name)}}" userInput="{{productConfigOption}}"
+             after="checkProductInCart" stepKey="assertConfigProductOption"/>
+    </actionGroup>
+</actionGroups>

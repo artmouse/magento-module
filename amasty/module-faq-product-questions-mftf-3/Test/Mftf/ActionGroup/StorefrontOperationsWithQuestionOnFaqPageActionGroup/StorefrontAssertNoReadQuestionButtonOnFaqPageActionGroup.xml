@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAssertNoReadQuestionButtonOnFaqPageActionGroup">
+        <arguments>
+            <argument name="category" defaultValue="defaultCategory.title"/>
+            <argument name="questionName" defaultValue="defaultQuestion.title"/>
+            <argument name="questionAnswer" defaultValue="defaultQuestion.fullAnswer"/>
+        </arguments>
+        <conditionalClick selector="{{StorefrontFaqSection.QuestionTab(category, questionName)}}"
+                          dependentSelector="{{StorefrontFaqSection.QuestionAnswer(questionName, questionAnswer)}}"
+                          visible="false" stepKey="openQuestionTab"/>
+        <waitForPageLoad stepKey="waitForQuestionTabLoad"/>
+        <dontSeeElement selector="{{StorefrontFaqSection.QuestionRead(questionName)}}" stepKey="assertReadQuestionButton"/>
+    </actionGroup>
+</actionGroups>

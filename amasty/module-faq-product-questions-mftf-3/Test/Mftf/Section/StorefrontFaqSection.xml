@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="StorefrontFaqSection">
+        <element name="ErrorMessage" type="text" parameterized="true" selector="//div[@data-ui-id='message-error'][contains(string(), '{{errorMsg}}')]"/>
+        <element name="CategoryTitle" type="text" parameterized="true" selector="//div[@class='am-widget-category']//div[@class='faq-category-title'][contains(string(), '{{categoryTitle}}')]"/>
+        <element name="CategoryIcon" type="text" parameterized="true" selector="//div[@class='am-category-header'][contains(string(),'{{categoryTitle}}')]//img[contains(@src, '{{categoryIcon}}')]"/>
+        <element name="CategoryTitlePosition" type="text" parameterized="true" selector="//div[@class='am-widget-categories-3 widget']//div[{{position}}][@class='am-widget-category'][contains(string(), '{{categoryTitle}}')]"/>
+        <element name="CategoryViewAll" type="button" parameterized="true" selector="//div[@class='am-widget-category'][contains(string(), '{{categoryTitle}}')]//a[contains(string(),'View all')]"/>
+        <element name="QuestionTitle" type="text" parameterized="true" selector="//div[@class='am-category-container'][contains(string(),'{{category}}')]//div[@class='am-title'][contains(string(), '{{question}}')]"/>
+        <element name="QuestionTitlePosition" type="text" parameterized="true" selector="//div[@class='am-category-container'][contains(string(),'{{category}}')]//div[{{position}}][@class='am-item'][contains(string(), '{{questionTitle}}')]"/>
+        <element name="QuestionTab" type="button" parameterized="true" selector="//div[@class='am-category-container'][contains(string(),'{{category}}')]//div[@class='am-title'][contains(string(), '{{question}}')]//span"/>
+        <element name="QuestionTabWidget" type="button" parameterized="true" selector="//div[@class='amfaq_questions widget']//div[@class='am-title'][contains(string(), '{{question}}')]"/>
+        <element name="QuestionRead" type="button" parameterized="true" selector="//div[@class='am-item'][contains(string(), '{{question}}')]//a[contains(string(),'Read More')]"/>
+        <element name="QuestionAnswer" type="text" parameterized="true" selector="//div[@class='am-item'][contains(string(), '{{question}}')]//div[contains(@class, 'am-content')][contains(string(), '{{answer}}')]"/>
+        <element name="TagsBlock" type="block" selector="//div[@class='am-faq-tags-widget'][contains(string(), 'Tags')]"/>
+        <element name="Tag" type="button" parameterized="true" selector="//div[@class='am-faq-tags-widget']//span[@class='am-tags-tag'][contains(string(),'{{tag}}')][contains(string(),'({{questionQty}})')]"/>
+        <element name="FaqToolbar" type="button" parameterized="true" selector="//ul[@class='header links']/li/a[contains(@href,'/{{url}}/') and contains(string(),'{{title}}')]"/>
+        <element name="FaqCategoryMenu" type="button" parameterized="true" selector="//div[@id='store.menu']//li/a[contains(@href,'/{{url}}/') and contains(string(),'{{title}}')]"/>
+        <element name="FaqFooter" type="button" parameterized="true" selector="//ul[@class='footer links']/li/a[contains(@href,'/{{url}}/') and contains(string(),'{{title}}')]"/>
+        <element name="PageTitle" type="text" parameterized="true" selector="//h1[@class='page-title'][contains(string(),'{{pageTitle}}')]"/>
+        <element name="CmsInBreadcrumb" type="text" parameterized="true" selector="//div[@class='breadcrumbs']//li[@class='item cms_page'][contains(string(),'{{faqCms}}')]"/>
+        <element name="BackToProduct" type="button" selector="//button[contains(string(),'Back to Product')]"/>
+        <element name="QuestionWidgetTitle" type="text" selector="//div[@class='amfaq_questions widget']/div[@class='amfaq-title']"/>
+        <element name="QuestionWidgetItem" type="text" selector="//div[@class='amfaq_questions widget']/div[@class='am-item']"/>
+    </section>
+</sections>

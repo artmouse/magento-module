@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="apiFaqTag" type="faqTag">
+        <data key="title" unique="suffix">API tag-</data>
+    </entity>
+
+    <entity name="apiFaqSecondTag" type="faqTag">
+        <data key="title" unique="suffix">API tag2-</data>
+    </entity>
+</entities>

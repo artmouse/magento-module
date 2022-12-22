@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAssertProductCountOnCategoryPageActionGroup">
+        <arguments>
+            <argument name="productCount"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForLoadBeforeAssert"/>
+        <seeNumberOfElements selector="{{StorefrontCategoryMainSection.productLink}}" userInput="{{productCount}}"
+                             stepKey="seeNumberOfProductsInSecondPage"/>
+    </actionGroup>
+</actionGroups>

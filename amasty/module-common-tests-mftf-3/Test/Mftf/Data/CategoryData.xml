@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <!-- Use For Choose Pagination Value on Category Page -->
+    <entity name="categoryPaginationValues" type="pagination">
+        <data key="paginationTwelve">12</data>
+        <data key="paginationTwentyFour">24</data>
+        <data key="paginationThirtySix">36</data>
+    </entity>
+
+    <!-- Use For Sorting on Category Page -->
+    <entity name="sortOnCategory" type="sorting">
+        <data key="productName">Product Name</data>
+        <data key="price">Price</data>
+    </entity>
+
+    <!-- Use For Assert Count Product on Category Page -->
+    <entity name="productCountOnCategoryPage" type="countProdOnCategory">
+        <data key="productCountOne">1</data>
+        <data key="productCountTwo">2</data>
+        <data key="productCountFourteen">14</data>
+    </entity>
+
+</entities>

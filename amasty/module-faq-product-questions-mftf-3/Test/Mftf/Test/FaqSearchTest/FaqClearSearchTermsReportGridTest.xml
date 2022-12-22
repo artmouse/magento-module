@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqClearSearchTermsReportGridTest" extends="FaqSearchTermsReportTest">
+        <annotations>
+            <features value="FAQ Search Terms Report"/>
+            <stories value="Assert Clear FAQ Search Terms Report Grid"/>
+            <title value="Search Query Is Not on Search Terms Report After Clear Grid"/>
+            <description value="Search Query Is Not on Search Terms Report After Clear Grid"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-32"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqQuestion"/>
+            <group value="AmFaqSearch"/>
+        </annotations>
+
+        <remove keyForRemoval="findSearchQueryBeforeSearch"/>
+        <remove keyForRemoval="assertSearchQuery"/>
+        <actionGroup ref="AdminFindSearchQueryOnGridActionGroup" stepKey="findSearchQueryAfterClearLog">
+            <argument name="searchQuery" value="$$faqSearchQuestion.title$$"/>
+            <argument name="qtyRecordsFound" value="qtyRecordFound.0_record"/>
+        </actionGroup>
+    </test>
+</tests>

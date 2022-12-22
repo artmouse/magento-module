@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAssertOldAndNewProductPriceOnCategoryPageActionGroup"
+                 extends="StorefrontAssertOldAndNewPriceOnProductPageActionGroup">
+        <arguments>
+            <argument name="categoryName" type="string"/>
+        </arguments>
+        <remove keyForRemoval="goToProductPage"/>
+        <amOnPage url="{{StorefrontHomePage.url}}" before="waitForPageLoad" stepKey="onFrontend"/>
+        <waitForPageLoad after="onFrontend" stepKey="waitForStorefrontPageLoad"/>
+        <click selector="{{StorefrontHeaderSection.NavigationCategoryByName(categoryName)}}"
+               after="waitForStorefrontPageLoad" stepKey="goToCategoryPage"/>
+        <see selector="{{StorefrontCategoryProductSection.SpecialPriceProduct(product.name)}}"
+             userInput="{{prices.newPrice}}" stepKey="assertNewPrice"/>
+        <see selector="{{StorefrontCategoryProductSection.RegularPriceProduct(product.name)}}"
+             userInput="{{prices.oldPrice}}" stepKey="assertOldPrice"/>
+    </actionGroup>
+</actionGroups>

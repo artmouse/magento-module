@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+<!--
+    Group to delete entities for multiple createdDataKeys.
+
+    Arguments:
+            1. createDataKey - stepKey of the createData action.
+                 Format: >Step_1,Step_2,...,Step_N< .
+                 Example using in test (will be deleted all created Customers, Categories, Products) :
+                    - value="createCustomer,createCategory,createProduct"
+
+            2. deleteCountEach - count of entity to delete.
+                 Format: >number_delete_1,number_delete_2,...,number_delete_N<.
+                 Example using in test (will be deleted 2 created customers, 7 categories, 4 products):
+                    - value="{{number.two},{{number.seven},{{number.four}}"
+                 If using default value -> will be deleted all allowed entities for each if it is less than value
+                  in "deleteCountEachMax".
+
+            3. deleteCountEachMax - value for delete number if "deleteCountEach" is not specified.
+                Format: >number< .
+                If using default value -> will be deleted all allowed each entities if it is less than 200.
+
+            4. deleteFromNumber - the sequence number (suffix) of the stepKey from which needs begin to delete entity.
+                 Format: >number< .
+                 Example using in test (will be deleted created entities from steps "createCustomer3, createCategory1,
+                  createProduct8") :
+                    - value="{{number.three}},,{{number.eight}}"
+                 If using default value -> deleted from steps with sequence number one.
+-->
+
+    <actionGroup name="AmastyMultipleDeleteDataActionGroup">
+        <arguments>
+            <argument name="createDataKeysList" type="string" />
+            <argument name="deleteCountEachList" type="string" defaultValue="null"/>
+            <argument name="deleteCountEachMax" type="string" defaultValue="{{number.two_hundred}}" />
+            <argument name="deleteFromNumbersList" type="string" defaultValue="null" />
+        </arguments>
+        <helper class="\Amasty\CommonTestsMFTF3\Test\Mftf\Helper\AmastyDataHelper"
+                method="amastyDeleteKeysEntitiesArray" stepKey="amMultiDeleteData">
+            <argument name="createDataKeys">{{createDataKeysList}}</argument>
+            <argument name="deleteCountEach">{{deleteCountEachList}}</argument>
+            <argument name="deleteCountEachMax">{{deleteCountEachMax}}</argument>
+            <argument name="deleteFromEach">{{deleteFromNumbersList}}</argument>
+        </helper>
+    </actionGroup>
+</actionGroups>

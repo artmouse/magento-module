@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqApiCategoryTest">
+        <annotations>
+            <features value="API FAQ Category"/>
+            <stories value="Assert API FAQ Category"/>
+            <title value="Create FAQ Category With Added FAQ Question Using API. Delete Category"/>
+            <description value="Create FAQ Category Using API. Assert Category Data Is Correct on Category Page Admin Part, Storefront FAQ Page and Category Page. Delete Category Using API"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-26"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqCategory"/>
+            <group value="AmFaqApi"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="simpleCategory"/>
+            <createData entity="SimpleProductByFusionBackpack" stepKey="simpleProduct">
+                <requiredEntity createDataKey="simpleCategory"/>
+            </createData>
+            <createData entity="apiFaqQuestion" stepKey="faqQuestion">
+                <requiredEntity createDataKey="simpleProduct"/>
+            </createData>
+            <createData entity="apiFaqCategoryWithQuestion" stepKey="faqCategory">
+                <requiredEntity createDataKey="faqQuestion"/>
+            </createData>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+        </before>
+        <after>
+            <deleteData createDataKey="faqCategory" stepKey="deleteFaqCategory"/>
+            <deleteData createDataKey="faqQuestion" stepKey="deleteFaqQuestion"/>
+            <deleteData createDataKey="simpleProduct" stepKey="deleteProduct"/>
+            <deleteData createDataKey="simpleCategory" stepKey="deleteCategory"/>
+            <actionGroup ref="AdminFindCategoryOnGridActionGroup" stepKey="assertFaqCategoryDeleted">
+                <argument name="categoryTitle" value="$$faqCategory.title$$"/>
+                <argument name="qtyRecordsFound" value="qtyRecordFound.0_record"/>
+            </actionGroup>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <actionGroup ref="AdminOpenCategoryFromGridActionGroup" stepKey="openApiCategoryFromGrid">
+            <argument name="categoryTitle" value="$$faqCategory.title$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminAssertCategoryDataActionGroup" stepKey="assertApiCategoryData">
+            <argument name="category" value="$$faqCategory$$"/>
+            <argument name="questionTitle" value="$$faqQuestion.title$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenFaqPageActionGroup" stepKey="openFaqPage"/>
+        <actionGroup ref="StorefrontAssertCategoryTitleOnFaqPageActionGroup" stepKey="assertApiCategoryOnFaqPage">
+            <argument name="categoryTitle" value="$$faqCategory.title$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnFaqPageActionGroup" stepKey="assertQuestionOnFaqPage">
+            <argument name="categoryTitle" value="$$faqCategory.title$$"/>
+            <argument name="questionTitle" value="$$faqQuestion.title$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenFaqCategoryPageActionGroup" stepKey="openApiCategoryPage">
+            <argument name="category" value="$$faqCategory$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertCategoryTitleAndDescOnCategoryPageActionGroup" stepKey="assertApiCategoryOnCategoryPage">
+            <argument name="category" value="$$faqCategory$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnCategoryPageActionGroup" stepKey="assertQuestionOnCategoryPage">
+            <argument name="questionTitle" value="$$faqQuestion.title$$"/>
+        </actionGroup>
+    </test>
+</tests>

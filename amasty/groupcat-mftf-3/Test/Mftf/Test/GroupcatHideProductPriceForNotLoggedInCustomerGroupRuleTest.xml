@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="GroupcatHideProductPriceForNotLoggedInCustomerGroupRuleTest" extends="GroupcatHideProductPriceRuleTest">
+        <annotations>
+            <features value="Creation Hide Product Price Customer Group Catalog Rule for Not Logged In Customer Group"/>
+            <stories value="Check Hide Product Price Customer Group Catalog Rule for Not Logged In Customer Group"/>
+            <title value="Check Hide Product Price Customer Group Catalog Rule for Not Logged In Customer Group at Storefront Product Page"/>
+            <description value="Check Hide Product Price Customer Group Catalog Rule for Not Logged In Customer Group at Storefront Product Page"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="AmGroupCatalog-11"/>
+            <group value="AmGroupCatalog"/>
+            <group value="AmHideProduct"/>
+        </annotations>
+
+        <before>
+            <createData entity="Simple_US_Customer" stepKey="customer"/>
+        </before>
+
+        <after>
+            <deleteData createDataKey="customer" stepKey="deleteCustomer"/>
+        </after>
+
+        <remove keyForRemoval="addProduct"/>
+        <actionGroup ref="AdminSelectProductSKUForCustomerGroupOnRulePageActionGroup" after="hidePrice" stepKey="addCustomerGroupForProduct">
+            <argument name="product" value="$$firstSimpleProduct.sku$$"/>
+            <argument name="ruleData" value="ruleForNotLoggedIn.customerGroups"/>
+        </actionGroup>
+        <actionGroup ref="LoginToStorefrontActionGroup" after="storefrontCheckHideProductPrice" stepKey="loginToStorefront">
+            <argument name="Customer" value="$$customer$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertProductPriceActionGroup" after="loginToStorefront" stepKey="storefrontSecondCheckProductPrice">
+            <argument name="category" value="$category$"/>
+            <argument name="product" value="$$firstSimpleProduct.name$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCustomerLogoutActionGroup" after="storefrontSecondCheckProductPrice" stepKey="customerLogout"/>
+    </test>
+</tests>

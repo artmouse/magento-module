@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAddProductToCartWithoutQtyAssertMiniCartActionGroup">
+        <arguments>
+            <argument name="product"/>
+        </arguments>
+        <amOnPage url="{{StorefrontProductPage.url(product.custom_attributes[url_key])}}" stepKey="goToProductPage"/>
+        <waitForPageLoad stepKey="waitForProductPageLoad"/>
+        <click selector="{{StorefrontProductPageSection.AddToCartBtn}}" stepKey="clickToAddToCart"/>
+        <waitForPageLoad stepKey="waitForAddProductToCart"/>
+        <click selector="{{StorefrontProductMiniCartSection.MiniCartButton}}" stepKey="clickMiniCart"/>
+        <waitForAjaxLoad after="clickMiniCart" stepKey="waitMiniCartRendering"/>
+        <seeElement selector="{{StorefrontProductMiniCartSection.ProductOnMiniCart(product.name)}}"
+                    stepKey="checkProductAddedOnTheCart"/>
+    </actionGroup>
+</actionGroups>

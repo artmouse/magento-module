@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminActivatePurchaseOrderActionGroup">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+        <scrollTo selector="{{AdminPaymentMethodsConfigurationSection.OtherPaymentMethodsTab}}"
+                  stepKey="scrollToMethodTab"/>
+        <conditionalClick selector="{{AdminPaymentMethodsConfigurationSection.PurchaseOrderTab}}"
+                          dependentSelector="{{AdminPaymentMethodsConfigurationSection.PurchaseOrderTabOpen}}"
+                          visible="false" stepKey="openPurchaseOrderTab"/>
+        <uncheckOption selector="{{AdminPaymentMethodsConfigurationSection.CheckboxUseSystemEnabledPurchaseOrder}}"
+                       stepKey="systemValuePurchaseCheckbox"/>
+        <selectOption selector="{{AdminPaymentMethodsConfigurationSection.EnabledPurchaseOrder}}"
+                      userInput="{{isEnablePayment.enable}}" stepKey="chooseIsEnablePayment"/>
+        <click selector="{{AdminPaymentMethodsConfigurationSection.Save}}" stepKey="saveSettings"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSave"/>
+    </actionGroup>
+</actionGroups>

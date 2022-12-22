@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="StorefrontCartSection">
+        <element name="Discount" type="button" selector="//span[text()='Discount']"/>
+        <element name="ProceedToCheckout" type="button" selector="//button[@data-role='proceed-to-checkout']"/>
+        <element name="UpdateShoppingCart" type="button" selector="//button[@value='update_qty']" timeout="10"/>
+        <element name="ProductQtyInput" type="input" parameterized="true"
+                 selector="//div[@class='control qty']//input[@data-cart-item-id='{{productSKU}}']"/>
+        <element name="DeleteProductButton" type="button" parameterized="true" timeout="10"
+                 selector="//tr[@class='item-info']//a[contains(@title,'{{productName}}')]/following::tr[1]//a[@title='Remove item']"/>
+        <element name="ProductForDelete" type="button" parameterized="true"
+                 selector="//tr[@class='item-info']//a[contains(@title,'{{productName}}')]"/>
+        <element name="Subtotal" type="text" selector="//span[@data-th='Subtotal']"/>
+        <element name="OrderTotal" type="text" selector="//td[@data-th='Order Total']//span[@class='price']"/>
+        <element name="EstimateShippingAndTax" type="button"
+                 selector="//div[@id='block-shipping']//strong[@id='block-shipping-heading']"/>
+        <element name="ProductInCart" type="block"
+                 selector="//table[@id='shopping-cart-table']//strong[@class='product-item-name']/a"/>
+        <element name="EmptyCart" type="block"
+                 selector="//main[@id='maincontent']//div[@class='columns']//div[@class='cart-empty']"/>
+        <element name="SelectCountryShipping" type="select" selector="//select[@name='country_id']"/>
+        <element name="SelectStateShipping" type="select" selector="//select[@name='region_id']"/>
+        <element name="ZipShipping" type="input" selector="//input[@name='postcode']"/>
+        <element name="CartTotalLoader" type="block"
+                 selector="//div[@id='cart-totals']//div[@data-role='loader']/div[@class='loader']"/>
+        <element name="ShippingMethodsLoader" type="block"
+                 selector="//form[@id='co-shipping-method-form']//div[@data-role='loader']/div[@class='loader']"/>
+        <element name="ShippingCountry" type="select" selector="//select[@name='country_id']"/>
+        <element name="ShippingState" type="select" selector="//select[@name='region_id']"/>
+        <element name="TotalsTax" type="block" selector="//tr[@class='totals-tax']/td[@data-th='Tax']/span"/>
+        <element name="DiscountAmount" type="block" selector="//tr[@class='totals']/td[@data-th='Discount']/span"/>
+        <element name="ShippingMethodButton" type="button" parameterized="true"
+                 selector="//input[@id='{{shippingMethod}}']"/>
+        <element name="LabelShippingMethod" type="button" parameterized="true"
+                 selector="//label[contains(@for, '{{shippingMethod}}')]"/>
+        <element name="ShippingMethodPrice" type="button" parameterized="true"
+                 selector="//label[@for='{{shippingMethods}}']//span"/>
+        <element name="NotProductOnCart" type="block"
+                 selector="//table[@id='shopping-cart-table']//strong[@class='product-item-name']/a"/>
+        <element name="NotConfigProductOnCart" type="block"
+                 selector="//table[@id='shopping-cart-table']//input[@data-cart-item-id='{{productCustomSKU}}']"/>
+        <element name="ProductQtyOnCart" type="block" parameterized="true"
+                 selector="//table[@id='shopping-cart-table']//input[@data-cart-item-id='{{productSKU}}']"/>
+        <element name="LoginPopUp" type="block"
+                 selector="//aside[@data-type='popup'][contains(@class, 'authentication')]"/>
+        <element name="EmailLogin" type="input" selector="//input[@id='customer-email']"/>
+        <element name="PasswordLogin" type="input" selector="//input[@id='pass']"/>
+        <element name="SignInButton" type="button" selector="//button[@id='send2']"/>
+        <element name="ShippingZero" type="text" parameterized="true"
+                 selector="//label[@for='{{shippingMethod}}']//span[contains(string(), '0.00')]"/>
+        <element name="ProductConfigOptionOnCart" type="block" parameterized="true"
+                 selector="//table[@id='shopping-cart-table']//div[@class='product-item-details'][contains(string(),'{{productSKU}}')]//dd"/>
+        <element name="giftOptions" type="button" selector="//*[contains(@class,'action-gift')]"/>
+    </section>
+</sections>

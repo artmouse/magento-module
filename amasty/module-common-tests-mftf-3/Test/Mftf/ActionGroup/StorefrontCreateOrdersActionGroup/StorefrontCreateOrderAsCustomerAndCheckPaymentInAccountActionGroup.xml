@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontCreateOrderAsCustomerAndCheckPaymentInAccountActionGroup"
+                 extends="StorefrontCreateOrderAsCustomerWithPaymentMethodsActionGroup">
+        <arguments>
+            <argument name="paymentMethods" defaultValue="paymentCheckMoneyOrder"/>
+        </arguments>
+        <click selector="{{StorefrontSuccessPageSection.OrderNumberCustomerAccount}}" stepKey="openOrderInCustomerAccount"/>
+        <waitForPageLoad stepKey="waitForPageAfterOpenOrderInAccount"/>
+        <seeElement selector="{{StorefrontCustomerOrdersSection.PaymentMethod(paymentMethods.paymentName)}}"
+                    stepKey="checkPaymentMethod"/>
+    </actionGroup>
+</actionGroups>

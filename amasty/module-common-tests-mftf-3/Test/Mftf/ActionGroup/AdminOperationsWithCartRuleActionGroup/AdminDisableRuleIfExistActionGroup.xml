@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <!-- For Disable Cart Price RUle if Rule is Exist -->
+    <actionGroup name="AdminDisableRuleIfExistActionGroup" extends="AdminOpenCartPriceRuleActionGroup">
+        <conditionalClick selector="{{AdminRuleGridActionSection.TableRowOne}}"
+                          dependentSelector="{{AdminRuleGridActionSection.TableRowOne}}"
+                          visible="true" stepKey="goToEditRulePage"/>
+        <conditionalClick selector="{{AdminActionsCartPriceRuleSection.RuleActiveButton}}"
+                          dependentSelector="{{AdminActionsCartPriceRuleSection.RuleActiveValue}}"
+                          visible="true" stepKey="disableRuleIfExist"/>
+        <conditionalClick selector="{{AdminActionsCartPriceRuleSection.SaveAndContinueEdit}}"
+                          dependentSelector="{{AdminActionsCartPriceRuleSection.SaveAndContinueEdit}}"
+                          visible="true" stepKey="clickOnSave"/>
+    </actionGroup>
+</actionGroups>

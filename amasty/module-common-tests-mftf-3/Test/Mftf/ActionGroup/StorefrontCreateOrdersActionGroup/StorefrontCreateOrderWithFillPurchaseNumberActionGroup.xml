@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontCreateOrderWithFillPurchaseNumberActionGroup"
+                 extends="StorefrontCreateOrderAsCustomerWithPaymentMethodsActionGroup">
+        <arguments>
+            <argument name="purchaseOrderNumber"/>
+        </arguments>
+        <fillField selector="{{StorefrontCheckoutPaymentAddressSection.PurchaseOrderNumber}}" userInput="{{purchaseOrderNumber}}"
+                   after="waitForAjaxLoadAfterChoosePayment" stepKey="enterNumber"/>
+    </actionGroup>
+</actionGroups>

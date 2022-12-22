@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAssertPageTitleOnFaqPageActionGroup">
+        <annotations>
+            <description>Assert FAQ page title and breadcrumb</description>
+        </annotations>
+        <arguments>
+            <argument name="page" defaultValue="defFaqTitle"/>
+        </arguments>
+        <seeElement selector="{{StorefrontFaqSection.PageTitle(page.content_heading)}}" stepKey="assertPageTitle"/>
+        <seeElement selector="{{StorefrontFaqSection.CmsInBreadcrumb(page.title)}}" stepKey="assertCmsInBreadcrumb"/>
+    </actionGroup>
+</actionGroups>

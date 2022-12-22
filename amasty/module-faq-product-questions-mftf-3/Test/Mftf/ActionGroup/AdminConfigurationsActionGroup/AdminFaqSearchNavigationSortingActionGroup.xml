@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminFaqSearchNavigationSortingActionGroup">
+        <arguments>
+            <argument name="setting" defaultValue="defFaqSearchNavigationSorting"/>
+        </arguments>
+        <amOnPage url="{{AdminFaqConfigurationPage.url}}" stepKey="openConfigurationPage"/>
+        <waitForPageLoad stepKey="waitForConfigurationPageLoad"/>
+        <conditionalClick selector="{{AdminFaqConfigurationSection.SearchNavigationSortingTab}}" dependentSelector="{{AdminFaqConfigurationSection.ShowBreadcrumbs}}"
+                          visible="false" stepKey="openSearchNavigationSortingTab"/>
+        <selectOption selector="{{AdminFaqConfigurationSection.ShowBreadcrumbs}}" userInput="{{setting.breadcrumbs}}"
+                      stepKey="setShowBreadcrumbs"/>
+        <selectOption selector="{{AdminFaqConfigurationSection.ShowAskQuestionButton}}" userInput="{{setting.askQuestionButton}}"
+                      stepKey="setShowAskQuestionButton"/>
+        <selectOption selector="{{AdminFaqConfigurationSection.SortCategoriesBy}}" userInput="{{setting.sortCategoriesBy}}"
+                      stepKey="setSortCategoriesBy"/>
+        <selectOption selector="{{AdminFaqConfigurationSection.SortQuestionsBy}}" userInput="{{setting.sortQuestionsBy}}"
+                      stepKey="setSortQuestionsBy"/>
+        <fillField selector="{{AdminFaqConfigurationSection.LimitDisplayedAnswerLength}}" userInput="{{setting.answerLength}}"
+                   stepKey="fillLimitDisplayedAnswerLength"/>
+        <selectOption selector="{{AdminFaqConfigurationSection.ShowSearchBox}}" userInput="{{setting.searchBox}}"
+                      stepKey="setShowSearchBox"/>
+        <fillField selector="{{AdminFaqConfigurationSection.NoResultsText}}" userInput="{{setting.noResultsText}}"
+                   stepKey="fillNoResultsText"/>
+        <fillField selector="{{AdminFaqConfigurationSection.LimitQuestionsInCategory}}" userInput="{{setting.questionsInCategory}}"
+                   stepKey="fillLimitQuestionsInCategory"/>
+        <fillField selector="{{AdminFaqConfigurationSection.LimitQuestionsInSearch}}" userInput="{{setting.questionsInSearch}}"
+                   stepKey="fillLimitQuestionsInSearch"/>
+        <selectOption selector="{{AdminFaqConfigurationSection.ShortAnswerBehavior}}" userInput="{{setting.shortAnswer}}"
+                      stepKey="setShortAnswerBehavior"/>
+        <fillField selector="{{AdminFaqConfigurationSection.LimitTagsInMenu}}" userInput="{{setting.limitTagsInMenu}}"
+                   stepKey="fillLimitTagsInMenu"/>
+        <click selector="{{AdminFaqConfigurationSection.SaveConfig}}" stepKey="saveConfig"/>
+        <waitForPageLoad stepKey="waitForConfigSave"/>
+        <conditionalClick selector="{{AdminFaqConfigurationSection.SearchNavigationSortingTab}}" dependentSelector="{{AdminFaqConfigurationSection.ShowBreadcrumbs}}"
+                          visible="true" stepKey="closeSearchNavigationSortingTab"/>
+        <magentoCLI command="cache:flush" arguments="config" stepKey="flushCache"/>
+    </actionGroup>
+</actionGroups>

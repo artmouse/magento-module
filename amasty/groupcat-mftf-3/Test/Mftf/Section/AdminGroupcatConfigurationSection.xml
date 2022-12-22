@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="AdminGroupcatConfigurationSection">
+        <element name="FrontendOptionsTab" type="button" selector="//a[@id='amasty_groupcat_frontend-head']"/>
+        <element name="HidePriceText" type="textarea" selector="//textarea[@id='amasty_groupcat_frontend_text']"/>
+        <element name="CustomCssStylesForHidePriceLink" type="textarea" selector="//textarea[@id='amasty_groupcat_frontend_custom_css']"/>
+        <element name="File" type="input" selector="//input[@type='file']"/>
+        <element name="LinkUrl" type="input" selector="//input[@id='amasty_groupcat_frontend_link']"/>
+        <element name="SaveConfig" type="button" selector="//button[@id='save']"/>
+        <element name="DeleteImageCheckbox" type="checkbox" selector="//span[@class='delete-image']//input[@type= 'checkbox']"/>
+    </section>
+</sections>

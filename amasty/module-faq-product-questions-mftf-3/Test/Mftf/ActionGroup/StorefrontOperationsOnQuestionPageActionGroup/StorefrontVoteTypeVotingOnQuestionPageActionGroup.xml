@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontVoteTypeVotingOnQuestionPageActionGroup">
+        <arguments>
+            <argument name="vote" defaultValue="positiveVoteTypeVoting.voteAction"/>
+        </arguments>
+        <click selector="{{StorefrontQuestionSection.VoteAction(vote)}}" stepKey="voteQuestion"/>
+        <waitForElement selector="{{StorefrontQuestionSection.RatingVotingTypeIsVoted}}" stepKey="waitForQuestionIsVoted"/>
+        <seeElement selector="{{StorefrontQuestionSection.RatingVotingTypeIsVoted}}" stepKey="assertQuestionIsVoted"/>
+    </actionGroup>
+</actionGroups>

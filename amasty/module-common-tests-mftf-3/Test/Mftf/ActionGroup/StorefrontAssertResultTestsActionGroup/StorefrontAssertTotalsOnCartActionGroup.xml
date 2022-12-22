@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontAssertTotalsOnCartActionGroup"
+                 extends="AssertStorefrontShoppingCartSummaryItemsActionGroup">
+        <remove keyForRemoval="waitForTotalAmountVisible"/>
+        <waitForElementVisible selector="{{StorefrontCartSection.OrderTotal}}" stepKey="waitForTotalVisible"/>
+        <see selector="{{StorefrontCartSection.OrderTotal}}" userInput="{{total}}" stepKey="assertTotal"/>
+        <seeElement  selector="{{StorefrontCartSection.ProceedToCheckout}}" stepKey="seeProceedToCheckoutButton"/>
+    </actionGroup>
+</actionGroups>

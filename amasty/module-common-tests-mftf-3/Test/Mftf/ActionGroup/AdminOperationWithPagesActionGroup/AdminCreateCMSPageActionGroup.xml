@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminCreateCMSPageActionGroup">
+        <arguments>
+            <argument name="page" defaultValue="defaultTestCMSPage"/>
+        </arguments>
+        <amOnPage url="{{CmsNewPagePage.url}}" stepKey="amOnCMSNewPage"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenCreatePage"/>
+        <fillField selector="{{AdminPageSection.PageTitle}}" userInput="{{page.pageTitle}}" stepKey="fillFieldTitle"/>
+        <click selector="{{AdminPageSection.Header}}" stepKey="clickExpandContent"/>
+        <fillField selector="{{AdminPageSection.ContentHeading}}" userInput="{{page.contentHeading}}"
+                   stepKey="fillFieldContentHeading"/>
+        <click selector="{{AdminPageSection.SeoHeader}}" stepKey="clickExpandSearchEngineOptimization"/>
+        <fillField selector="{{AdminPageSection.URLKey}}" userInput="{{page.urlKey}}" stepKey="fillFieldURLKey"/>
+        <click selector="{{AdminPageSection.HeaderWebsites}}" stepKey="clickPageInWebsites"/>
+        <waitForElementVisible selector="{{AdminPageSection.StoreView}}" stepKey="waitForStoreGridReload"/>
+        <selectOption selector="{{AdminPageSection.StoreView}}" parameterArray="[{{page.selectStoreViewOpt}}]"
+                      stepKey="selectStoreViews"/>
+        <click selector="{{AdminPageSection.HeaderHierarchy}}" stepKey="clickHierarchy"/>
+        <click selector="{{AdminPageSection.SelectHierarchy(page.selectHierarchyOpt)}}" stepKey="clickPageCheckBoxes"/>
+        <click selector="{{AdminPageSection.Save}}" stepKey="clickSavePage"/>
+        <waitForPageLoad stepKey="waitForPageSave"/>
+        <seeElement selector="{{AdminPageSection.SuccessMessageSave}}" stepKey="seeSuccessMessage"/>
+    </actionGroup>
+</actionGroups>

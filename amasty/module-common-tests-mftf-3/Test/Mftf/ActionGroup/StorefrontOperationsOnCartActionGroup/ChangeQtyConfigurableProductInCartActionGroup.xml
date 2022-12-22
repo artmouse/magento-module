@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <!-- Don't using ActionGroup "ChangeQtyConfigurableProductInCartActionGroup",
+        them will be deleted after change in all test to "StorefrontChangeQtyProductInCart" -->
+    <actionGroup name="ChangeQtyConfigurableProductInCartActionGroup" extends="ChangeQtyProductInCartActionGroup">
+        <arguments>
+            <argument name="productCustomSKU"/>
+        </arguments>
+        <fillField selector="{{StorefrontCartSection.ProductQtyInput(productCustomSKU)}}" userInput="{{addProductQty.qty}}"
+                   stepKey="changeProductQty"/>
+    </actionGroup>
+
+</actionGroups>

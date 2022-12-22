@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AmDefCreateWebsiteStoreAndStoreViewTest">
+        <annotations>
+            <features value="Store View"/>
+            <stories value="Create Store View"/>
+            <title value="Create Website, Store and Store View"/>
+            <description value="Create Website, Store, Store View and Assert Created"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmDef-04"/>
+            <group value="Amasty"/>
+            <group value="Store"/>
+            <group value="Website"/>
+            <group value="StoreView"/>
+            <group value="AmDef"/>
+            <group value="AmDefCE"/>
+            <group value="AmDefAdmin"/>
+        </annotations>
+
+        <before>
+            <!-- Create Data for Test -->
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+        </before>
+        <after>
+            <!-- Delete Created Data After Test -->
+            <actionGroup ref="AdminDeleteWebsiteActionGroup" stepKey="deleteWebsite">
+                <argument name="websiteName" value="{{customWebsite.name}}"/>
+            </actionGroup>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <!-- Create New Website and Check Success Message-->
+        <actionGroup ref="AdminCreateWebsiteActionGroup" stepKey="createWebsite">
+            <argument name="newWebsiteName" value="{{customWebsite.name}}"/>
+            <argument name="websiteCode" value="{{customWebsite.code}}"/>
+        </actionGroup>
+        <!-- Create New Store, Assign to Created Website and Check Success Message -->
+        <actionGroup ref="AdminCreateNewStoreGroupActionGroup" stepKey="createStore">
+            <argument name="website" value="{{customWebsite.name}}"/>
+            <argument name="storeGroupName" value="{{customStore.name}}"/>
+            <argument name="storeGroupCode" value="{{customStore.code}}"/>
+        </actionGroup>
+        <!-- Create New Store View, Assign to Created Store and Check Success Message -->
+        <actionGroup ref="AdminCreateStoreViewActionGroup" stepKey="createStoreView">
+            <argument name="StoreGroup" value="customStore"/>
+            <argument name="customStore" value="customStoreView"/>
+        </actionGroup>
+    </test>
+</tests>

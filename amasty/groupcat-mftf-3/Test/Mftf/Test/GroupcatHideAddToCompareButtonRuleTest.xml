@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="GroupcatHideAddToCompareButtonRuleTest">
+        <annotations>
+            <features value="Creation Hide Add To Compare Button Customer Group Catalog Rule"/>
+            <stories value="Check Hide Add To Compare Button Customer Group Catalog Rule"/>
+            <title value="Check Hide Add To Compare Button Customer Group Catalog Rule at Storefront Product Page"/>
+            <description value="Check Hide Add To Compare Button Customer Group Catalog Rule at Storefront Product Page"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="AmGroupCatalog-18"/>
+            <group value="AmGroupCatalog"/>
+            <group value="AmHideButton"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="category"/>
+            <createData entity="amSimpleProduct" stepKey="firstSimpleProduct">
+                <requiredEntity createDataKey="category"/>
+            </createData>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginToAdminArea"/>
+            <actionGroup ref="AdminCreateDefRuleActionGroup" stepKey="createDefRule"/>
+        </before>
+
+        <after>
+            <deleteData createDataKey="firstSimpleProduct" stepKey="deleteFirstSimpleProduct"/>
+            <deleteData createDataKey="category" stepKey="deleteCategory"/>
+            <actionGroup ref="AdminDeleteRuleOnRuleGridActionGroup" stepKey="deleteRule"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="adminLogout"/>
+        </after>
+
+        <actionGroup ref="StorefrontAssertAddToCompareButtonActionGroup" stepKey="storefrontCheckAddToCompareButton">
+            <argument name="category" value="$category$"/>
+            <argument name="product" value="$$firstSimpleProduct.name$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminOpenRuleActionGroup" stepKey="openRule"/>
+        <actionGroup ref="AdminSelectHideAddToCompareButtonOnRulePageActionGroup" stepKey="hideAddToCompareButton"/>
+        <actionGroup ref="AdminSelectProductSKUConditionOnRulePageActionGroup" stepKey="addProduct">
+            <argument name="product" value="$$firstSimpleProduct.sku$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertHideAddToCompareButtonActionGroup" stepKey="storefrontCheckHideAddToCompareButton">
+            <argument name="category" value="$category$"/>
+            <argument name="product" value="$$firstSimpleProduct.name$$"/>
+        </actionGroup>
+    </test>
+</tests>

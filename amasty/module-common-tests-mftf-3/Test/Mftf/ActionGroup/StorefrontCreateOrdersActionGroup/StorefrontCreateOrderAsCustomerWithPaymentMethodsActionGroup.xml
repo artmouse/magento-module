@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontCreateOrderAsCustomerWithPaymentMethodsActionGroup">
+        <arguments>
+            <argument name="paymentMethods" defaultValue="paymentCheckMoneyOrder"/>
+        </arguments>
+        <waitForPageLoad stepKey="waitForPageLoadBeforeChooseChoosePayment"/>
+        <conditionalClick selector="{{StorefrontCheckoutPaymentAddressSection.PaymentMethodLabel(paymentMethods.paymentValue)}}"
+                          dependentSelector="{{StorefrontCheckoutPaymentAddressSection.PaymentMethodIsActive(paymentMethods.paymentValue)}}"
+                          visible="false" stepKey="choosePaymentMethod"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterChoosePayment"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterChoosePayment"/>
+        <click selector="{{StorefrontCheckoutPaymentAddressSection.PlaceOrder}}" stepKey="waitForPlaceOrderButton"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterPlaceOrder"/>
+        <seeElement selector="{{StorefrontSuccessPageSection.SuccessMessage}}" stepKey="assertSuccessPage"/>
+    </actionGroup>
+</actionGroups>

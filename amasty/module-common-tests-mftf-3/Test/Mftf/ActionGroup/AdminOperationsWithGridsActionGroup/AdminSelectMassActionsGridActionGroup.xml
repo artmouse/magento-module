@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminSelectMassActionsGridActionGroup">
+        <arguments>
+            <argument name="action" defaultValue="mainMassActions.delete"/>
+        </arguments>
+        <click selector="{{AdminGridsSection.MassActionsButton}}" stepKey="clickToActionSelect" />
+        <waitForElementVisible selector="{{AdminGridsSection.MassActionsItem(action)}}" stepKey="waitAction" />
+        <click selector="{{AdminGridsSection.MassActionsItem(action)}}" stepKey="clickToAction" />
+        <waitForPageLoad stepKey="waitPageLoadAfterClickAction" />
+        <conditionalClick selector="{{AdminGridsSection.MessageConfirm}}"
+                          dependentSelector="{{AdminGridsSection.MessageConfirm}}"
+                          visible="true" stepKey="popupConfirm" />
+    </actionGroup>
+</actionGroups>

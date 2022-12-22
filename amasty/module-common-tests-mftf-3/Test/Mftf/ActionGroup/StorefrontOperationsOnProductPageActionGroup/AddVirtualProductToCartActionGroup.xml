@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <!-- Don't using ActionGroup "AddVirtualProductToCartActionGroup",
+       them will be deleted after change in all test to "StorefrontAddProductToCartWithoutQtyAssertMiniCartActionGroup" -->
+    <actionGroup name="AddVirtualProductToCartActionGroup">
+        <arguments>
+            <argument name="products"/>
+        </arguments>
+        <amOnPage url="/{{products.urlkey}}.html" stepKey="navigateProductPage"/>
+        <waitForPageLoad stepKey="waitForPageLoadOpenCart"/>
+        <click selector="{{StorefrontProductPageSection.AddToCartBtn}}" stepKey="addToCart"/>
+        <waitForElementVisible selector="{{StorefrontProductPageSection.SuccessMsg}}" stepKey="checkProductAdded"/>
+    </actionGroup>
+
+</actionGroups>

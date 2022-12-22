@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminDeleteRequestOnGetAQuoteRequestsGridActionGroup">
+        <checkOption selector="{{AdminGroupcatGetAQuoteRequestsGridSection.FirstRowCheckbox}}" stepKey="checkRequest"/>
+        <click selector="{{AdminGroupcatGetAQuoteRequestsGridSection.MassAction}}" stepKey="clickActionDropdown"/>
+        <click selector="{{AdminGroupcatGetAQuoteRequestsGridSection.DeleteMassAction}}" stepKey="clickDeleteAction"/>
+        <waitForPageLoad stepKey="waitForAcceptDeleteRequestButtonAppear"/>
+        <click selector="{{AdminGroupcatGetAQuoteRequestsGridSection.SubmitButton}}" stepKey="clickSubmitRequestDelete"/>
+        <waitForElementVisible selector="{{AdminGroupcatGetAQuoteRequestsGridSection.AcceptDeleteButton}}" stepKey="waitForVisibleConfirmRequestDelete"/>
+        <click selector="{{AdminGroupcatGetAQuoteRequestsGridSection.AcceptDeleteButton}}" stepKey="confirmRequestDelete"/>
+        <waitForPageLoad stepKey="waitForRequstDelete"/>
+        <seeElement selector="{{AdminGroupcatGetAQuoteRequestsGridSection.RuleSuccessfullyRemovedMessage}}" stepKey="seeRequestRemovedMessage"/>
+    </actionGroup>
+</actionGroups>

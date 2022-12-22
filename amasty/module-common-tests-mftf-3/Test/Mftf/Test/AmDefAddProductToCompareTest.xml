@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AmDefAddProductToCompareTest" extends="MoveConfigurableProductsInComparedOnOrderPageTest">
+        <annotations>
+            <features value="Compare List"/>
+            <stories value="Add Products to Compare List via Customer"/>
+            <title value="Add Simple Product To Compare List and Assert Product on Compare List"/>
+            <description value="Add Products To Compare List and Change on Admin Area and Delete Product from List"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmDef-27"/>
+            <group value="Amasty"/>
+            <group value="CompareList"/>
+            <group value="AmDef"/>
+            <group value="AmDefCE"/>
+            <group value="AmDefStorefront"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+        </before>
+
+        <remove keyForRemoval="loginAsAdmin"/>
+        <actionGroup ref="StorefrontOpenMyAccountPageActionGroup" stepKey="openAccountDashboard"/>
+        <actionGroup ref="StorefrontCompareListClearActionGroup" stepKey="clearComparedProducts"/>
+    </test>
+</tests>

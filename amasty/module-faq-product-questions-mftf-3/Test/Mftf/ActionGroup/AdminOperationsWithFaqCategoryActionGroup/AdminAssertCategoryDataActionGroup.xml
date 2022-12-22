@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminAssertCategoryDataActionGroup">
+        <annotations>
+            <description>Assert FAQ Category created using API</description>
+        </annotations>
+        <arguments>
+            <argument name="category"/>
+            <argument name="categoryData" defaultValue="apiFaqCategoryData"/>
+            <argument name="questionTitle"/>
+        </arguments>
+        <seeElement selector="{{AdminCategorySection.CategoryEnabled(category.status)}}" stepKey="seeCategoryEnabled"/>
+        <seeInField selector="{{AdminCategorySection.CategoryName}}" userInput="{{category.title}}" stepKey="seeCategoryName"/>
+        <seeInField selector="{{AdminCategorySection.UrlKey}}" userInput="{{category.url_key}}" stepKey="seeUrlKey"/>
+        <seeOptionIsSelected selector="{{AdminCategorySection.StoreViews}}" userInput="{{categoryData.store}}" stepKey="seeStore"/>
+        <seeOptionIsSelected selector="{{AdminCategorySection.CustomerGroups}}" userInput="{{categoryData.customerGroup}}" stepKey="seeCustomerGroup"/>
+        <seeInField selector="{{AdminCategorySection.Position}}" userInput="{{category.position}}" stepKey="seePosition"/>
+        <seeInField selector="{{AdminCategorySection.Description}}" userInput="{{category.description}}" stepKey="seeDescription"/>
+        <conditionalClick selector="{{AdminCategorySection.QuestionsTab}}"
+                          dependentSelector="{{AdminCategorySection.AddQuestions}}"
+                          visible="false" stepKey="openAddQuestionsTab"/>
+        <waitForPageLoad stepKey="waitForQuestionTabLoad"/>
+        <see selector="{{AdminCategorySection.QuestionCell(questionGridOnCategory.title)}}" userInput="{{questionTitle}}" stepKey="seeQuestionTitle"/>
+        <conditionalClick selector="{{AdminCategorySection.SeoTab}}" dependentSelector="{{AdminCategorySection.MetaTitle}}"
+                          visible="false" stepKey="openSeoTab"/>
+        <waitForPageLoad stepKey="waitForSeoTabLoad"/>
+        <seeInField selector="{{AdminCategorySection.MetaTitle}}" userInput="{{category.meta_title}}" stepKey="seeMetaTitle"/>
+        <seeInField selector="{{AdminCategorySection.MetaDescription}}" userInput="{{category.meta_description}}" stepKey="seeMetaDescription"/>
+    </actionGroup>
+</actionGroups>

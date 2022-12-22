@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Automatic Related Products MFTF 3 for Magento 2 (System)
+*/-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminDeleteGridItemUsingMassActionActionGroup" extends="AdminDeleteGridItemActionGroup">
+        <click selector="{{AdminBundlePacksGridSection.bundlePackCheckbox(item)}}" after="checkBundleOnGrid"
+               stepKey="selectBundlePack"/>
+        <click selector="{{AdminGridsSection.MassActionsButton}}" stepKey="pressBundlePackAction"/>
+        <waitForElementVisible selector="{{AdminGridsSection.MassActionsItem('Delete')}}" after="pressBundlePackAction"
+                               stepKey="waitAction"/>
+        <click selector="{{AdminGridsSection.MassActionsItem('Delete')}}" stepKey="pressBundlePackDeleteAction"/>
+        <see selector="{{AdminStoresGridSection.successMessage}}" userInput="{{amastyARPMessage.item_deleted}}"
+             stepKey="checkRuleSuccessMessage"/>
+    </actionGroup>
+</actionGroups>

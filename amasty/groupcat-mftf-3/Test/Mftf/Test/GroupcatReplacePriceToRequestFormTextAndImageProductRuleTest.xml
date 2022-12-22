@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="GroupcatReplacePriceToRequestFormTextAndImageProductRuleTest">
+        <annotations>
+            <features value="Creation Replace Price To Request Form Text And Image Customer Group Catalog Rule"/>
+            <stories value="Check Replace Price To Request Form Text And Image Customer Group Catalog Rule"/>
+            <title value="Check Replace Price To Request Form Text And Image Customer Group Catalog Rule at Storefront Product Page"/>
+            <description value="Check Replace Price To Request Form Text And Image Customer Group Catalog Rule at Storefront Product Page"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="AmGroupCatalog-24"/>
+            <group value="AmGroupCatalog"/>
+            <group value="AmReplacePriceToRequestFormRule"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="category"/>
+            <createData entity="amSimpleProduct" stepKey="firstSimpleProduct">
+                <requiredEntity createDataKey="category"/>
+            </createData>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginToAdminArea"/>
+            <actionGroup ref="AdminCreateDefRuleActionGroup" stepKey="createDefRule"/>
+            <actionGroup ref="AdminConfigurationFrontendOptionsActionGroup" stepKey="setConfigurationFrontendOptions"/>
+        </before>
+
+        <after>
+            <deleteData createDataKey="firstSimpleProduct" stepKey="deleteFirstSimpleProduct"/>
+            <deleteData createDataKey="category" stepKey="deleteCategory"/>
+            <actionGroup ref="AdminDeleteRuleOnRuleGridActionGroup" stepKey="deleteRule"/>
+            <actionGroup ref="AdminConfigurationFrontendOptionsClearConfigActionGroup" stepKey="clearConfigurationFrontendOptions"/>
+            <!--<actionGroup ref="AdminDeleteBlockOnBlockGridActionGroup" stepKey="deleteBlock"/>-->
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="adminLogout"/>
+        </after>
+
+        <actionGroup ref="StorefrontAssertProductPriceActionGroup" stepKey="storefrontCheckProductPrice">
+            <argument name="category" value="$category$"/>
+            <argument name="product" value="$$firstSimpleProduct.name$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminOpenRuleActionGroup" stepKey="openRule"/>
+        <actionGroup ref="AdminSelectReplaceToRequestFormPriceOnRulePageActionGroup" stepKey="replaceToRequestFormPrice"/>
+        <actionGroup ref="AdminSelectProductSKUConditionOnRulePageActionGroup" stepKey="addProduct">
+            <argument name="product" value="$$firstSimpleProduct.sku$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertReplacePriceWithImageAndTextActionGroup" stepKey="storefrontCheckReplaceWithTextAndImageProductPrice">
+            <argument name="category" value="$category$"/>
+            <argument name="product" value="$$firstSimpleProduct.name$$"/>
+        </actionGroup>
+    </test>
+</tests>

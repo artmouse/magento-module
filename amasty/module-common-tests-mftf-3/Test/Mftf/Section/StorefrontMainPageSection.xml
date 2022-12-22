@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="StorefrontMainPageSection">
+        <element name="CurrencySwitch" type="button" timeout="10" selector="//div[@id='switcher-currency-trigger']"/>
+        <element name="CurrencyForChoose" type="button" parameterized="true" timeout="10"
+                 selector="//div[@id='switcher-currency']//ul[@class='dropdown switcher-dropdown']//a[contains(string(), '{{currencyName}}')]" />
+    </section>
+</sections>

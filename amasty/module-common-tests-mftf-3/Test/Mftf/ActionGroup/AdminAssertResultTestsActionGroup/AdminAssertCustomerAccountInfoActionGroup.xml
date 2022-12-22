@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminAssertCustomerAccountInfoActionGroup">
+        <arguments>
+            <argument name="customer"/>
+        </arguments>
+        <click selector="{{AdminCustomerAccountInformationSection.accountInformationButton}}"
+               stepKey="clickOnAccountInformation"/>
+        <waitForPageLoad stepKey="waitForCustomerInformationPageToLoad"/>
+        <seeInField selector="{{AdminCustomerAccountInformationSection.firstName}}" userInput="{{customer.firstname}}"
+                    stepKey="seeCustomerFirstName"/>
+        <seeInField selector="{{AdminCustomerAccountInformationSection.lastName}}" userInput="{{customer.lastname}}"
+                    stepKey="seeCustomerLastName"/>
+        <seeInField selector="{{AdminCustomerAccountInformationSection.email}}" userInput="{{customer.email}}"
+                    stepKey="seeCustomerEmail"/>
+    </actionGroup>
+</actionGroups>

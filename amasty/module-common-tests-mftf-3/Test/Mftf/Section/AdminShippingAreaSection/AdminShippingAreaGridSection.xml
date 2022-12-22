@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminShippingAreaGridSection">
+        <element name="AddShippingAreaButton" type="button" selector="//button[@id='add']" timeout="10"/>
+        <element name="FiltersButton" type="button" selector="//button[@data-action='grid-filter-expand']"/>
+        <element name="FiltersNameInput" type="button" selector="//input[@name='name']"/>
+        <element name="FiltersApplyButton" type="button" selector="//button[@data-action='grid-filter-apply']"
+                 timeout="10"/>
+        <element name="FiltersClearAll" type="button" selector="//button[@data-action='grid-filter-reset']"
+                 timeout="10"/>
+        <element name="TableRowOne" type="text" selector="tr[data-repeat-index='0']"/>
+        <element name="SuccessMessageDeletedRule" type="block"
+                 selector="//div[@id='messages']//div[contains(string(), 'You deleted the Shipping Area.')]"/>
+    </section>
+</sections>

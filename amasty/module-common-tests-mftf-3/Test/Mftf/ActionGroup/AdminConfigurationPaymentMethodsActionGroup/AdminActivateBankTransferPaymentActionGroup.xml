@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminActivateBankTransferPaymentActionGroup">
+        <amOnPage url="{{AdminPaymentMethodsConfigurationPage.url}}" stepKey="navigateToPaymentMethodsConfiguration"/>
+        <scrollTo selector="{{AdminPaymentMethodsConfigurationSection.OtherPaymentMethodsTab}}"
+                  stepKey="scrollToMethodTab"/>
+        <conditionalClick selector="{{AdminPaymentMethodsConfigurationSection.BankTransferTab}}"
+                          dependentSelector="{{AdminPaymentMethodsConfigurationSection.BankTransferTabOpen}}"
+                          visible="false" stepKey="openBankTransferTab"/>
+        <uncheckOption selector="{{AdminPaymentMethodsConfigurationSection.CheckboxUseSystemEnabledBankTransfer}}"
+                       stepKey="systemValueBankCheckbox"/>
+        <waitForAjaxLoad stepKey="waitForSystemValue"/>
+        <selectOption selector="{{AdminPaymentMethodsConfigurationSection.EnabledBankTransfer}}"
+                      userInput="{{isEnablePayment.enable}}" stepKey="chooseIsEnablePayment"/>
+        <click selector="{{AdminPaymentMethodsConfigurationSection.Save}}" stepKey="saveSettings"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSave"/>
+    </actionGroup>
+</actionGroups>

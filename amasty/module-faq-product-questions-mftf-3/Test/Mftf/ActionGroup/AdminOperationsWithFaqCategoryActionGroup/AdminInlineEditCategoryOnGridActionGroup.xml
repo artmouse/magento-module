@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminInlineEditCategoryOnGridActionGroup">
+        <arguments>
+            <argument name="cell" defaultValue="categoryGrid"/>
+            <argument name="cellData" defaultValue="editedCategory"/>
+        </arguments>
+        <click selector="{{AdminCategoryGridSection.FirstRow}}" stepKey="activateInlineEdit"/>
+        <waitForElementVisible selector="{{AdminCategoryGridSection.SaveCell}}" stepKey="waitForSaveCell"/>
+        <fillField selector="{{AdminCategoryGridSection.CellInput(cell.title)}}" userInput="{{cellData.title}}" stepKey="fillTitle"/>
+        <waitForAjaxLoad stepKey="waitForFilledTitle"/>
+        <fillField selector="{{AdminCategoryGridSection.CellInput(cell.urlKey)}}" userInput="{{cellData.url_key}}" stepKey="fillUrlKey"/>
+        <waitForAjaxLoad stepKey="waitForFilledUrlKey"/>
+        <selectOption selector="{{AdminCategoryGridSection.CellSelect(cell.status)}}" userInput="{{cellData.isEnabled}}" stepKey="selectStatus"/>
+        <waitForAjaxLoad stepKey="waitForFilledStatus"/>
+        <fillField selector="{{AdminCategoryGridSection.CellInput(cell.position)}}" userInput="{{cellData.position}}" stepKey="fillPosition"/>
+        <waitForAjaxLoad stepKey="waitForFilledPosition"/>
+        <!--problem with load page after save category-->
+        <click selector="{{AdminCategoryGridSection.SaveCell}}" stepKey="saveCategory"/>
+        <reloadPage stepKey="reloadPage"/>
+        <waitForPageLoad stepKey="waitForReload"/>
+    </actionGroup>
+</actionGroups>

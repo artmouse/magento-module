@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Automatic Related Products MFTF 3 for Magento 2 (System)
+*/-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontAddBundlePackToCartActionGroup">
+        <arguments>
+            <argument name="mainProduct"/>
+        </arguments>
+        <amOnPage url="{{StorefrontBundlePackPage.url}}" stepKey="amOnAllBundlePacksPage"/>
+        <waitForElementVisible selector="{{StorefrontBundlePacksSection.addBundlePackToCart(mainProduct)}}"
+                               stepKey="waitForBundlePackAddToCartButtonVisible"/>
+        <click selector="{{StorefrontBundlePacksSection.addBundlePackToCart(mainProduct)}}"
+               stepKey="pressToaddBundlePackToCart"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterAddBundlePackToCart"/>
+    </actionGroup>
+</actionGroups>

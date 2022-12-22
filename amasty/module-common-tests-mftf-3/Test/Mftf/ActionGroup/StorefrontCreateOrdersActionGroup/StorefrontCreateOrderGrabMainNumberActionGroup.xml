@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <!-- For Open Payment Checkout Page and Click to Place Order and Grab Main Order Number
+       Using After ActionGroup "AmastyCreateOrderAsCustomerOnCheckoutShippingPage" -->
+    <actionGroup name="StorefrontCreateOrderGrabMainNumberActionGroup" extends="StorefrontCreateOrderAsCustomerWithPaymentMethodsActionGroup">
+        <waitForPageLoad stepKey="waitForPageLoadAfterAssertSuccessPage"/>
+        <grabTextFrom selector="{{StorefrontSuccessPageSection.OrderNumberAfterPlaceOrderMain}}" stepKey="grabOrderNumber"/>
+    </actionGroup>
+</actionGroups>

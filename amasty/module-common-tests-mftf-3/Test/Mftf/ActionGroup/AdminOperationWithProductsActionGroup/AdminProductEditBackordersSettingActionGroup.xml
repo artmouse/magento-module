@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminProductEditBackordersSettingActionGroup">
+        <arguments>
+            <argument name="backordersValue"/>
+        </arguments>
+        <scrollTo selector="{{AdminProductSection.Status}}" stepKey="ScrollToAdvancedPricingSetting"/>
+        <click selector="{{AdminProductSection.AdvancedInventory}}" stepKey="OpenAdvancedInventorySetting"/>
+        <waitForAjaxLoad stepKey="waitForLoadAfterClickToAdvInventory"/>
+        <conditionalClick selector="{{AdminProductSection.BackordersConfigSetting}}"
+                          dependentSelector="{{AdminProductSection.BackordersConfigSettingNo}}" visible="false"
+                          stepKey="useConfigBackorders"/>
+        <selectOption selector="{{AdminProductSection.Backorders}}" userInput="{{backordersValue}}"
+                      stepKey="selectValueBackorders"/>
+        <click selector="{{AdminProductSection.DoneAdvancedInventory}}" stepKey="closeAdvancedInventorySetting"/>
+        <waitForAjaxLoad stepKey="waitForLoadAfterCloseAdvInventory"/>
+        <click selector="{{AdminProductSection.Save}}" stepKey="saveProductSetting"/>
+        <waitForPageLoad stepKey="waitForPageLoadSave"/>
+    </actionGroup>
+</actionGroups>

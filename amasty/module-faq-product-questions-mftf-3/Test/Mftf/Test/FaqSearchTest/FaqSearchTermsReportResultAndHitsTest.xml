@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqSearchTermsReportResultAndHitsTest" extends="FaqSearchTermsReportTest">
+        <annotations>
+            <features value="FAQ Search Terms Report"/>
+            <stories value="Assert FAQ Search Terms Report Result And Hits Information"/>
+            <title value="Search Query Is Appeared on Search Terms Report After Search on Storefront. Result And Hits Information Is Correct"/>
+            <description value="Search Query Is Appeared on Search Terms Report After Search on Storefront. Result And Hits Information Is Correct"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-31"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqQuestion"/>
+            <group value="AmFaqSearch"/>
+        </annotations>
+
+        <actionGroup ref="StorefrontSearchActionGroup" after="assertQuestionOnSearchPage" stepKey="searchQuestionByTitleSecondTime">
+            <argument name="searchCriteria" value="$$faqSearchQuestion.title$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnCategoryPageActionGroup" after="searchQuestionByTitleSecondTime" stepKey="assertQuestionOnSearchPageSecondTime">
+            <argument name="questionTitle" value="$$faqSearchQuestion.title$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontSearchActionGroup" after="assertQuestionOnSearchPageSecondTime" stepKey="searchNotExistQuestionByTitle">
+            <argument name="searchCriteria" value="notExistQuestion.title"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertNoSearchResultActionGroup" after="searchNotExistQuestionByTitle" stepKey="assertNoSearchResult"/>
+        <actionGroup ref="AdminFindSearchQueryOnGridActionGroup" stepKey="findSearchQueryOnGrid">
+            <argument name="searchQuery" value="$$faqSearchQuestion.title$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminAssertSearchQueryActionGroup" stepKey="assertSearchQuery">
+            <argument name="searchQuery" value="$$faqSearchQuestion.title$$"/>
+            <argument name="result" value="resultQty.one"/>
+            <argument name="hits" value="hitsQty.two"/>
+        </actionGroup>
+        <!--assert not exist question query-->
+        <actionGroup ref="AdminFindSearchQueryOnGridActionGroup" after="assertSearchQuery" stepKey="findNotExistQuestionQueryOnGrid">
+            <argument name="searchQuery" value="notExistQuestion.title"/>
+        </actionGroup>
+        <actionGroup ref="AdminAssertSearchQueryActionGroup" after="findNotExistQuestionQueryOnGrid" stepKey="assertNotExistQuestionQuery">
+            <argument name="searchQuery" value="notExistQuestion.title"/>
+            <argument name="result" value="resultQty.zero"/>
+            <argument name="hits" value="hitsQty.one"/>
+        </actionGroup>
+    </test>
+</tests>

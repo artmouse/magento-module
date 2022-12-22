@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AmDefCreateOrderConfigurableProductNotLoggedTest">
+        <annotations>
+            <features value="Place Order"/>
+            <stories value="Create Order with Configurable Product"/>
+            <title value="Check Create Order with Configurable Product"/>
+            <description value="Check Create Order with Configurable Product as Not Logged Customer on Storefront"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmDef-20"/>
+            <group value="Amasty"/>
+            <group value="Checkout"/>
+            <group value="AmDef"/>
+            <group value="AmDefCE"/>
+            <group value="AmDefStorefront"/>
+        </annotations>
+
+        <before>
+            <!-- Create Data for Test -->
+            <actionGroup ref="AdminCreateConfigurableProductWithCategoryActionGroup" stepKey="createConfigurableProduct"/>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminActivateBankTransferPaymentActionGroup" stepKey="activateBankTransferPayment"/>
+            <magentoCLI command="cache:clean" stepKey="cleanCache"/>
+        </before>
+        <after>
+            <!-- Delete Created Data After Test -->
+            <deleteData createDataKey="createConfigProductCreateConfigurableProduct" stepKey="deleteConfigProduct"/>
+            <deleteData createDataKey="createFirstChildProdCreateConfigurableProduct"
+                        stepKey="deleteFirstSimpleChildProduct"/>
+            <deleteData createDataKey="createSecondChildProdCreateConfigurableProduct"
+                        stepKey="deleteSecondSimpleChildProduct"/>
+            <deleteData createDataKey="createConfigProdAttrCreateConfigurableProduct"
+                        stepKey="deleteConfigProductAttribute"/>
+            <deleteData createDataKey="createCategoryCreateConfigurableProduct" stepKey="deleteCategoryConfigurable"/>
+            <actionGroup ref="AdminReturnDefaultSettingBankTransferPaymentActionGroup" stepKey="returnDefaultPaymentSetting"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <!-- Add Product, Assert Totals on Checkout and Create Data -->
+        <actionGroup ref="StorefrontAddConfigProductToCartAssertOnMiniCartActionGroup" stepKey="addProductToCart">
+            <argument name="valueQty" value="_enterQty1"/>
+            <argument name="product" value="$$createConfigProductCreateConfigurableProduct$$"/>
+            <argument name="optionValue" value="configurableProductOptions.optionOne"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCheckoutFillShippingAddressAsGuestActionGroup" stepKey="fillShippingCheckoutPage">
+            <argument name="customer" value="newCustomerAddress"/>
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="AssertStorefrontCheckoutPaymentSummaryTotalActionGroup" stepKey="assertCheckoutSummary">
+            <argument name="orderTotal" value="{{amDefOrderConfigurableNotLogged.orderTotal}}"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCreateOrderBillingAsShippingGuestActionGroup" stepKey="createOrder">
+            <argument name="paymentMethods" value="paymentBankTransferPayment"/>
+        </actionGroup>
+        <!-- Create Invoice, Ship and Credit Memo -->
+        <actionGroup ref="AdminOpenOrderOnIdActionGroup" stepKey="openOrder">
+            <argument name="orderId" value="{$grabOrderNumberCreateOrder}"/>
+        </actionGroup>
+        <actionGroup ref="AdminAssertOrderStatusAndCustomerInfoActionGroup" stepKey="assertOrderData">
+            <argument name="customer" value="newCustomerAddress"/>
+            <argument name="product" value="$$createConfigProductCreateConfigurableProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminCreateInvoiceAndShipmentActionGroup" stepKey="createInvoiceAndShipment"/>
+        <actionGroup ref="AdminStartToCreateCreditMemoFromOrderPageActionGroup" stepKey="createCreditMemo"/>
+        <actionGroup ref="SubmitCreditMemoActionGroup" stepKey="submitCreditMemo"/>
+    </test>
+</tests>

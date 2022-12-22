@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="MailhogOpenRequiredMailActionGroup">
+        <arguments>
+            <argument name="subject_text"/>
+        </arguments>
+        <amOnUrl url="{{_ENV.MAILHOG_BASE_URL}}" stepKey="openMailhog"/>
+        <waitForPageLoad stepKey="waitForMailhogPageIsLoaded"/>
+        <click selector="{{MailhogElementsSection.MailBySubject(subject_text)}}" stepKey="clickOnRequiredMessage"/>
+    </actionGroup>
+
+</actionGroups>
+

@@ -1,0 +1,20 @@
+<?php
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package AMP for Magento 2
+*/
+?>
+<?php
+/**
+ * @var Amasty\Amp\Block\Cms\Widget\ProductLink $block
+ *
+ * Amp widget template for link type inline
+ */
+?>
+
+<a class="amamp-link -inline"
+   href="<?= $block->escapeHtmlAttr($block->getHref()); ?>"
+   aria-label="<?= $block->escapeHtmlAttr($block->getTitle()); ?>">
+    <?= $block->escapeHtml($block->getLabel()); ?>
+</a>

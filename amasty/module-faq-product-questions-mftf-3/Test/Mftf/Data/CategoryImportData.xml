@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="faqCategory" type="import">
+        <data key="importBehavior">add_update</data>
+        <data key="importFile">faq_category_import.csv</data>
+    </entity>
+
+    <entity name="importCategory" type="faqCategory">
+        <data key="status">1</data>
+        <data key="title">Imported Category</data>
+        <data key="url_key">imported-category</data>
+        <data key="stores">Default Store View</data>
+        <data key="position">1</data>
+        <data key="meta_title">meta_title_imp_cat</data>
+        <data key="meta_description">meta_description_imp_cat</data>
+    </entity>
+</entities>

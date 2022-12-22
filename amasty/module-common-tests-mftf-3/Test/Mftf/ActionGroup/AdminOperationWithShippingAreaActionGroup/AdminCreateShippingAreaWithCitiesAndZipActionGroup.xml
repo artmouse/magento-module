@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminCreateShippingAreaWithCitiesAndZipActionGroup" extends="AdminCreateShippingAreaCommonActionGroup">
+        <arguments>
+            <argument name="forStatesValue"/>
+            <argument name="forCities"/>
+            <argument name="forZip"/>
+        </arguments>
+        <selectOption selector="{{AdminShippingAreaRuleSection.ForStateRegions}}" userInput="{{forStatesValue}}"
+                      after="waitAfterChooseCountry" stepKey="selectActionsForStates"/>
+        <waitForAjaxLoad after="selectActionsForStates" stepKey="waitWhileShowsRegion"/>
+        <selectOption selector="{{AdminShippingAreaRuleSection.StateRegions}}"
+                      parameterArray="[{{shippingArea.states}}]" after="waitWhileShowsRegion" stepKey="selectStates"/>
+        <selectOption selector="{{AdminShippingAreaRuleSection.ForCities}}" userInput="{{forCities}}"
+                      after="selectStates" stepKey="chooseActionForCities"/>
+        <fillField selector="{{AdminShippingAreaRuleSection.Cities}}" userInput="{{shippingArea.city}}"
+                   after="chooseActionForCities" stepKey="enterCityName"/>
+        <selectOption selector="{{AdminShippingAreaRuleSection.ForZipPostcode}}" userInput="{{forZip}}"
+                      after="enterCityName" stepKey="chooseActionForZip"/>
+        <fillField selector="{{AdminShippingAreaRuleSection.ZipPostcodeFrom}}" userInput="{{shippingArea.zipFrom}}"
+                   after="chooseActionForZip" stepKey="enterZipFrom"/>
+        <fillField selector="{{AdminShippingAreaRuleSection.ZipPostcodeTo}}" userInput="{{shippingArea.zipTo}}"
+                   after="enterZipFrom" stepKey="enterZipTo"/>
+    </actionGroup>
+</actionGroups>

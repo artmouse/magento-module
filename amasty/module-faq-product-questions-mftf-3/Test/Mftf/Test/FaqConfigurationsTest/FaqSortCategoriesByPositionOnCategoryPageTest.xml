@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqSortCategoriesByPositionOnCategoryPageTest">
+        <annotations>
+            <features value="Sort Categories By"/>
+            <stories value="Sort Categories By Position"/>
+            <title value="Assert Categories Are Sorted By Position on Category Page in Sidebar"/>
+            <description value="Assert Categories Are Sorted By Position on Category Page in Sidebar"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-41"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqCategory"/>
+            <group value="AmFaqConfigurations"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminFaqSearchNavigationSortingActionGroup" stepKey="setSortCategoriesByPosition"/>
+            <actionGroup ref="AdminCreateCategoryActionGroup" stepKey="createCategorySecondPosition">
+                <argument name="category" value="secondPositionCategory"/>
+            </actionGroup>
+            <actionGroup ref="AdminCreateCategoryActionGroup" stepKey="createCategoryFirstPosition"/>
+        </before>
+        <after>
+            <actionGroup ref="AdminDeleteCategoryFromGridActionGroup" stepKey="deleteCategoryFirstPosition"/>
+            <actionGroup ref="AdminDeleteCategoryFromGridActionGroup" stepKey="deleteCategorySecondPosition">
+                <argument name="categoryTitle" value="secondPositionCategory.title"/>
+            </actionGroup>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <actionGroup ref="StorefrontOpenFaqCategoryPageActionGroup" stepKey="openCategory"/>
+        <actionGroup ref="StorefrontAssertCategoryPositionInSidebarOnCategoryPageActionGroup" stepKey="assertCategoryPositionInSidebar">
+            <argument name="firstCategory" value="defaultCategory.title"/>
+            <argument name="secondCategory" value="secondPositionCategory.title"/>
+        </actionGroup>
+    </test>
+</tests>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqCategorySeoTest">
+        <annotations>
+            <features value="FAQ Category SEO"/>
+            <stories value="Assert Category SEO"/>
+            <title value="Assert Category SEO on Category Page Source"/>
+            <description value="Assert Category SEO on Category Page Source"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-06"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqCategory"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminCreateCategoryActionGroup" stepKey="createDefaultCategory"/>
+            <actionGroup ref="AdminCreateCategoryWithSeoInformationActionGroup" stepKey="createCategoryWithSeo"/>
+        </before>
+        <after>
+            <actionGroup ref="AdminDeleteCategoryFromGridActionGroup" stepKey="deleteDefaultCategory"/>
+            <actionGroup ref="AdminDeleteCategoryFromGridActionGroup" stepKey="deleteCategoryWithSeo">
+                <argument name="categoryTitle" value="seoCategory.title"/>
+            </actionGroup>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <actionGroup ref="StorefrontOpenFaqCategoryPageActionGroup" stepKey="openDefCategoryPage"/>
+        <actionGroup ref="StorefrontAssertCategorySeoNoMetaDescInformActionGroup" stepKey="assertCategorySeoInformInDefCategory"/>
+        <actionGroup ref="StorefrontOpenFaqCategoryPageActionGroup" stepKey="openSeoCategoryPage">
+            <argument name="category" value="seoCategory"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertCategorySeoMetaInformActionGroup" stepKey="assertCategorySeoInformInSeoCategory"/>
+    </test>
+</tests>

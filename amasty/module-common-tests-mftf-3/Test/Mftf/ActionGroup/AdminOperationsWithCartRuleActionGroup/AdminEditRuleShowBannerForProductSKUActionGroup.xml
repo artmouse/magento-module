@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminEditRuleShowBannerForProductSKUActionGroup" extends="AdminOpenCartPriceRuleActionGroup">
+        <arguments>
+            <argument name="productSKU"/>
+        </arguments>
+        <conditionalClick selector="{{AdminActionsCartPriceRuleSection.HighlightPromotionTab}}"
+                          dependentSelector="{{AdminActionsCartPriceRuleSection.HighlightPromotionTabOpen}}"
+                          visible="false" stepKey="openHighlightPromotionTab"/>
+        <selectOption selector="{{AdminActionsCartPriceRuleSection.ShowBannerFor}}"
+                      userInput="{{showBannersForValue.productSku}}" stepKey="selectShowBannerForProductSKU"/>
+        <fillField selector="{{AdminActionsCartPriceRuleSection.ProductSKUs}}" userInput="{{productSKU}}"
+                   stepKey="enterSKU"/>
+        <click selector="{{AdminActionsCartPriceRuleSection.SaveAndContinueEdit}}" stepKey="clickOnSave"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSave"/>
+    </actionGroup>
+</actionGroups>

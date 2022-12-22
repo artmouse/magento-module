@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="AdminGroupcatRuleGridSection">
+        <element name="AddNewRule" type="button" selector="//button[@id='add']"/>
+        <element name="ActiveFilters" type="text" selector="//*[@class='admin__data-grid-header']//div[@class='admin__data-grid-filters-current _show']"/>
+        <element name="ClearAllFilters" type="button" selector="//button[@data-action='grid-filter-reset']"/>
+        <element name="Filters" type="button" selector="//div[@class='data-grid-filters-action-wrap']//button[@data-action='grid-filter-expand'][contains(string(), 'Filters')]"/>
+        <element name="ApplyFilter" type="button" selector="//button[@data-action='grid-filter-apply']"/>
+        <element name="RuleName" type="input" selector="//input[@name='name']"/>
+        <element name="RecordsFoundMessage" type="text" parameterized="true"
+                 selector="//*[@class='admin__control-support-text'][contains(string(), '{{qtyRecords}} records found')]"/>
+        <element name="FirstRowCheckbox" type="checkbox" selector="//tr[contains(@data-repeat-index, '0')]//input[contains(@data-action, 'select-row')]"/>
+        <element name="Edit" type="button" selector="//*[@class='action-menu-item'][contains(string(), 'Edit')]"/>
+        <element name="MassAction" type="button" selector="//*[@class='admin__data-grid-header-row row row-gutter']//*[@class='action-select-wrap']"/>
+        <element name="DeleteMassAction" type="button" selector="//*[@class='admin__data-grid-header-row row row-gutter']//*[@class='action-menu-items'][contains(string(), 'Delete')]"/>
+        <element name="AcceptDeleteButton" type="button" selector="//*[@class='action-primary action-accept']"/>
+        <element name="RuleSuccessfullyRemovedMessage" type="text" parameterized="true"
+                 selector="//*[@id='messages'][contains(string(), '{{qtyRecords}} rule(s) has been successfully deleted')]"/>
+    </section>
+</sections>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqShowSearchBoxAndNoResultTextTest">
+        <annotations>
+            <features value="Show Search Box. No Results Text"/>
+            <stories value="Show Search Box. No Results Text"/>
+            <title value="Assert Search Box on Search and Category Page. Custom No Result Text on Search Page"/>
+            <description value="Assert Search Box Is on Search and Category Page When It Is Enabled. Search Box Is Not on Page When Is Disabled. Custom No Result Text Is on Search Page"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-48"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqQuestion"/>
+            <group value="AmFaqConfigurations"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="simpleCategory"/>
+            <createData entity="SimpleProductByFusionBackpack" stepKey="simpleProduct">
+                <requiredEntity createDataKey="simpleCategory"/>
+            </createData>
+            <createData entity="apiFaqCategory" stepKey="faqCategory"/>
+            <createData entity="apiFaqSearchQuestion" stepKey="faqSearchQuestion">
+                <requiredEntity createDataKey="faqCategory"/>
+                <requiredEntity createDataKey="simpleProduct"/>
+            </createData>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminFaqSearchNavigationSortingActionGroup" stepKey="setCustomNoResultsText">
+                <argument name="setting" value="noResultsText"/>
+            </actionGroup>
+        </before>
+        <after>
+            <deleteData createDataKey="faqSearchQuestion" stepKey="deleteFaqQuestion"/>
+            <deleteData createDataKey="faqCategory" stepKey="deleteFaqCategory"/>
+            <deleteData createDataKey="simpleProduct" stepKey="deleteProduct"/>
+            <deleteData createDataKey="simpleCategory" stepKey="deleteCategory"/>
+            <actionGroup ref="AdminFaqSearchNavigationSortingActionGroup" stepKey="setDefSearchNavigationSorting"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <!--assert search field is on page-->
+        <actionGroup ref="StorefrontOpenFaqSearchPageActionGroup" stepKey="openFaqSearchPageDefConf"/>
+        <actionGroup ref="StorefrontSearchActionGroup" stepKey="searchQuestionOnSearchPage">
+            <argument name="searchCriteria" value="$$faqSearchQuestion.title$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenFaqCategoryPageActionGroup" stepKey="openFaqCategoryPageDefConf">
+            <argument name="category" value="$$faqCategory$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontSearchActionGroup" stepKey="searchQuestionOnCategoryPage">
+            <argument name="searchCriteria" value="$$faqSearchQuestion.title$$"/>
+        </actionGroup>
+        <!--assert custom no search result text-->
+        <actionGroup ref="StorefrontSearchActionGroup" stepKey="searchNotExistQuestionByTitle">
+            <argument name="searchCriteria" value="notExistQuestion.title"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertNoSearchResultActionGroup" stepKey="assertNoSearchResultText">
+            <argument name="text" value="noResultsText.noResultsText"/>
+        </actionGroup>
+        <!--assert no search field-->
+        <actionGroup ref="AdminFaqNotShowSearchBoxOnCategoryPageActionGroup" stepKey="setNotShowSearchBox"/>
+        <actionGroup ref="StorefrontOpenFaqSearchPageActionGroup" stepKey="openFaqSearchPage"/>
+        <actionGroup ref="StorefrontAssertNoSearchFieldActionGroup" stepKey="assertNoSearchFieldOnSearchPage"/>
+        <actionGroup ref="StorefrontOpenFaqCategoryPageActionGroup" stepKey="openFaqCategoryPage">
+            <argument name="category" value="$$faqCategory$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertNoSearchFieldActionGroup" stepKey="assertNoSearchFieldOnFaqCategoryPage"/>
+        <actionGroup ref="StorefrontOpenFaqPageActionGroup" stepKey="openFaqPage"/>
+        <actionGroup ref="StorefrontSearchActionGroup" stepKey="searchQuestionOnFaqPage">
+            <argument name="searchCriteria" value="$$faqSearchQuestion.title$$"/>
+        </actionGroup>
+    </test>
+</tests>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminAssertQuestionDataOnGridActionGroup">
+        <arguments>
+            <argument name="cell" defaultValue="questionGrid"/>
+            <argument name="cellData" defaultValue="editedQuestion"/>
+        </arguments>
+        <see selector="{{AdminQuestionGridSection.Cell(cell.question)}}" userInput="{{cellData.title}}" stepKey="assertQuestionTitle"/>
+        <see selector="{{AdminQuestionGridSection.Cell(cell.urlKey)}}" userInput="{{cellData.url_key}}" stepKey="assertQuestionUrlKey"/>
+        <see selector="{{AdminQuestionGridSection.Cell(cell.senderEmail)}}" userInput="{{cellData.email}}" stepKey="assertQuestionSenderEmail"/>
+        <see selector="{{AdminQuestionGridSection.Cell(cell.status)}}" userInput="{{cellData.status}}" stepKey="assertQuestionStatus"/>
+        <see selector="{{AdminQuestionGridSection.Cell(cell.visibility)}}" userInput="{{cellData.visibility}}" stepKey="assertQuestionVisibility"/>
+        <see selector="{{AdminQuestionGridSection.Cell(cell.position)}}" userInput="{{cellData.position}}" stepKey="assertQuestionPosition"/>
+    </actionGroup>
+</actionGroups>

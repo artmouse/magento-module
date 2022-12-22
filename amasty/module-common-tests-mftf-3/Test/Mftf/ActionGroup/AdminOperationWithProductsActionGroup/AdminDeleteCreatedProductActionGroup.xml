@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminDeleteCreatedProductActionGroup" extends="AdminFindAndOpenCreatedProductActionGroup">
+        <remove keyForRemoval="openProduct"/>
+        <remove keyForRemoval="waitForPageLoadAfterOpenProduct"/>
+        <click selector="{{AdminGridProductsSection.MultiCheckDropdown}}" stepKey="openMultiCheckDropdown"/>
+        <click selector="{{AdminGridProductsSection.MultiCheckOptionAll}}" stepKey="selectAllProductInFilteredGrid"/>
+        <click selector="{{AdminGridProductsSection.BulkActionDropdown}}" stepKey="clickActionDropdown"/>
+        <click selector="{{AdminGridProductsSection.BulkActionOptionDelete}}" stepKey="clickDeleteAction"/>
+        <waitForElementVisible selector="{{AdminGridProductsSection.MessageConfirm}}" stepKey="waitForConfirmModal"/>
+        <click selector="{{AdminGridProductsSection.MessageConfirm}}" stepKey="confirmProductDelete"/>
+        <seeElement selector="{{AdminGridProductsSection.SuccessDelete}}" stepKey="seeSuccessMessage"/>
+    </actionGroup>
+</actionGroups>

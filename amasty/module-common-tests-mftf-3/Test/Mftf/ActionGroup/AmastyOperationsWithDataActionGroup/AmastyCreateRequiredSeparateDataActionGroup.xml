@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+<!--
+    Group to create many entities with require keys.
+    Example, for create two products in each category and other ...
+
+    Arguments:
+            1. entityName - name of xml entity to create.
+                 Format: >Entity_1< .
+                 Example using in test (will be create two type entities) :
+                    - value="SimpleProductByFusionBackpack"
+                 If using default value -> will be create "SimpleProductByWatchClamber" entity.
+
+            3. entityCount - count of entity to create.
+                 Format: >1<, then will be created: Entity_1 -> 1.
+                 Example using in test (will be create 6 Watch Clamber):
+                    - value="{{number.six}}"
+                 If using default value -> create 10 entities.
+
+            2. createStep - stepKey of the createData action.
+                 Format: >stepKey< .
+                 Example using in test (will be create entities with steps "createProduct") :
+                    - value="createProduct"
+
+            4. createFromStepNumber - the sequence number (suffix) of the stepKey from which needs begin to create entity.
+                 Format: >number< .
+                 Example using in test (will be create entities from step "createProd5") :
+                    - value="{{number.five}}"
+                 If using default value -> entity will be create from step with number 1.
+
+            5. requiredArray - stepKeys of other createData actions that are required.
+                Format: >first_required_step,second_required_step,...,N_required_step< .
+                Example using in test (will be create entities with all allowed requiredKeys "createCategory" from
+                createCategory1) :
+                    - value="createCategory"
+
+            6. requiredFromNumberArray - the sequence number (suffix) of the StepKeys of other createData required
+                actions from which needs begin to create entity.
+                Format: >number_from_first_require_step,number_from_second_require_step,...,number_from_N_required< .
+                Example using in test (will be create entities to each created category from "createCategory5") :
+                    - value="{{number.five}}"
+                If using default value -> entity will be create from requiredStep with number 1.
+
+            7. separators - the number of products after which it is necessary to change the sequence number of the
+                corresponding required key.
+                Format: >number_after_change_1_req,number_after_change_2_req,...,number_after_change_N_req< .
+                Example using in test (will be create tree product to each allowed category) :
+                     - value="{{number.three}}"
+                If using default value -> number require step wil be change after each creation entity.
+
+-->
+
+    <actionGroup name="AmastyCreateRequiredSeparateDataActionGroup">
+        <arguments>
+            <argument name="entityName" type="string" defaultValue="SimpleProductByWatchClamber" />
+            <argument name="entityCount" type="string" defaultValue="{{number.ten}}" />
+            <argument name="createStep" type="string" />
+            <argument name="createFromStepNumber" type="string" defaultValue="{{number.one}}" />
+            <argument name="requiredKeysList" type="string"/>
+            <argument name="requiredFromNumberKeysList" type="string" defaultValue="null" />
+            <argument name="separatorsList" type="string" defaultValue="null" />
+        </arguments>
+        <helper class="\Amasty\CommonTestsMFTF3\Test\Mftf\Helper\AmastyDataHelper"
+                method="amastyCreateRequiredSeparateEntities" stepKey="amCreateSepReqData">
+            <argument name="entityName">{{entityName}}</argument>
+            <argument name="entityCount">{{entityCount}}</argument>
+            <argument name="createStep">{{createStep}}</argument>
+            <argument name="createFrom">{{createFromStepNumber}}</argument>
+            <argument name="requiredKeys">{{requiredKeysList}}</argument>
+            <argument name="requiredKeysFrom">{{requiredFromNumberKeysList}}</argument>
+            <argument name="separators">{{separatorsList}}</argument>
+        </helper>
+    </actionGroup>
+</actionGroups>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AmDefCheckCategoryFiltrationTest">
+        <annotations>
+            <features value="Category Filtration"/>
+            <stories value="Assert Category Filtration"/>
+            <title value="Assert Category Filter on Storefront"/>
+            <description value="Assert Category Filter by Products Price and Created Attribute on Storefront"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmDef-15"/>
+            <group value="Amasty"/>
+            <group value="Filtration"/>
+            <group value="AmDef"/>
+            <group value="AmDefCE"/>
+            <group value="AmDefStorefront"/>
+        </annotations>
+
+        <before>
+            <!-- Create Data for Test -->
+            <createData entity="_defaultCategory" stepKey="createCategory"/>
+            <createData entity="productAttributeWithTwoOptions" stepKey="createProdAttribute"/>
+            <createData entity="productAttributeOption1" stepKey="createProdAttributeOptionOne">
+                <requiredEntity createDataKey="createProdAttribute"/>
+            </createData>
+            <createData entity="productAttributeOption2" stepKey="createProdAttributeOptionTwo">
+                <requiredEntity createDataKey="createProdAttribute"/>
+            </createData>
+            <createData entity="AddToDefaultSet" stepKey="addAttributeToDefaultSet">
+                <requiredEntity createDataKey="createProdAttribute"/>
+            </createData>
+            <getData entity="ProductAttributeOptionGetter" index="1" stepKey="getFirstAttributeOption">
+                <requiredEntity createDataKey="createProdAttribute"/>
+            </getData>
+            <getData entity="ProductAttributeOptionGetter" index="2" stepKey="getSecondAttributeOption">
+                <requiredEntity createDataKey="createProdAttribute"/>
+            </getData>
+            <createData entity="ApiSimpleOne" stepKey="createFirstProduct">
+                <requiredEntity createDataKey="createProdAttribute"/>
+                <requiredEntity createDataKey="getFirstAttributeOption"/>
+            </createData>
+            <createData entity="SimpleChildConfigurableProductPrice52" stepKey="createSecondProduct">
+                <requiredEntity createDataKey="createProdAttribute"/>
+                <requiredEntity createDataKey="getSecondAttributeOption"/>
+            </createData>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminFindAndOpenCreatedProductActionGroup" stepKey="openCreatedProductOne">
+                <argument name="product" value="$$createFirstProduct$$"/>
+            </actionGroup>
+            <actionGroup ref="AdminAssignCategoryToProductAndSaveActionGroup" stepKey="assignCategoryToProductOne">
+                <argument name="categoryName" value="$createCategory.name$"/>
+            </actionGroup>
+            <actionGroup ref="AdminFindAndOpenCreatedProductActionGroup" stepKey="openCreatedProductTwo">
+                <argument name="product" value="$$createSecondProduct$$"/>
+            </actionGroup>
+            <actionGroup ref="AdminAssignCategoryToProductAndSaveActionGroup" stepKey="assignCategoryToProductTwo">
+                <argument name="categoryName" value="$createCategory.name$"/>
+            </actionGroup>
+            <magentoCLI command="indexer:reindex" stepKey="reindex"/>
+        </before>
+        <after>
+            <!-- Delete Created Data After Test -->
+            <deleteData createDataKey="createProdAttribute" stepKey="deleteProductAttribute"/>
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createFirstProduct" stepKey="deleteFirstProduct"/>
+            <deleteData createDataKey="createSecondProduct" stepKey="deleteSecondProduct"/>
+            <magentoCLI command="indexer:reindex" stepKey="reindex"/>
+        </after>
+
+        <!-- Choose Filter by Price and Assert Products On Category -->
+        <actionGroup ref="StorefrontChooseFilterOptionAndTitleActionGroup" stepKey="chooseFirstFilterOptionAndItem">
+            <argument name="category" value="$$createCategory$$"/>
+            <argument name="filterOption" value="amDefCheckCategoryFiltration.filterOptionPrice"/>
+            <argument name="filterTitle" value="amDefCheckCategoryFiltration.filterItemBellow100"/>
+        </actionGroup>
+        <actionGroup ref="AssertStorefrontProductIsPresentOnCategoryPageActionGroup"
+                     stepKey="assertProductsAfterFirstFilter">
+            <argument name="productName" value="$createSecondProduct.name$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertProductCountOnCategoryPageActionGroup" stepKey="checkCountOfProductOnPageFirstFilter">
+            <argument name="productCount" value="productCountOnCategoryPage.productCountOne"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontChooseFilterOptionAndTitleActionGroup" stepKey="chooseSecondFilterOptionAndItem">
+            <argument name="category" value="$$createCategory$$"/>
+            <argument name="filterOption" value="amDefCheckCategoryFiltration.filterOptionPrice"/>
+            <argument name="filterTitle" value="amDefCheckCategoryFiltration.filterItemAbove100"/>
+        </actionGroup>
+        <actionGroup ref="AssertStorefrontProductIsPresentOnCategoryPageActionGroup"
+                     stepKey="assertProductsAfterSecondFilter">
+            <argument name="productName" value="$createFirstProduct.name$"/>
+        </actionGroup>
+        <!-- Choose Filter by Created Attribute and Assert Products On Category -->
+        <actionGroup ref="StorefrontChooseFilterOptionAndTitleActionGroup"
+                     stepKey="chooseFilterOptionAndFirstItemByCreatedAttribute">
+            <argument name="category" value="$$createCategory$$"/>
+            <argument name="filterOption" value="ProductAttributeFrontendLabel.label"/>
+            <argument name="filterTitle" value="amDefCheckCategoryFiltration.filterItemOptionOne"/>
+        </actionGroup>
+        <actionGroup ref="AssertStorefrontProductIsPresentOnCategoryPageActionGroup"
+                     stepKey="assertProdAfterFilterByFirstItemCreatedAttribute">
+            <argument name="productName" value="$createFirstProduct.name$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertProductCountOnCategoryPageActionGroup" stepKey="checkCountOfProductOnPageSecondFilter">
+            <argument name="productCount" value="productCountOnCategoryPage.productCountOne"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontChooseFilterOptionAndTitleActionGroup"
+                     stepKey="chooseFilterOptionAndSecondItemByCreatedAttribute">
+            <argument name="category" value="$$createCategory$$"/>
+            <argument name="filterOption" value="ProductAttributeFrontendLabel.label"/>
+            <argument name="filterTitle" value="amDefCheckCategoryFiltration.filterItemOptionTwo"/>
+        </actionGroup>
+        <actionGroup ref="AssertStorefrontProductIsPresentOnCategoryPageActionGroup"
+                     stepKey="assertProdAfterFilterBySecondItemCreatedAttribute">
+            <argument name="productName" value="$createSecondProduct.name$"/>
+        </actionGroup>
+    </test>
+</tests>

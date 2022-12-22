@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AmDefCheckCategoryPaginationTest">
+        <annotations>
+            <features value="Category Pagination"/>
+            <stories value="Assert Category Pagination"/>
+            <title value="Assert Category Pagination on Storefront"/>
+            <description value="Assert Category Pagination by Thirty Six and Twelve"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmDef-13"/>
+            <group value="Amasty"/>
+            <group value="Pagination"/>
+            <group value="AmDef"/>
+            <group value="AmDefCE"/>
+            <group value="AmDefStorefront"/>
+        </annotations>
+
+        <before>
+            <!-- Create Data for Test -->
+            <createData entity="_defaultCategory" stepKey="createCategory"/>
+            <createData entity="SimpleProductByWatchClamber" stepKey="createFirstProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="SimpleProductByWatchClamber" stepKey="createSecondProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="SimpleProductByWatchClamber" stepKey="createThirdProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="SimpleProductByWatchClamber" stepKey="createFourProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="SimpleProductByWatchClamber" stepKey="createFiveProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="SimpleProductByWatchClamber" stepKey="createSixProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="SimpleProductByWatchClamber" stepKey="createSevenProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="SimpleProductByWatchClamber" stepKey="createEightProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="SimpleProductByWatchClamber" stepKey="createNineProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="SimpleProductByWatchClamber" stepKey="createTenProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="SimpleProductByWatchClamber" stepKey="createElevenProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="SimpleProductByWatchClamber" stepKey="createTwelveProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="SimpleProductByWatchClamber" stepKey="createThirteenProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="SimpleProductByWatchClamber" stepKey="createFourteenProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <magentoCLI command="indexer:reindex" stepKey="reindex"/>
+            <magentoCLI command="cache:clean" stepKey="cleanClean"/>
+        </before>
+        <after>
+            <!-- Delete Created Data After Test -->
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createFirstProduct" stepKey="createFirstProduct"/>
+            <deleteData createDataKey="createSecondProduct" stepKey="deleteSecondProduct"/>
+            <deleteData createDataKey="createThirdProduct" stepKey="deleteThirdProduct"/>
+            <deleteData createDataKey="createFourProduct" stepKey="deleteFourProduct"/>
+            <deleteData createDataKey="createFiveProduct" stepKey="deleteFiveProduct"/>
+            <deleteData createDataKey="createSixProduct" stepKey="deleteSixProduct"/>
+            <deleteData createDataKey="createSevenProduct" stepKey="deleteSevenProduct"/>
+            <deleteData createDataKey="createEightProduct" stepKey="deleteEightProduct"/>
+            <deleteData createDataKey="createNineProduct" stepKey="deleteNineProduct"/>
+            <deleteData createDataKey="createTenProduct" stepKey="deleteTenProduct"/>
+            <deleteData createDataKey="createElevenProduct" stepKey="deleteElevenProduct"/>
+            <deleteData createDataKey="createTwelveProduct" stepKey="deleteTwelveProduct"/>
+            <deleteData createDataKey="createThirteenProduct" stepKey="deleteThirteenProduct"/>
+            <deleteData createDataKey="createFourteenProduct" stepKey="deleteFourteenProduct"/>
+        </after>
+
+        <!-- Open Category Page, Choose Pagination 36 and Assert Count Product On Page -->
+        <actionGroup ref="StorefrontChoosePaginationOnCategoryActionGroup" stepKey="openCreatedProductAndChooseMaxPagination">
+            <argument name="category" value="$$createCategory$$"/>
+            <argument name="paginationValue" value="categoryPaginationValues.paginationThirtySix"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertProductCountOnCategoryPageActionGroup"
+                     stepKey="checkCountOfProductOnPageWithMaxPagination">
+            <argument name="productCount" value="productCountOnCategoryPage.productCountFourteen"/>
+        </actionGroup>
+        <!-- Open Category Page, Choose Pagination 12, Go to Next Category Page and Assert Count Product On Page -->
+        <actionGroup ref="StorefrontChoosePaginationOnCategoryActionGroup" stepKey="openCreatedProductAndChooseMinPagination">
+            <argument name="category" value="$$createCategory$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenNextCategoryPageActionGroup" stepKey="goToNextCategoryPage"/>
+        <actionGroup ref="StorefrontAssertProductCountOnCategoryPageActionGroup" stepKey="checkCountOfProductOnPage">
+            <argument name="productCount" value="productCountOnCategoryPage.productCountTwo"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenProductFromCategoryWithoutOpenCategoryActionGroup" stepKey="openProductFromCategory"/>
+        <actionGroup ref="StorefrontAssertNameOnProductPageActionGroup" stepKey="checkNameOnProductPage">
+            <argument name="productName" value="SimpleProductByWatchClamber.name"/>
+        </actionGroup>
+        <moveBack stepKey="moveBack"/>
+        <actionGroup ref="StorefrontAssertProductCountOnCategoryPageActionGroup"
+                     stepKey="checkCountOfProductOnPageAfterReturnBack">
+            <argument name="productCount" value="productCountOnCategoryPage.productCountTwo"/>
+        </actionGroup>
+    </test>
+</tests>

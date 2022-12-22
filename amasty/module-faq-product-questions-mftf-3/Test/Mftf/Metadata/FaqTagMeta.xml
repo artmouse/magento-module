@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataOperation.xsd">
+
+    <operation name="CreateFaqTag" dataType="faqTag" type="create" auth="adminOauth" url="/V1/amasty_faq/tag"
+               method="POST">
+        <contentType>application/json</contentType>
+        <object key="tag" dataType="faqTag">
+            <field key="tag_id">integer</field>
+            <field key="title">string</field>
+        </object>
+    </operation>
+
+    <operation name="DeleteFaqTag" dataType="faqTag" type="delete" auth="adminOauth" url="/V1/amasty_faq/tag/{tag_id}"
+               method="DELETE">
+        <contentType>application/json</contentType>
+    </operation>
+</operations>

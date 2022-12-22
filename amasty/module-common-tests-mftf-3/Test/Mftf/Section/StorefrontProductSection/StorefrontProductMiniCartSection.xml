@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="StorefrontProductMiniCartSection">
+        <element name="MiniCartButton" type="button" selector="//div[@data-block='minicart']"/>
+        <element name="ProductOnMiniCart" type="block" parameterized="true"
+                 selector="//*[@id='mini-cart']//div[@class='product']//a[contains(string(), '{{productName}}')]"/>
+    </section>
+</sections>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAssertCategorySeoNoMetaDescInformActionGroup">
+        <arguments>
+            <argument name="category" defaultValue="defaultCategory"/>
+        </arguments>
+        <seeInPageSource html="meta name=&quot;title&quot; content=&quot;{{category.title}}&quot;" stepKey="assertMetaTitleInPageSource"/>
+        <dontSeeInPageSource html="meta name=&quot;description&quot; content=&quot;" stepKey="assertMetaDescriptionInPageSource"/>
+        <seeInPageSource html="meta name=&quot;robots&quot; content=&quot;{{category.robots}}&quot;" stepKey="assertRobotsInPageSource"/>
+    </actionGroup>
+</actionGroups>

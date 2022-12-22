@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="GroupcatReplaceWithTextProductPriceRuleTest">
+        <annotations>
+            <features value="Creation Hide Product Price Customer Group Catalog Rule"/>
+            <stories value="Check Replace With Text Product Price Customer Group Catalog Rule"/>
+            <title value="Check Replace With Text Product Price Customer Group Catalog Rule at Storefront Product Page"/>
+            <description value="Check Replace With Text Product Price Customer Group Catalog Rule at Storefront Product Page"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="AmGroupCatalog-21"/>
+            <group value="AmGroupCatalog"/>
+            <group value="AmReplacePriceToRequestFormRule"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="category"/>
+            <createData entity="amSimpleProduct" stepKey="firstSimpleProduct">
+                <requiredEntity createDataKey="category"/>
+            </createData>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginToAdminArea"/>
+            <actionGroup ref="AdminCreateDefRuleActionGroup" stepKey="createDefRule"/>
+        </before>
+
+        <after>
+            <deleteData createDataKey="firstSimpleProduct" stepKey="deleteFirstSimpleProduct"/>
+            <deleteData createDataKey="category" stepKey="deleteCategory"/>
+            <actionGroup ref="AdminDeleteRuleOnRuleGridActionGroup" stepKey="deleteRule"/>
+            <actionGroup ref="AdminDeleteBlockOnBlockGridActionGroup" stepKey="deleteBlock"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="adminLogout"/>
+        </after>
+
+        <actionGroup ref="AdminCreateBlockActionGroup" stepKey="createBlock"/>
+        <actionGroup ref="StorefrontAssertProductPriceActionGroup" stepKey="storefrontCheckProductPrice">
+            <argument name="category" value="$category$"/>
+            <argument name="product" value="$$firstSimpleProduct.name$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminOpenRuleActionGroup" stepKey="openRule"/>
+        <actionGroup ref="AdminSelectReplaceWithTextPriceOnRulePageActionGroup" stepKey="replaceWithTextPrice"/>
+        <actionGroup ref="AdminSelectProductSKUConditionOnRulePageActionGroup" stepKey="addProduct">
+            <argument name="product" value="$$firstSimpleProduct.sku$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertReplaceWithTextProductPriceActionGroup" stepKey="storefrontCheckReplaceWithTextProductPrice">
+            <argument name="category" value="$category$"/>
+            <argument name="product" value="$$firstSimpleProduct.name$$"/>
+        </actionGroup>
+    </test>
+</tests>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminConfigurationsAllSection">
+        <element name="Save" type="button" selector="//div[@class='page-actions-buttons']/button[@id='save']"
+                 timeout="10"/>
+    </section>
+</sections>

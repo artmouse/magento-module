@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="StorefrontCheckoutShippingAddressSection">
+        <element name="Email" type="input" selector="//fieldset[@id='customer-email-fieldset']//input[@type='email']"/>
+        <element name="FirstName" type="input" selector="//input[@name='firstname']"/>
+        <element name="LastName" type="input" selector="//input[@name='lastname']"/>
+        <element name="Street" type="input" selector="//input[@name='street[0]']"/>
+        <element name="City" type="input" selector="//input[@name='city']"/>
+        <element name="Region" type="select" selector="//select[@name='region_id']/option[@value='1']"/>
+        <element name="Postcode" type="input" selector="//input[@name='postcode']"/>
+        <element name="Country" type="select" selector="//select[@name='country_id']/option[@value='US']"/>
+        <element name="Telephone" type="input" selector="//input[@name='telephone']"/>
+        <element name="FixedShippingMethod" type="radio"
+                 selector="//div[@id='checkout-shipping-method-load']//input[@value='flatrate_flatrate']"/>
+        <element name="BestWayShippingMethod" type="text"
+                 selector="//div[@id='checkout-shipping-method-load']//input[@value='tablerate_bestway']"/>
+        <element name="ShippingMethodPrice" type="text" parameterized="true"
+                 selector="//input[contains(@value, '{{shippingMethods}}')]/parent::td/following-sibling::td/span/span[@class='price']"/>
+        <element name="Next" type="button" selector="//button[@data-role='opc-continue']"/>
+        <element name="SelectForRegion" type="select" selector="//select[@name='region_id']"/>
+        <element name="SelectForCountry" type="select" selector="//select[@name='country_id']"/>
+        <element name="ShippingMethodsLoader" type="block"
+                 selector="//li[@id='opc-shipping_method']//div[@class='loader']"/>
+        <element name="ShipMethod" type="input" parameterized="true"
+                 selector="//input[@value='{{shippingMethodsName}}']"/>
+        <element name="ShipMethodLabel" type="input" parameterized="true"
+                 selector="//label[contains(@for, '{{shippingMethodsName}}')]"/>
+        <element name="ProductTab" type="block" selector="//div[@role='tab']//span[contains(string(), 'Item')]"/>
+        <element name="ProductTabOpen" type="block"
+                 selector="//div[contains(@class, 'active')]//div[@role='tab']//span[contains(string(), 'Item')]"/>
+        <element name="ProductOnCheckout" type="block" parameterized="true"
+                 selector="//div[@class='content minicart-items']//following::strong[contains(string(),'{{productName}}')]"/>
+        <element name="ProductQtyOnCheckout" type="block" parameterized="true"
+                 selector="//div[@class='content minicart-items']//following::strong[contains(string(),'{{productName}}')]//following-sibling::div[@class='details-qty']//span[@class='value']"/>
+        <element name="AmThemeShippingMethods" type="block" selector="//div[contains(@class, 'amtheme-summary-content')]"/>
+    </section>
+</sections>

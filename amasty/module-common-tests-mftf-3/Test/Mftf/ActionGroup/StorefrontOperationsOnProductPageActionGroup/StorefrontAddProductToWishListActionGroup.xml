@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAddProductToWishListActionGroup">
+        <arguments>
+            <argument name="product"/>
+        </arguments>
+        <amOnPage url="{{StorefrontProductPage.url(product.custom_attributes[url_key])}}" stepKey="goToProductPage"/>
+        <waitForPageLoad stepKey="waitForProductPageLoadAfterOpen"/>
+        <click selector="{{StorefrontProductPageSection.AddProductToWishList}}" stepKey="addProductToWishlist"/>
+        <waitForPageLoad stepKey="waitForProductPageLoadAfterAddToWishList"/>
+    </actionGroup>
+</actionGroups>

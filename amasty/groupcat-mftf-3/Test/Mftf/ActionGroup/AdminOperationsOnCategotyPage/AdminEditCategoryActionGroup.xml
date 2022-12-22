@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminEditCategoryActionGroup">
+        <arguments>
+            <argument name="category" type="string"/>
+            <argument name="categoryConfig" defaultValue="displayMode.blockAndProducts"/>
+        </arguments>
+        <amOnPage url="{{AdminCategoryPage.url}}" stepKey="openCategoryPage"/>
+        <waitForPageLoad stepKey="waitForAdminCategoryPageLoad"/>
+        <seeElement selector="{{AdminCategorySection.CategoryName(category)}}" stepKey="seeCategoryName"/>
+        <click selector="{{AdminCategorySection.CategoryName(category)}}" stepKey="openCategory"/>
+        <waitForPageLoad stepKey="waitForCategoryLoad"/>
+        <scrollTo selector="{{AdminCategorySection.DisplaySettings}}" stepKey="scrollToDisplaySettingsTab"/>
+        <conditionalClick selector="{{AdminCategorySection.DisplaySettings}}" dependentSelector="{{AdminCategorySection.DisplayMode}}"
+                          visible="false" stepKey="openDisplaySettingsTab"/>
+        <selectOption selector="{{AdminCategorySection.DisplayMode}}" userInput="{{categoryConfig}}" stepKey="selectBlockAndProducts"/>
+        <click selector="{{AdminCategorySection.Save}}" stepKey="saveCategory"/>
+        <waitForPageLoad stepKey="waitForCategorySave"/>
+        <seeElement selector="{{AdminCategorySection.SuccessMessage}}" stepKey="seeSuccessSavedMessage"/>
+        <magentoCLI command="cache:clean" stepKey="cacheClean"/>
+    </actionGroup>
+</actionGroups>

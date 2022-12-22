@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqQuestionAssignedToSpecifiedProductTest">
+        <annotations>
+            <features value="Question Assigned to Product"/>
+            <stories value="Assert Question Assigned to Product"/>
+            <title value="Assert Question Is Available on Added Product Page. Question Is Not Available on Not Added Product Page"/>
+            <description value="Assert Question Is Available on Added Product Page. Question Is Not Available on Not Added Product Page"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-24"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqQuestion"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="firstCategory"/>
+            <createData entity="SimpleProductByFusionBackpack" stepKey="firstProduct">
+                <requiredEntity createDataKey="firstCategory"/>
+            </createData>
+            <createData entity="SimpleProductByDrivenBackpack" stepKey="secondProduct">
+                <requiredEntity createDataKey="firstCategory"/>
+            </createData>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminCreateQuestionActionGroup" stepKey="createQuestion"/>
+            <actionGroup ref="AdminAssignProductToQuestionActionGroup" stepKey="assignFirstProductToQuestion">
+                <argument name="productName" value="$$firstProduct.product[name]$$"/>
+            </actionGroup>
+        </before>
+        <after>
+            <deleteData createDataKey="firstProduct" stepKey="deleteFirstProduct"/>
+            <deleteData createDataKey="secondProduct" stepKey="deleteSecondProduct"/>
+            <deleteData createDataKey="firstCategory" stepKey="deleteFirstCategory"/>
+            <actionGroup ref="AdminDeleteQuestionFromGridActionGroup" stepKey="deleteQuestion"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="openFirstProductPage">
+            <argument name="productUrl" value="$$firstProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnProductPageActionGroup" stepKey="assertQuestionOnFirstProductPage"/>
+        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="openSecondProductPage">
+            <argument name="productUrl" value="$$secondProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertNoQuestionTitleOnProductPageActionGroup" stepKey="assertNoQuestionOnSecondProductPage"/>
+    </test>
+</tests>

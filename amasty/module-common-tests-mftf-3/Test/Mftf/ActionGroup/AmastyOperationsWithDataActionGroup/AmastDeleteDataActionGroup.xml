@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+<!--
+    Group to delete entities for only one createdDataKey.
+
+    Arguments:
+            1. createDataKey - stepKey of the createData action.
+                 Format: >Step< .
+                 Example using in test (will be deleted all allowed entities with stepKey from createCategory1) :
+                    - value="createCategory"
+
+            3. deleteCount - count of entity to delete.
+                 Format: >number<.
+                 Example using in test (will be deleted 6 created categories):
+                    - value="{{number.six}}"
+                 If using default value -> deleted all allowed entities if it is less than 200.
+
+            2. deleteFromNumber - the sequence number (suffix) of the stepKey from which needs begin to delete entity.
+                 Format: >number< .
+                 Example using in test (delete created category from step "createCategory3") :
+                    - value="{{number.three}}"
+                 If using default value -> deleted from step with sequence number one.
+-->
+
+    <actionGroup name="AmastyDeleteDataActionGroup">
+        <arguments>
+            <argument name="createDataKey" type="string" />
+            <argument name="deleteCount" type="string" defaultValue="{{number.two_hundred}}" />
+            <argument name="deleteFromNumber" type="string" defaultValue="{{number.one}}" />
+        </arguments>
+        <helper class="\Amasty\CommonTestsMFTF3\Test\Mftf\Helper\AmastyDataHelper"
+                method="amastyDeleteEntities" stepKey="amDeleteData">
+            <argument name="createDataKey">{{createDataKey}}</argument>
+            <argument name="deleteCount">{{deleteCount}}</argument>
+            <argument name="deleteFrom">{{deleteFromNumber}}</argument>
+        </helper>
+    </actionGroup>
+</actionGroups>

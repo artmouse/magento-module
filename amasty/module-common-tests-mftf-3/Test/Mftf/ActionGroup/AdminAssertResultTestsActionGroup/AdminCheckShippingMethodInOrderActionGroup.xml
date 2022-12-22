@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminCheckShippingMethodInOrderActionGroup" extends="AdminOpenOrderOnIdActionGroup">
+        <arguments>
+            <argument name="shippingMethodName"/>
+            <argument name="shippingMethodPrice"/>
+        </arguments>
+        <see selector="{{AdminOpenOrderSection.ShippingMethodName}}" userInput="{{shippingMethodName}}"
+             stepKey="checkShippingMethodName"/>
+        <see selector="{{AdminOpenOrderSection.ShippingMethodPrice}}" userInput="{{shippingMethodPrice}}"
+             stepKey="checkShippingMethodPrice"/>
+    </actionGroup>
+</actionGroups>

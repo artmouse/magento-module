@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqAskQuestionAsGuestOnProductPageTest">
+        <annotations>
+            <features value="Ask Question"/>
+            <stories value="Ask Question As Guest"/>
+            <title value="Ask Question As Guest on Product Page"/>
+            <description value="Ask Question As Guest on Product Page. Assert Question in Admin Part"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-64"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqAskQuestion"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="simpleCategory"/>
+            <createData entity="SimpleProductByFusionBackpack" stepKey="simpleProduct">
+                <requiredEntity createDataKey="simpleCategory"/>
+            </createData>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminFaqGeneralSettingsActionGroup" stepKey="setAllowGuestAskQuestion">
+                <argument name="setting" value="allowGuestAskQuestion"/>
+            </actionGroup>
+        </before>
+        <after>
+            <deleteData createDataKey="simpleProduct" stepKey="deleteProduct"/>
+            <deleteData createDataKey="simpleCategory" stepKey="deleteCategory"/>
+            <actionGroup ref="AdminDeleteAllQuestionsFromGridActionGroup" stepKey="deleteAllQuestionsFromGrid"/>
+            <actionGroup ref="AdminFaqGeneralSettingsActionGroup" stepKey="setDefGeneralSettings"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="openPageForQuestion">
+            <argument name="productUrl" value="$$simpleProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenQuestionTabActionGroup" stepKey="openQuestionTab"/>
+        <actionGroup ref="StorefrontAskQuestionWithNotifyActionGroup" stepKey="askQuestionWithNotify">
+            <argument name="question" value="questionAskedOnStorefront"/>
+        </actionGroup>
+        <!--assert question data in admin part-->
+        <actionGroup ref="AdminOpenQuestionFromGridActionGroup" stepKey="openQuestionFromGrid">
+            <argument name="questionTitle" value="questionAskedOnStorefront.title"/>
+        </actionGroup>
+        <actionGroup ref="AdminAssertQuestionDataAskedByGuestOnFrontActionGroup" stepKey="assertQuestionDataAskedOnFront">
+            <argument name="question" value="questionAskedOnStorefront"/>
+        </actionGroup>
+        <actionGroup ref="AdminAssertProductInQuestionAskedOnFrontActionGroup" stepKey="assertProductInQuestion">
+            <argument name="productName" value="$$simpleProduct.name$$"/>
+        </actionGroup>
+    </test>
+</tests>

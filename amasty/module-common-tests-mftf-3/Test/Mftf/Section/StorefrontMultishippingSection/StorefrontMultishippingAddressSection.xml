@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="StorefrontMultishippingAddressSection">
+        <element name="GoToShippingInformationButton" type="button"
+                 selector="//div[@class='primary']//button[@data-role='can-continue']"/>
+        <element name="ProductAddress" type="select" parameterized="true"
+                 selector="//table[@id='multiship-addresses-table']//tr//a[contains(string(),'{{productName}}')]/parent::strong/parent::td/following-sibling::td//select"/>
+        <element name="FirstMultiShippingAddress" type="button" parameterized="true"
+                 selector="//strong[contains(string(), 'Address 1')]/parent::div/following-sibling::div//input[contains(@value, '{{shippingMethod}}')]"/>
+        <element name="SecondMultiShippingAddress" type="button" parameterized="true"
+                 selector="//strong[contains(string(), 'Address 2')]/parent::div/following-sibling::div//input[contains(@value, '{{shippingMethod}}')]"/>
+    </section>
+</sections>

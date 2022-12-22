@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqGeneralSettingsTest">
+        <annotations>
+            <features value="General Settings"/>
+            <stories value="Assert General Settings"/>
+            <title value="Assert General Settings (Title, URL Prefix, Add FAQ to the Toolbar, Add FAQ to the Categories Menu, Add FAQ to the Footer)"/>
+            <description value="Assert General Settings (Title, URL Prefix, Add FAQ to the Toolbar, Add FAQ to the Categories Menu, Add FAQ to the Footer)"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-35"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqConfigurations"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminFaqGeneralSettingsActionGroup" stepKey="addAllFaqLinksOnStorefront">
+                <argument name="setting" value="addCustomFaqLink"/>
+            </actionGroup>
+        </before>
+        <after>
+            <actionGroup ref="AdminFaqGeneralSettingsActionGroup" stepKey="setDefFaqGeneralSettings"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <actionGroup ref="StorefrontAssertFaqLinksActionGroup" stepKey="assertFaqLinks"/>
+        <actionGroup ref="AdminFaqGeneralSettingsActionGroup" stepKey="notAddAllFaqLinksOnStorefront">
+            <argument name="setting" value="notAddFaqLink"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertNoFaqLinksActionGroup" stepKey="assertNoFaqLinks"/>
+    </test>
+</tests>

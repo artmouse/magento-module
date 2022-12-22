@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqApiQuestionWithCategoryTest">
+        <annotations>
+            <features value="API FAQ Question"/>
+            <stories value="Assert API FAQ Question"/>
+            <title value="Create FAQ Question With Added FAQ Category and Product Using API. Delete Question"/>
+            <description value="Create FAQ Question Using API With Added FAQ Category and Product. Assert Question Data Is Correct on Question Page Admin Part.
+                                Storefront FAQ Page, Category Page, Question Page, Product Page. Delete Question Using API"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-27"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqQuestion"/>
+            <group value="AmFaqApi"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="simpleCategory"/>
+            <createData entity="SimpleProductByFusionBackpack" stepKey="simpleProduct">
+                <requiredEntity createDataKey="simpleCategory"/>
+            </createData>
+            <createData entity="apiFaqCategory" stepKey="faqCategory"/>
+            <createData entity="apiFaqQuestionWithCategory" stepKey="faqQuestion">
+                <requiredEntity createDataKey="faqCategory"/>
+                <requiredEntity createDataKey="simpleProduct"/>
+            </createData>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+        </before>
+        <after>
+            <deleteData createDataKey="faqQuestion" stepKey="deleteFaqQuestion"/>
+            <deleteData createDataKey="faqCategory" stepKey="deleteFaqCategory"/>
+            <deleteData createDataKey="simpleProduct" stepKey="deleteProduct"/>
+            <deleteData createDataKey="simpleCategory" stepKey="deleteCategory"/>
+            <actionGroup ref="AdminFindQuestionOnGridActionGroup" stepKey="assertFaqQuestionDeleted">
+                <argument name="questionTitle" value="$$faqQuestion.title$$"/>
+                <argument name="qtyRecordsFound" value="qtyRecordFound.0_record"/>
+            </actionGroup>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <actionGroup ref="AdminOpenQuestionFromGridActionGroup" stepKey="openQuestionFromGrid">
+            <argument name="questionTitle" value="$$faqQuestion.title$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminAssertQuestionDataActionGroup" stepKey="assertQuestionData">
+            <argument name="question" value="$$faqQuestion$$"/>
+            <argument name="categoryTitle" value="$$faqCategory.title$$"/>
+            <argument name="productName" value="$$simpleProduct.name$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenFaqPageActionGroup" stepKey="openFaqPage"/>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnFaqPageActionGroup" stepKey="assertApiQuestionOnFaqPage">
+            <argument name="categoryTitle" value="$$faqCategory.title$$"/>
+            <argument name="questionTitle" value="$$faqQuestion.title$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionAnswerOnFaqPageActionGroup" stepKey="assertApiQuestionAnswerOnFaqPage">
+            <argument name="category" value="$$faqCategory.title$$"/>
+            <argument name="questionName" value="$$faqQuestion.title$$"/>
+            <argument name="questionAnswer" value="$$faqQuestion.short_answer$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenFaqCategoryPageActionGroup" stepKey="openApiCategoryPage">
+            <argument name="category" value="$$faqCategory$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnCategoryPageActionGroup" stepKey="assertApiQuestionOnCategoryPage">
+            <argument name="questionTitle" value="$$faqQuestion.title$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionAnswerOnCategoryPageActionGroup" stepKey="assertApiQuestionAnswerOnCategoryPage">
+            <argument name="questionName" value="$$faqQuestion.title$$"/>
+            <argument name="questionAnswer" value="$$faqQuestion.short_answer$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenQuestionFromCategoryPageActionGroup" stepKey="openApiQuestionFromCategory">
+            <argument name="question" value="$$faqQuestion.title$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnQuestionPageActionGroup" stepKey="assertQuestionInfoOnQuestionPage">
+            <argument name="question" value="$$faqQuestion$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionAnswerOnQuestionPageActionGroup" stepKey="assertQuestionAnswerOnQuestionPage">
+            <argument name="answer" value="$$faqQuestion.answer$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="openProductPage">
+            <argument name="productUrl" value="$$simpleProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnProductPageActionGroup" stepKey="assertApiQuestionProduct">
+            <argument name="questionTitle" value="$$faqQuestion.title$$"/>
+        </actionGroup>
+    </test>
+</tests>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Automatic Related Products MFTF 3 for Magento 2 (System)
+*/-->
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/pageSchema.xsd">
+    <page name="AdminRelatedProductConfigPage" url="/admin/system_config/edit/section/ammostviewed/" area="admin" module="Mostviewed">
+        <section name="AdminBundlePacksConfiguration" />
+    </page>
+</pages>

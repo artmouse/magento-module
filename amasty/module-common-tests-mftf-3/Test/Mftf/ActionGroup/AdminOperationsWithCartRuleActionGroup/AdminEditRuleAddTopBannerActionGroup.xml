@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminEditRuleAddTopBannerActionGroup" extends="AdminOpenCartPriceRuleActionGroup">
+        <conditionalClick selector="{{AdminActionsCartPriceRuleSection.HighlightPromotionTab}}"
+                          dependentSelector="{{AdminActionsCartPriceRuleSection.HighlightPromotionTopBannerTab}}"
+                          visible="false" stepKey="openHighlightPromotionTab"/>
+        <conditionalClick selector="{{AdminActionsCartPriceRuleSection.HighlightPromotionTopBannerTab}}"
+                          dependentSelector="{{AdminActionsCartPriceRuleSection.TopBannerUpload}}" visible="false"
+                          stepKey="openTopBannerTab"/>
+        <scrollTo selector="{{AdminActionsCartPriceRuleSection.ShowBannerFor}}" stepKey="scrollToShowBannerFor"/>
+        <attachFile userInput="magento.jpg" selector="{{AdminActionsCartPriceRuleSection.TopBannerUpload}}"
+                    stepKey="uploadFileForTopBanner"/>
+        <waitForPageLoad stepKey="waitForAddImage"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterAddBanner"/>
+        <click selector="{{AdminActionsCartPriceRuleSection.SaveAndContinueEdit}}" stepKey="clickOnSave"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSave"/>
+    </actionGroup>
+</actionGroups>

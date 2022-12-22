@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminSelectReplaceWithTextPriceOnRulePageActionGroup" extends="AdminSelectHidePriceOnRulePageActionGroup">
+        <arguments>
+            <argument name="blockData" defaultValue="cmsBlock.blockTitle"/>
+        </arguments>
+        <remove keyForRemoval="setHidePriceYes"/>
+        <click selector="{{AdminGroupcatRuleSection.ReplaceWithTextPrice}}" after="openProductPageDisplayOptionsTab" stepKey="setReplaceWithTextPrice"/>
+        <selectOption selector="{{AdminGroupcatRuleSection.ReplaceBlockProdPage}}" userInput="{{blockData}}"
+                      after="setReplaceWithTextPrice" stepKey="selectReplaceBlockProdPage"/>
+        <selectOption selector="{{AdminGroupcatRuleSection.ReplaceBlockCategoryPage}}" userInput="{{blockData}}"
+                      after="selectReplaceBlockProdPage" stepKey="selectReplaceBlockCategoryPage"/>
+    </actionGroup>
+</actionGroups>

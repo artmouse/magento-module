@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminAssertCustomerDataOnGridActionGroup">
+        <arguments>
+            <argument name="customer"/>
+            <argument name="customerAddress"/>
+        </arguments>
+        <see selector="{{AdminCustomerGridSection.customerGrid}}"
+             userInput="{{customer.firstname}}" stepKey="assertFirstName"/>
+        <see selector="{{AdminCustomerGridSection.customerGrid}}"
+             userInput="{{customer.lastname}}" stepKey="assertLastName"/>
+        <see selector="{{AdminCustomerGridSection.customerGrid}}"
+             userInput="{{customer.email}}" stepKey="assertEmail"/>
+        <see selector="{{AdminCustomerGridSection.customerGrid}}"
+             userInput="{{customerAddress.state}}" stepKey="assertState"/>
+        <see selector="{{AdminCustomerGridSection.customerGrid}}"
+             userInput="{{customerAddress.country}}" stepKey="assertCountry"/>
+        <see selector="{{AdminCustomerGridSection.customerGrid}}"
+             userInput="{{customerAddress.postcode}}" stepKey="assertPostCode"/>
+        <see selector="{{AdminCustomerGridSection.customerGrid}}"
+             userInput="{{customerAddress.telephone}}" stepKey="assertPhoneNumber"/>
+    </actionGroup>
+</actionGroups>

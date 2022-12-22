@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAssertNoAverageVoteOnQuestionPageActionGroup">
+        <arguments>
+            <argument name="vote" defaultValue="ratedQuestion.averageRating"/>
+        </arguments>
+        <dontSeeElement selector="{{StorefrontQuestionSection.TotalRatingAverage(vote)}}" stepKey="assertTotalRatingAverage"/>
+    </actionGroup>
+</actionGroups>

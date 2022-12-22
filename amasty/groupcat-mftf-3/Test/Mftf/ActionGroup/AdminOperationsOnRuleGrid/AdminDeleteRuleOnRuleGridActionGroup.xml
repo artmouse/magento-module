@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminDeleteRuleOnRuleGridActionGroup" extends="AdminFindRuleActionGroup">
+        <checkOption selector="{{AdminGroupcatRuleGridSection.FirstRowCheckbox}}" stepKey="checkRule"/>
+        <click selector="{{AdminGroupcatRuleGridSection.MassAction}}" stepKey="clickActionDropdown"/>
+        <click selector="{{AdminGroupcatRuleGridSection.DeleteMassAction}}" stepKey="clickDeleteAction"/>
+        <waitForPageLoad stepKey="waitForAcceptDeleteRuleButtonAppear"/>
+        <click selector="{{AdminGroupcatRuleGridSection.AcceptDeleteButton}}" stepKey="confirmRuleDelete"/>
+        <waitForPageLoad stepKey="waitForRuleDelete"/>
+        <seeElement selector="{{AdminGroupcatRuleGridSection.RuleSuccessfullyRemovedMessage(qtyRecords)}}" stepKey="seeRuleRemovedMessage"/>
+    </actionGroup>
+</actionGroups>

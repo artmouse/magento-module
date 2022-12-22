@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="amDefCreateCatalogRule" type="defaultTests">
+        <data key="newPrice">28.95</data>
+        <data key="newPriceOrder">33.95</data>
+        <data key="oldPrice">54.00</data>
+    </entity>
+
+    <entity name="amDefCheckCategorySort" type="defaultTests">
+        <data key="firstPosition">1</data>
+        <data key="secondPosition">2</data>
+        <data key="thirdPosition">3</data>
+    </entity>
+
+    <entity name="amDefCheckCategoryFiltration" type="defaultTests">
+        <data key="filterOptionPrice">Price</data>
+        <data key="filterItemBellow100">$0.00 - $99.99</data>
+        <data key="filterItemAbove100">$100.00 </data>
+        <data key="filterItemOptionOne">option1</data>
+        <data key="filterItemOptionTwo">option2</data>
+    </entity>
+
+    <entity name="amDefOrderSimpleLoginDiscount" type="defaultTests">
+        <data key="discountAmount">7.40</data>
+        <data key="subtotal">74.00</data>
+        <data key="shippingPrice">5.00</data>
+        <data key="orderTotal">78.76</data>
+    </entity>
+
+    <entity name="amDefOrderVirtualNotLoggedDiscount" type="defaultTests">
+        <data key="discountAmount">10.00</data>
+        <data key="orderTotal">25.00</data>
+    </entity>
+
+    <entity name="amDefOrderVirtualLogged" type="defaultTests">
+        <data key="orderTotal">35.00</data>
+    </entity>
+
+    <entity name="amDefOrderConfigurableNotLogged" type="defaultTests">
+        <data key="orderTotal">57.00</data>
+        <data key="configOption">option2</data>
+    </entity>
+
+    <entity name="amDefOrderDownloadableLoginFromCart" type="defaultTests">
+        <data key="purchaseOrderNumber">12345</data>
+        <data key="orderTotal">56.09</data>
+    </entity>
+
+    <entity name="amDefOrderLoginToCheckoutCode" type="defaultTests">
+        <data key="discountAmount">16.10</data>
+        <data key="orderTotal">154.90</data>
+    </entity>
+
+    <entity name="amDefOrderCouponCodeWithConditions" type="defaultTests">
+        <data key="discountAmount">3.20</data>
+        <data key="subtotal">106.00</data>
+        <data key="shippingPrice">10.00</data>
+        <data key="orderTotal">124.08</data>
+    </entity>
+
+    <entity name="amDefOrderTwoStoreAndMultiCurrency" type="defaultTests">
+        <data key="rateUSDAndEUR">0.8</data>
+        <data key="subtotal">€59.20</data>
+        <data key="shippingPrice">€4.00</data>
+        <data key="orderTotal">€63.20</data>
+    </entity>
+
+    <entity name="amDefCartRulesNameForDisable" type="shiprules">
+        <data key="firstRule">Spend $50 or more - shipping is free!</data>
+        <data key="secondRule">20% OFF Ever $200-plus purchase!*</data>
+    </entity>
+
+</entities>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminConfigurationCurrenciesSettingsActionGroup">
+        <arguments>
+            <argument name="currenciesForChoose" defaultValue="defaultCurrenciesConfig_USD.currenciesForChoose"/>
+        </arguments>
+        <amOnPage url="{{AdminConfigurationsCurrencyPage.url}}" stepKey="navigateConfigurationCurrencyPage"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenPage"/>
+        <conditionalClick selector="{{AdminConfigurationsCurrencySection.CurrencyOptionsTab}}"
+                          dependentSelector="{{AdminConfigurationsCurrencySection.CurrencyOptionsTabOpen}}"
+                          visible="false" stepKey="openCurrencyInConfigurationsTab"/>
+        <selectOption selector="{{AdminConfigurationsCurrencySection.CurrencySelectOptions}}"
+                      parameterArray="[{{currenciesForChoose}}]" stepKey="selectCurrencies"/>
+        <click selector="{{AdminConfigurationsAllSection.Save}}" stepKey="saveChange"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSave"/>
+    </actionGroup>
+</actionGroups>

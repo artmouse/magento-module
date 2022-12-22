@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAddCreatedProductToCartActionGroup">
+        <arguments>
+            <argument name="valueQty" defaultValue="_enterQty1"/>
+            <argument name="product"/>
+        </arguments>
+        <amOnPage url="{{StorefrontProductPage.url(product.custom_attributes[url_key])}}" stepKey="goToProductPage"/>
+        <waitForPageLoad stepKey="waitForProductPageLoad"/>
+        <fillField selector="{{StorefrontProductPageSection.QtyInput}}" userInput="{{valueQty.qty}}"
+                   stepKey="enterQtyProduct"/>
+        <click selector="{{StorefrontProductPageSection.QtyLabel}}" stepKey="outOfInput"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterInputQty"/>
+        <click selector="{{StorefrontProductPageSection.AddToCartBtn}}" stepKey="clickToAddToCart"/>
+        <waitForPageLoad stepKey="waitForAddProductToCart"/>
+        <waitForElementVisible selector="{{StorefrontProductPageSection.SuccessMsg}}"
+                               stepKey="checkProductAddedOnTheCart"/>
+    </actionGroup>
+</actionGroups>

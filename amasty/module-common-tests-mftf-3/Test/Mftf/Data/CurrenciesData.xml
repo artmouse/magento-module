@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <!-- Don't using data "_Euro", them will be deleted after change in all test to "euroCurrency" -->
+    <entity name="_Euro" type="currencies">
+        <data key="currencyName">EUR - Euro</data>
+        <data key="currencyCode">EUR</data>
+    </entity>
+    <!-- Don't using data "_AustralianDollar", them will be deleted after change in all test to "australianDollarCurrency" -->
+    <entity name="_AustralianDollar" type="currencies">
+        <data key="currencyName">AUD - Australian Dollar</data>
+        <data key="currencyCode">AUD</data>
+    </entity>
+    <!-- Don't using data "_CurrencySetOne", them will be deleted after change in all test to another data -->
+    <entity name="_CurrencySetOne" type="currenciesConfigurations">
+        <data key="currencyCodeOne">EUR</data>
+        <data key="currencyCodeTwo">USD</data>
+    </entity>
+    <!-- Don't using data "_CurrencySetOne", them will be deleted after change in all test to another data -->
+    <entity name="_CurrencySet_USD_AUD" type="currenciesConfigurations">
+        <data key="currencyCodeOne">AUD</data>
+        <data key="currencyCodeTwo">USD</data>
+    </entity>
+
+    <!-- Data for new ActionGroup "AdminAddCurrenciesRateActionGroup" -->
+    <entity name="euroCurrency" type="currencies">
+        <data key="currencyName">EUR - Euro</data>
+        <data key="currencyCode">EUR</data>
+    </entity>
+
+    <entity name="dollarCurrency" type="currencies">
+        <data key="currencyName">USD - US Dollar</data>
+        <data key="currencyCode">USD</data>
+    </entity>
+
+    <entity name="belarusianRubleCurrency" type="currencies">
+        <data key="currencyName">BYR - Belarusian Ruble</data>
+        <data key="currencyCode">BYR</data>
+    </entity>
+
+    <entity name="australianDollarCurrency" type="currencies">
+        <data key="currencyName">AUD - Australian Dollar</data>
+        <data key="currencyCode">AUD</data>
+    </entity>
+
+    <!-- Data for new ActionGroup "AdminConfigurationCurrenciesSettingsActionGroup" -->
+    <entity name="currenciesConfig_USD_EURO" type="currenciesConfiguration">
+        <data key="currenciesForChoose">'USD', 'EUR'</data>
+    </entity>
+
+    <entity name="defaultCurrenciesConfig_USD" type="currenciesConfiguration">
+        <data key="currenciesForChoose">'USD'</data>
+    </entity>
+
+</entities>

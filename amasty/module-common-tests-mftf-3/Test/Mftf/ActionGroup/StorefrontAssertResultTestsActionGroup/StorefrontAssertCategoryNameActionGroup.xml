@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontAssertCategoryNameActionGroup">
+        <arguments>
+            <argument name="categoryEntity" defaultValue="_defaultCategory"/>
+        </arguments>
+        <amOnPage url="/{{categoryEntity.name_lwr}}.html" stepKey="goToCategoryFrontPage"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenCategory"/>
+        <see selector="{{StorefrontCategoryProductSection.CategoryName}}" userInput="{{categoryEntity.name_lwr}}"
+             stepKey="assertCategoryOnStorefront"/>
+        <seeInTitle userInput="{{categoryEntity.name}}" stepKey="seeCategoryNameInTitle"/>
+    </actionGroup>
+</actionGroups>

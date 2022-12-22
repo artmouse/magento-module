@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminFindAndOpenCreatedProductActionGroup">
+        <arguments>
+            <argument name="product"/>
+        </arguments>
+        <amOnPage url="{{AdminGridProductsPage.url}}" stepKey="navigateToAdminAllProductsPage"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenGrid"/>
+        <conditionalClick selector="{{AdminGridProductsSection.FilterClearAllButton}}"
+                          dependentSelector="{{AdminGridProductsSection.FilterClearAllButton}}" visible="true"
+                          stepKey="clearAllFilters"/>
+        <waitForAjaxLoad stepKey="waitForAjaxOnGridIsLoad"/>
+        <click selector="{{AdminGridProductsSection.FiltersButton}}" stepKey="addFilters"/>
+        <fillField selector="{{AdminGridProductsSection.InputNameFilters}}" userInput="{{product.name}}"
+                   stepKey="enterProductName"/>
+        <click selector="{{AdminGridProductsSection.ApplyFiltersButton}}" stepKey="applyFilter"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterFilter"/>
+        <click selector="{{AdminGridProductsSection.ProductOnGrid(product.name)}}" stepKey="openProduct"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenProduct"/>
+    </actionGroup>
+</actionGroups>

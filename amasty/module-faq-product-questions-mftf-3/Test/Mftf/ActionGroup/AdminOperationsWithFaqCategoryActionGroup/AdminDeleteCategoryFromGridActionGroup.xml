@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminDeleteCategoryFromGridActionGroup" extends="AdminFindCategoryOnGridActionGroup">
+        <checkOption selector="{{AdminCategoryGridSection.FirstRowCheckbox}}" stepKey="checkGiftCodeAccount"/>
+        <click selector="{{AdminCategoryGridSection.MassActions}}" stepKey="clickMassActionsButton"/>
+        <click selector="{{AdminCategoryGridSection.DeleteMassAction}}" stepKey="clickDeleteMassActionButton"/>
+        <waitForPageLoad stepKey="waitForAcceptDeleteGiftCodeAccountButton"/>
+        <click selector="{{AdminCategoryGridSection.AcceptDeleteButton}}" stepKey="acceptDeleteGiftCodeAccountButton"/>
+        <waitForPageLoad stepKey="waitForDeleteGiftCodeAccount"/>
+        <seeElement selector="{{AdminCategoryGridSection.SuccessfullyRemovedMsg(qtyRecordsFound)}}" stepKey="seeAccountRemovedMessage"/>
+    </actionGroup>
+</actionGroups>

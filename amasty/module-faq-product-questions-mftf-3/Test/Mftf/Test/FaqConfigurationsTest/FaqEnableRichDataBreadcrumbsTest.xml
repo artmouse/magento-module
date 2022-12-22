@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqEnableRichDataBreadcrumbsTest" extends="FaqUseCanonicalUrlOnPagesTest">
+        <annotations>
+            <features value="Enable Rich Data Breadcrumbs"/>
+            <stories value="Assert Enable Rich Data Breadcrumbs"/>
+            <title value="Assert Rich Data Breadcrumbs in Question and Category Page Source"/>
+            <description value="Assert Rich Data Breadcrumbs in Question and Category Page Source"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-63"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqConfigurations"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="AdminFaqSearchNavigationSortingActionGroup" after="setFaqSeo" stepKey="enableBreadcrumbs"/>
+        </before>
+
+        <!--disabled Rich Data Breadcrumbs-->
+        <actionGroup ref="StorefrontAssertNoRichDataBreadcrumbsInPageSourceActionGroup" stepKey="assertNoDataInPageSourceOnCategory"/>
+        <actionGroup ref="StorefrontAssertNoRichDataBreadcrumbsInPageSourceActionGroup" stepKey="assertNoDataInPageSourceOnQuestion"/>
+        <!--enabled Rich Data Breadcrumbs-->
+        <actionGroup ref="AdminFaqSeoActionGroup" stepKey="enableSeoFeature">
+            <argument name="setting" value="enableRichDataBreadcrumbs"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertRichDataBreadcrumbsInPageSourceActionGroup" stepKey="assertDataInPageSourceOnCategory"/>
+        <actionGroup ref="StorefrontAssertRichDataBreadcrumbsInPageSourceActionGroup" stepKey="assertDataInPageSourceOnQuestion"/>
+    </test>
+</tests>

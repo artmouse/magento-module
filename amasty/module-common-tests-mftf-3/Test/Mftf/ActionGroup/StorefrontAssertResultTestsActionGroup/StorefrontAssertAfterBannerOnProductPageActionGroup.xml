@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAssertAfterBannerOnProductPageActionGroup">
+        <arguments>
+            <argument name="product"/>
+        </arguments>
+        <amOnPage url="{{StorefrontProductPage.url(product.custom_attributes[url_key])}}"
+                  stepKey="navigateProductPage"/>
+        <waitForPageLoad stepKey="waitForProductPageLoad"/>
+        <seeElement selector="{{StorefrontProductPageWithPromoSection.AfterBannerLite}}"
+                    stepKey="checkHaveAfterBanner"/>
+    </actionGroup>
+</actionGroups>

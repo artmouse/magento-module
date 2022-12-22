@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="StorefrontCustomerWishlistProductSection">
+        <element name="ProductAddToCartByName" type="button" parameterized="true"
+                 selector="//li[.//a[contains(text(), '{{var1}}')]]//button[@data-role='tocart']"/>
+        <element name="ProductInfoByName" type="text" parameterized="true" timeout="10"
+                 selector="//li[.//a[contains(text(), '{{var1}}')]]//div[@class='product-item-info']"/>
+        <element name="ProductQuantity" type="input" parameterized="true"
+                 selector="//a[contains(text(), '{{productName}}')]/ancestor::div[@class='product-item-info']//input[contains(@class,'input-text qty')]"/>
+        <element name="ProductUpdateWishListTheme" type="button" selector="//button[@class='action update amtheme-update']" timeout="10"/>
+        <element name="AmThemeUpdateBlock" type="block" selector="//div[@class='amtheme-update-box']"/>
+        <element name="SuccessUpdateMessage" type="text" parameterized="true"
+                 selector="//div[contains(string(), '{{prodName}} has been updated in your Wish List.')][@data-ui-id]"/>
+    </section>
+</sections>

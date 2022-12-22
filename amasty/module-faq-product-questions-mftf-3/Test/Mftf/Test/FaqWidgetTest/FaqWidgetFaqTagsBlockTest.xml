@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqWidgetFaqTagsBlockTest" extends="FaqWidgetFaqCategoriesListTest">
+        <annotations>
+            <features value="Widget Faq Tags Block"/>
+            <stories value="Widget Faq Tags Block"/>
+            <title value="Add Widget Faq Tags Block"/>
+            <description value="Assert Widget Faq Tags Block on Storefront"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-76"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqWidget"/>
+        </annotations>
+
+        <before>
+            <createData entity="apiFaqTag" after="faqCategory" stepKey="faqTag"/>
+            <createData entity="apiFaqQuestionWithTag" stepKey="faqQuestion">
+                <requiredEntity createDataKey="simpleProduct"/>
+                <requiredEntity createDataKey="faqCategory"/>
+                <requiredEntity createDataKey="faqTag"/>
+            </createData>
+            <actionGroup ref="AdminCreateFaqTagsBlockWidgetActionGroup" stepKey="createAmFaqWidget">
+                <argument name="widget" value="amFaqTagsBlockWidget"/>
+            </actionGroup>
+        </before>
+        <after>
+            <actionGroup ref="AdminDeleteWidgetActionGroup" stepKey="deleteAmFaqWidget">
+                <argument name="widget" value="amFaqTagsBlockWidget"/>
+            </actionGroup>
+            <deleteData createDataKey="faqQuestion" stepKey="deleteFaqQuestion"/>
+            <deleteData createDataKey="faqTag" stepKey="deleteFaqTag"/>
+            <deleteData createDataKey="faqCategory" stepKey="deleteFaqCategory"/>
+            <deleteData createDataKey="simpleProduct" stepKey="deleteProduct"/>
+            <deleteData createDataKey="simpleCategory" stepKey="deleteCategory"/>
+        </after>
+
+        <remove keyForRemoval="openCategory"/>
+        <remove keyForRemoval="assertCategory"/>
+        <actionGroup ref="StorefrontAssertTagBlockOnFaqPageActionGroup" stepKey="assertWidgetOnHomePage"/>
+        <actionGroup ref="StorefrontAssertTagOnFaqPageActionGroup" stepKey="assertApiTagOnFaqPage">
+            <argument name="tag" value="$$faqTag.title$$"/>
+            <argument name="qty" value="tagQty.one"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenTagOnFaqPageActionGroup" stepKey="openApiTagFromFaqPage">
+            <argument name="tag" value="$$faqTag.title$$"/>
+            <argument name="qty" value="tagQty.one"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertTagBlockOnCategoryPageActionGroup" stepKey="assertTagBlockOnSearchResultPage"/>
+        <actionGroup ref="StorefrontAssertCurrentTagOnCategoryPageActionGroup" stepKey="assertApiTagOnSearchResultPage">
+            <argument name="tag" value="$$faqTag.title$$"/>
+            <argument name="qty" value="tagQty.one"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnCategoryPageActionGroup" stepKey="assertApiQuestionTitle">
+            <argument name="questionTitle" value="$$faqQuestion.title$$"/>
+        </actionGroup>
+    </test>
+</tests>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Automatic Related Products MFTF 3 for Magento 2 (System)
+*/-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontWhereToDisplayRuleSkuConditionTest">
+        <annotations>
+            <stories value="Related Product Rule"/>
+            <title value="Check display Related Product Rule on different With Where To Display Condition"/>
+            <description value="Check display Related Product Rule on different With Where To Display Condition"/>
+            <testCaseId value="ARP-32"/>
+            <severity value="CRITICAL"/>
+            <group value="mostviewed"/>
+        </annotations>
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <!-- Create sample data -->
+            <createData entity="ApiCategory" stepKey="createCategory"/>
+            <createData entity="ApiSimpleProduct" stepKey="createSimpleProductOne">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="ApiSimpleProduct" stepKey="createSimpleProductTwo">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <magentoCLI command="cache:clean" stepKey="cacheClean"/>
+        </before>
+        <!-- Delete sample data -->
+        <after>
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createSimpleProductOne" stepKey="deleteSimpleProductOne"/>
+            <deleteData createDataKey="createSimpleProductTwo" stepKey="deleteSimpleProductTwo"/>
+            <!-- Delete Related Product Rule -->
+            <actionGroup ref="AdminDeleteGridItemActionGroup" stepKey="goToRulesGridForDelete">
+                <argument name="urlGrid" value="AdminRelatedProductRulesGridPage.url"/>
+                <argument name="item" value="amTestRelatedProductRule.rule_name"/>
+                <argument name="message" value="amastyARPMessage.rule_deleted"/>
+            </actionGroup>
+            <magentoCLI command="cache:clean" stepKey="cacheClean"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+        <!-- Create Related Product Rule With Where to display condition -->
+        <actionGroup ref="AdminCreateWhereToDisplayCategoryConditionRuleActionGroup"
+                     stepKey="goToRulesGrid">
+            <argument name="condition" value="$$createCategory.id$$"/>
+        </actionGroup>
+        <!-- Check Related Product Rule On StoreFront -->
+        <actionGroup ref="StorefrontCheckRelProdRulesWhereToDisplayActionGroup"
+                     stepKey="goToProductPage">
+            <argument name="productOne" value="$$createSimpleProductOne.custom_attributes[url_key]$$"/>
+            <argument name="productTwo" value="$$createSimpleProductTwo.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCheckRelProdRulesWhereToDisplayActionGroup"
+                     stepKey="goToSecondProductPage">
+            <argument name="productOne" value="$$createSimpleProductTwo.custom_attributes[url_key]$$"/>
+            <argument name="productTwo" value="$$createSimpleProductOne.custom_attributes[url_key]$$"/>
+        </actionGroup>
+    </test>
+</tests>

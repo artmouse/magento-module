@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AmDefCreateOrderDownloadProductLoginFromCartTest" extends="AmDefCreateOrderSimpleProductLoginDiscountTest">
+        <annotations>
+            <features value="Place Order"/>
+            <stories value="Create Order with Downloadable Product"/>
+            <title value="Check Create Order with Downloadable Product"/>
+            <description value="Check Create Order with Downloadable Product and Login from Cart on Storefront"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmDef-21"/>
+            <group value="Amasty"/>
+            <group value="Checkout"/>
+            <group value="AmDef"/>
+            <group value="AmDefCE"/>
+            <group value="AmDefStorefront"/>
+        </annotations>
+
+        <before>
+            <remove keyForRemoval="createCartPriceRule"/>
+            <remove keyForRemoval="cashOnDeliveryPaymentMethod"/>
+            <remove keyForRemoval="setDefaultFlatRateShippingMethod"/>
+            <magentoCLI command="downloadable:domains:add example.com static.magento.com" before="createCategory"
+                        stepKey="addDownloadableDomain"/>
+            <createData entity="DownloadableProductWithOneLink" stepKey="createFirstProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="downloadableLink1" after="createFirstProduct" stepKey="addDownloadableLink">
+                <requiredEntity createDataKey="createFirstProduct"/>
+            </createData>
+            <actionGroup ref="AdminActivatePurchaseOrderActionGroup" after="configurationSettingTax"
+                         stepKey="configPurchasePaymentMethod"/>
+            <magentoCLI command="cache:clean" after="configPurchasePaymentMethod" stepKey="cleanCache"/>
+        </before>
+        <after>
+            <remove keyForRemoval="deleteCartPriceRule"/>
+            <remove keyForRemoval="defaultCashOnDelivery"/>
+            <magentoCLI command="downloadable:domains:remove example.com static.magento.com" before="deleteCustomer"
+                        stepKey="removeDownloadableDomain"/>
+            <actionGroup ref="AdminReturnDefaultSettingPurchaseOrderActionGroup" after="returnDefaultTaxSetting"
+                         stepKey="defaultSettingPurchasePayment"/>
+        </after>
+
+        <remove keyForRemoval="loginAsCustomer"/>
+        <remove keyForRemoval="fillShippingCheckoutPage"/>
+        <remove keyForRemoval="assertDiscountOnCheckoutTotals"/>
+        <remove keyForRemoval="checkProductStockStatus"/>
+        <remove keyForRemoval="openOrder"/>
+        <remove keyForRemoval="createInvoiceAndShipment"/>
+        <remove keyForRemoval="checkProductStockStatus"/>
+        <actionGroup ref="StorefrontAddProductToCartWithoutQtyAssertMiniCartActionGroup" stepKey="addProductToCart">
+            <argument name="product" value="$$createFirstProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenCartPageActionGroup" after="addProductToCart" stepKey="goToCartPage"/>
+        <actionGroup ref="StorefrontProceedToCheckoutFromCartActionGroup" after="goToCartPage" stepKey="goToCheckout"/>
+        <actionGroup ref="StorefrontCustomerLoginOnCartActionGroup" after="goToCheckout" stepKey="loginOnCart">
+            <argument name="customer" value="$$createCustomer$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenCheckoutPageActionGroup" after="loginOnCart" stepKey="navigateToCheckout"/>
+        <actionGroup ref="AssertStorefrontCheckoutPaymentSummaryTotalActionGroup" stepKey="assertCheckoutSummary">
+            <argument name="orderTotal" value="{{amDefOrderDownloadableLoginFromCart.orderTotal}}"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCreateOrderWithFillPurchaseNumberActionGroup" stepKey="createOrder">
+            <argument name="paymentMethods" value="paymentPurchaseOrder"/>
+            <argument name="purchaseOrderNumber" value="amDefOrderDownloadableLoginFromCart.purchaseOrderNumber"/>
+        </actionGroup>
+    </test>
+</tests>

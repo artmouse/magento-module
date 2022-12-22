@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminOpenCartPriceRuleActionGroup">
+        <arguments>
+            <argument name="cartRuleName"/>
+        </arguments>
+        <amOnPage url="{{AdminCartPriceRulePage.url}}" stepKey="navigateToCartPriceRulePage"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenCartRulesPage"/>
+        <click selector="{{AdminRuleGridActionSection.ResetFilter}}" stepKey="resetFilter"/>
+        <fillField selector="{{AdminRuleGridActionSection.FilterByNameInput}}" userInput="{{cartRuleName}}"
+                   stepKey="filterByName"/>
+        <click selector="{{AdminRuleGridActionSection.SearchButton}}" stepKey="doFilter"/>
+        <click selector="{{AdminRuleGridActionSection.TableRowOne}}" stepKey="goToEditRulePage"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenRule"/>
+    </actionGroup>
+</actionGroups>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqAskQuestionAsCustomerOnProductPageTest">
+        <annotations>
+            <features value="Ask Question"/>
+            <stories value="Ask Question As Logged In Customer"/>
+            <title value="Ask Question As Logged In Customer on Product Page"/>
+            <description value="Ask Question As Logged In Customer on Product Page. Assert Question in Admin Part"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-67"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqAskQuestion"/>
+        </annotations>
+
+        <before>
+            <createData entity="Simple_US_Customer" stepKey="customer"/>
+            <createData entity="SimpleSubCategory" stepKey="simpleCategory"/>
+            <createData entity="SimpleProductByFusionBackpack" stepKey="simpleProduct">
+                <requiredEntity createDataKey="simpleCategory"/>
+            </createData>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+        </before>
+        <after>
+            <deleteData createDataKey="customer" stepKey="deleteCustomer"/>
+            <deleteData createDataKey="simpleProduct" stepKey="deleteProduct"/>
+            <deleteData createDataKey="simpleCategory" stepKey="deleteCategory"/>
+            <actionGroup ref="AdminDeleteAllQuestionsFromGridActionGroup" stepKey="deleteAllQuestionsFromGrid"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginToStorefront">
+            <argument name="Customer" value="$$customer$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="openPageForQuestion">
+            <argument name="productUrl" value="$$simpleProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenQuestionTabActionGroup" stepKey="openQuestionTab"/>
+        <actionGroup ref="StorefrontAskQuestionWithNotifyNotFillInDataActionGroup" stepKey="askQuestionWithNotify">
+            <argument name="question" value="questionAskedOnStorefront"/>
+            <argument name="customer" value="$$customer$$"/>
+        </actionGroup>
+        <!--assert question data in admin part-->
+        <actionGroup ref="AdminOpenQuestionFromGridActionGroup" stepKey="openQuestionFromGrid">
+            <argument name="questionTitle" value="questionAskedOnStorefront.title"/>
+        </actionGroup>
+        <actionGroup ref="AdminAssertQuestionDataAskedByCustomerOnFrontActionGroup" stepKey="assertQuestionDataAskedOnFront">
+            <argument name="question" value="questionAskedOnStorefront"/>
+            <argument name="customer" value="$$customer$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminAssertProductInQuestionAskedOnFrontActionGroup" stepKey="assertProductInQuestion">
+            <argument name="productName" value="$$simpleProduct.name$$"/>
+        </actionGroup>
+    </test>
+</tests>

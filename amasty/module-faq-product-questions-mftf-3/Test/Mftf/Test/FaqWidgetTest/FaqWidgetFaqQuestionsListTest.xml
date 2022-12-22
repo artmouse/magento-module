@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqWidgetFaqQuestionsListTest" extends="FaqWidgetFaqCategoriesListTest">
+        <annotations>
+            <features value="Widget Faq Questions List"/>
+            <stories value="Widget Faq Questions List"/>
+            <title value="Add Widget Faq Questions List"/>
+            <description value="Assert Widget Faq Questions List on Storefront"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-74"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqWidget"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="AdminCreateFaqQuestionsListWidgetActionGroup" stepKey="createAmFaqWidget">
+                <argument name="widget" value="amFaqQuestionsListWidget"/>
+                <argument name="category" value="$$faqCategory.title$$"/>
+            </actionGroup>
+        </before>
+        <after>
+            <actionGroup ref="AdminDeleteWidgetActionGroup" stepKey="deleteAmFaqWidget">
+                <argument name="widget" value="amFaqQuestionsListWidget"/>
+            </actionGroup>
+        </after>
+
+        <remove keyForRemoval="openCategory"/>
+        <remove keyForRemoval="assertCategory"/>
+        <actionGroup ref="StorefrontAssertWidgetQuestionsListActionGroup" stepKey="assertWidgetOnHomePage">
+            <argument name="widget" value="amFaqQuestionsListWidget.blockTitle"/>
+            <argument name="question" value="$$faqQuestion.title$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenWidgetQuestionsListActionGroup" stepKey="openQuestionFromFaqPage">
+            <argument name="categoryName" value="$$faqCategory.title$$"/>
+            <argument name="questionName" value="$$faqQuestion.title$$"/>
+            <argument name="questionAnswer" value="$$faqQuestion.short_answer$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnQuestionPageActionGroup" stepKey="assertQuestionIsLoadedFromFaqPage">
+            <argument name="question" value="$$faqQuestion$$"/>
+        </actionGroup>
+    </test>
+</tests>

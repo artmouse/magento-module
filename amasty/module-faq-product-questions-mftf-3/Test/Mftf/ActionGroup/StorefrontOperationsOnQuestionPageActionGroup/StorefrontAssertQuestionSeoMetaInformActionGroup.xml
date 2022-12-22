@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAssertQuestionSeoMetaInformActionGroup">
+        <arguments>
+            <argument name="question" defaultValue="seoQuestion"/>
+        </arguments>
+        <seeInPageSource html="meta name=&quot;title&quot; content=&quot;{{question.metaTitle}}&quot;" stepKey="assertMetaTitleInPageSource"/>
+        <seeInPageSource html="meta name=&quot;description&quot; content=&quot;{{question.metaDescription}}&quot;" stepKey="assertMetaDescriptionInPageSource"/>
+        <seeInPageSource html="meta name=&quot;robots&quot; content=&quot;{{question.robots}}&quot;" stepKey="assertRobotsInPageSource"/>
+    </actionGroup>
+</actionGroups>

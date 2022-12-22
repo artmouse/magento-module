@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="qtyRecordFound" type="qtyRecords">
+        <data key="0_record">0</data>
+        <data key="1_record">1</data>
+    </entity>
+
+    <entity name="faqStoreGroup" type="group">
+        <data key="name">Main Website Store</data>
+        <data key="code">main_website_store</data>
+        <data key="root_category_id">2</data>
+        <data key="website_id">1</data>
+    </entity>
+
+    <entity name="faqStoreView" type="store">
+        <data key="group_id">1</data>
+        <data key="name" unique="suffix">storeView</data>
+        <data key="code" unique="suffix">storeView</data>
+        <data key="is_active">1</data>
+        <data key="store_id">null</data>
+        <data key="store_type">store</data>
+        <data key="store_action">add</data>
+    </entity>
+
+    <entity name="faqDefStoreView" type="store">
+        <data key="code">default</data>
+        <data key="name">Default Store View</data>
+    </entity>
+
+    <entity name="errorMessage" type="error">
+        <data key="isNotAvailableForStoreView">This question or category is not available for the current store view</data>
+        <data key="pageNotFound">Whoops, our bad...</data>
+        <data key="loginToRate">Please, login to rate the question.</data>
+    </entity>
+
+    <entity name="successMessage" type="success">
+        <data key="checkedDataOneRow">Checked rows: 1, checked entities: 1, invalid rows: 0, total errors: 0</data>
+        <data key="sentQuestion">The question was sent.</data>
+        <data key="sentQuestionWithNotifyFirst">The question was sent. We</data>
+        <data key="sentQuestionWithNotifySecond">ll notify you about the answer via email.</data>
+        <data key="widgetSaved">The widget instance has been saved</data>
+    </entity>
+
+    <entity name="defFaqTitle" type="page">
+        <data key="content_heading">Help Center</data>
+        <data key="title">FAQ Home Page</data>
+    </entity>
+
+    <entity name="tagQty" type="tag">
+        <data key="one">1</data>
+        <data key="two">2</data>
+    </entity>
+
+    <!--FAQ Search Terms Report grid-->
+    <entity name="resultQty" type="searchReport">
+        <data key="zero">0</data>
+        <data key="one">1</data>
+        <data key="two">2</data>
+    </entity>
+
+    <entity name="hitsQty" type="searchReport">
+        <data key="zero">0</data>
+        <data key="one">1</data>
+        <data key="two">2</data>
+    </entity>
+
+    <entity name="searchRequest" type="search">
+        <data key="text">Question</data>
+    </entity>
+
+    <!--pagination-->
+    <entity name="paginationAction" type="pagination">
+        <data key="next">next</data>
+        <data key="previous">previous</data>
+    </entity>
+
+    <entity name="socialNetworks" type="networks">
+        <data key="email">Email</data>
+        <data key="whatsapp">WhatsApp</data>
+        <data key="facebook">Facebook</data>
+        <data key="twitter">Twitter</data>
+        <data key="reddit">Reddit</data>
+        <data key="tumblr">Tumblr</data>
+        <data key="google">Google+</data>
+        <data key="digg">Digg</data>
+        <data key="stumbleUpon">StumbleUpon</data>
+        <data key="linkedin">LinkedIn</data>
+        <data key="vkontakte">VKontakte</data>
+        <data key="buffer">Buffer</data>
+    </entity>
+
+    <!--rate-->
+    <entity name="star" type="rate">
+        <data key="five">5</data>
+        <data key="four">4</data>
+        <data key="three">3</data>
+        <data key="two">2</data>
+        <data key="one">1</data>
+    </entity>
+</entities>

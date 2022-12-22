@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontFillPopupFormOnProductPageActionGroup"
+                 extends="StorefrontAssertReplacePriceWithPopupOnProductPageActionGroup">
+        <arguments>
+            <argument name="popupData" defaultValue="defRequest"/>
+        </arguments>
+        <remove keyForRemoval="closePopupOnProductPage"/>
+        <remove keyForRemoval="waitThreeSeconds"/>
+        <fillField selector="{{StorefrontSection.CustomerName}}" userInput="{{defRequest.customerName}}" stepKey="fillCustomerName"/>
+        <fillField selector="{{StorefrontSection.CustomerEmail}}" userInput="{{defRequest.customerEmail}}" stepKey="fillCustomerEmail"/>
+        <fillField selector="{{StorefrontSection.PhoneNumber}}" userInput="{{defRequest.phoneNumber}}" stepKey="fillPhoneNumber"/>
+        <fillField selector="{{StorefrontSection.Comment}}" userInput="{{defRequest.comment}}" stepKey="fillComment"/>
+        <click selector="{{StorefrontSection.Submit}}" stepKey="submitRequestOnProductPage"/>
+    </actionGroup>
+</actionGroups>

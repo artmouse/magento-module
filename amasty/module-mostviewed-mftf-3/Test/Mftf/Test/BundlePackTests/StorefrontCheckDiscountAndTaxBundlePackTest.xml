@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Automatic Related Products MFTF 3 for Magento 2 (System)
+*/-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontCheckDiscountAndTaxBundlePackTest">
+        <annotations>
+            <stories value="Bundle Pack"/>
+            <title value="Check Bundle Pack discount and tax"/>
+            <description value="Check Bundle Pack discount and tax"/>
+            <testCaseId value="ARP-11"/>
+            <severity value="CRITICAL"/>
+            <group value="mostviewed"/>
+        </annotations>
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <!-- Create sample data -->
+            <createData entity="Simple_US_Customer_NY" stepKey="createCustomer"/>
+            <createData entity="ApiCategory" stepKey="createCategory"/>
+            <createData entity="ApiSimpleProduct" stepKey="createSimpleProductOne">
+                <requiredEntity createDataKey="createCategory"/>
+                <field key="price">{{amTestBundlePack.product_price}}</field>
+            </createData>
+            <createData entity="ApiSimpleProduct" stepKey="createSimpleProductTwo">
+                <requiredEntity createDataKey="createCategory"/>
+                <field key="price">{{amTestBundlePack.product_price}}</field>
+            </createData>
+            <!-- Fill in rules to display tax in the cart -->
+            <actionGroup ref="EditTaxConfigurationByUIActionGroup" stepKey="fillDefaultTaxForms"/>
+            <!-- Go to tax rule page -->
+            <amOnPage url="{{AdminTaxRuleGridPage.url}}" stepKey="goToTaxRulePage"/>
+            <waitForPageLoad stepKey="waitForTaxRatePage"/>
+            <click selector="{{AdminGridMainControls.add}}" stepKey="addNewTaxRate" />
+            <fillField selector="{{AdminTaxRulesSection.ruleName}}" userInput="sampleRule" stepKey="fillRuleName" />
+            <!-- Add NY and CA tax rules -->
+            <actionGroup ref="AddNewTaxRateNoZipActionGroup" stepKey="addNYTaxRate">
+                <argument name="taxCode" value="SimpleTaxNY" />
+            </actionGroup>
+            <actionGroup ref="AddNewTaxRateNoZipActionGroup" stepKey="addCATaxRate">
+                <argument name="taxCode" value="SimpleTaxCA" />
+            </actionGroup>
+            <click stepKey="clickSave" selector="{{AdminStoresMainActionsSection.saveButton}}" />
+            <actionGroup ref="AdminEnableAllBundlePacksPageActionGroup" stepKey="enableAllBundlePacksPage" />
+            <magentoCLI command="cache:clean" stepKey="cacheClean" />
+        </before>
+        <after>
+            <!-- Go to the tax rule page and delete the row we created-->
+            <amOnPage url="{{AdminTaxRuleGridPage.url}}" stepKey="goToTaxRulesPage"/>
+            <waitForPageLoad stepKey="waitForRulesPage"/>
+            <actionGroup ref="deleteEntitySecondaryGrid" stepKey="deleteRule">
+                <argument name="name" value="SampleRule"/>
+                <argument name="searchInput" value="{{AdminSecondaryGridSection.taxIdentifierSearch}}"/>
+            </actionGroup>
+            <!-- Go to the tax rate page -->
+            <amOnPage url="{{AdminTaxRateGridPage.url}}" stepKey="goToTaxRatesPage"/>
+            <waitForPageLoad stepKey="waitForRatesPage"/>
+            <!-- Delete the two tax rates that were created -->
+            <actionGroup ref="deleteEntitySecondaryGrid" stepKey="deleteNYRate">
+                <argument name="name" value="{{SimpleTaxNY.state}}-{{SimpleTaxNY.rate}}"/>
+                <argument name="searchInput" value="{{AdminSecondaryGridSection.taxIdentifierSearch}}"/>
+            </actionGroup>
+            <actionGroup ref="deleteEntitySecondaryGrid" stepKey="deleteCARate">
+                <argument name="name" value="{{SimpleTaxCA.state}}-{{SimpleTaxCA.rate}}"/>
+                <argument name="searchInput" value="{{AdminSecondaryGridSection.taxIdentifierSearch}}"/>
+            </actionGroup>
+            <!-- Ensure tax won't be shown in the cart -->
+            <actionGroup ref="ChangeToDefaultTaxConfigurationUIActionGroup" stepKey="changeToDefaultTaxConfiguration"/>
+            <!-- Delete sample data -->
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+            <deleteData createDataKey="createSimpleProductOne" stepKey="deleteSimpleProductOne"/>
+            <deleteData createDataKey="createSimpleProductTwo" stepKey="deleteSimpleProductTwo"/>
+            <!-- Delete Bundle Pack -->
+            <actionGroup ref="AdminDeleteGridItemActionGroup" stepKey="goToBundlePacksGridForDelete"/>
+            <magentoCLI command="cache:clean" stepKey="cacheClean"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+        <!-- Configure Bundle Pack -->
+        <actionGroup ref="AdminBundlePackConfigurationActionGroup" stepKey="goToRelatedProductsConfigurePage"/>
+        <magentoCLI command="cache:clean" stepKey="cacheCleanAfterSetConfig"/>
+        <!-- Create Bundle Pack-->
+        <actionGroup ref="AdminCreateBundlePackForGeneralCustomerActionGroup"
+                     stepKey="goToBundlePacksGridForCreate"/>
+        <actionGroup ref="AdminAddMainProductForPackActionGroup" stepKey="addMainProduct">
+            <argument name="mainProduct" value="$$createSimpleProductTwo.product[name]$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminAddBundleProductForPackActionGroup" stepKey="addBundleProduct">
+            <argument name="bundleProduct" value="$$createSimpleProductOne.product[name]$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminSaveBundlePackActionGroup" stepKey="saveBundlePack"/>
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginAsCustomer">
+            <argument name="Customer" value="$$createCustomer$$"/>
+        </actionGroup>
+        <!-- Check Discount And Tax On StoreFront-->
+        <actionGroup ref="StorefrontCheckBundlePackDiscountAndTaxActionGroup"
+                     stepKey="goToStoreFrontToCheckBundlePackWithDiscountAndTax">
+            <argument name="mainProduct" value="$$createSimpleProductTwo.product[name]$$"/>
+        </actionGroup>
+    </test>
+</tests>

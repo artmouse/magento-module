@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqCategoryAssignedToSpecifiedStoreViewTest">
+        <annotations>
+            <features value="FAQ Category Is Assigned to Specified Store View"/>
+            <stories value="Assert Category Is Assigned to Specified Store View"/>
+            <title value="Assert Category Is Available on Specified Store View. Category Is Not Available on Other Store View"/>
+            <description value="Assert Category Is Available on Specified Store View. Category Is Not Available on Other Store View"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-02"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqCategory"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminCreateStoreViewActionGroup" stepKey="createStoreView">
+                <argument name="StoreGroup" value="faqStoreGroup"/>
+                <argument name="customStore" value="faqStoreView"/>
+            </actionGroup>
+            <actionGroup ref="AdminCreateCategoryActionGroup" stepKey="createCategoryForAllStoresView"/>
+            <actionGroup ref="AdminCreateCategoryActionGroup" stepKey="createCategoryForStoreView">
+                <argument name="category" value="storeViewCategory"/>
+                <argument name="storeView" value="faqStoreView.name"/>
+            </actionGroup>
+        </before>
+        <after>
+            <actionGroup ref="AdminDeleteCategoryFromGridActionGroup" stepKey="deleteCategoryForAllStoresView"/>
+            <actionGroup ref="AdminDeleteCategoryFromGridActionGroup" stepKey="deleteFaqCategoryForStoreView">
+                <argument name="categoryTitle" value="storeViewCategory.title"/>
+            </actionGroup>
+            <actionGroup ref="AdminDeleteStoreViewActionGroup" stepKey="deleteStoreView">
+                <argument name="customStore" value="faqStoreView"/>
+            </actionGroup>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <!--assert categories on default store view-->
+        <actionGroup ref="StorefrontOpenFaqPageActionGroup" stepKey="openFaqPage"/>
+        <actionGroup ref="StorefrontAssertCategoryTitleOnFaqPageActionGroup" stepKey="assertCategoryForAllStoresViewOnDefStore"/>
+        <actionGroup ref="StorefrontAssertNoCategoryOnFaqPageActionGroup" stepKey="assertNoCategoryForStoreViewOnDefStore">
+                <argument name="categoryTitle" value="storeViewCategory.title"/>
+        </actionGroup>
+        <!--assert categories on custom store view-->
+        <actionGroup ref="StorefrontSwitchStoreViewActionGroup" stepKey="switchToCustomStoreView">
+            <argument name="storeView" value="faqStoreView"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertCategoryTitleOnFaqPageActionGroup" stepKey="assertCategoryForAllStoresViewOnCustomStore"/>
+        <actionGroup ref="StorefrontAssertCategoryTitleOnFaqPageActionGroup" stepKey="assertCategoryForStoreViewOnCustomStore">
+            <argument name="categoryTitle" value="storeViewCategory.title"/>
+        </actionGroup>
+        <!--assert category for custom store view on custom store view and default store view-->
+        <actionGroup ref="StorefrontOpenCategoryFromFaqPageActionGroup" stepKey="openCategoryFromFaqPage">
+            <argument name="category" value="storeViewCategory.title"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertCategoryTitleAndDescOnCategoryPageActionGroup" stepKey="assertCategoryOnCustomStore">
+            <argument name="category" value="storeViewCategory"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontSwitchStoreViewActionGroup" stepKey="switchToDefStoreView">
+            <argument name="storeView" value="faqDefStoreView"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertNoCategoryOnFaqPageActionGroup" stepKey="assertAgainNoCategoryForStoreViewOnDefStore">
+            <argument name="categoryTitle" value="storeViewCategory.title"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertErrorOnFaqPageActionGroup" stepKey="assertErrorOnFaqPage"/>
+    </test>
+</tests>

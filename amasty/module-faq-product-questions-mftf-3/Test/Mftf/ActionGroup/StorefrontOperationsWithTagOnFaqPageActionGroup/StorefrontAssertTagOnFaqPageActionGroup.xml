@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAssertTagOnFaqPageActionGroup">
+        <arguments>
+            <argument name="tag" defaultValue="defaultQuestion.defaultTag"/>
+            <argument name="qty" defaultValue="tagQty.two"/>
+        </arguments>
+        <seeElement selector="{{StorefrontFaqSection.Tag(tag, qty)}}" stepKey="assertTag"/>
+    </actionGroup>
+</actionGroups>

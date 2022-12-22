@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Automatic Related Products MFTF 3 for Magento 2 (System)
+*/-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminCreateRelProdRuleSliderActionGroup"
+                 extends="AdminCreateRelProdRuleActionGroup">
+        <click selector="{{AdminNewRelatedProductRulesSection.blockLayoutDropDown}}"
+               stepKey="expandBlockLayoutDropDown" after="fillFieldRelatedProductBlockTitle" />
+        <click selector="{{AdminNewRelatedProductRulesSection.selectSliderButton}}"
+               stepKey="selectSliderButton" after="expandBlockLayoutDropDown" />
+        <fillField selector="{{AdminNewRelatedProductRulesSection.maxProductsToDisplayField}}"
+                   userInput="{{am_test_rule.max_products_slider}}" stepKey="fillFieldMaxProductsToDisplay" />
+    </actionGroup>
+</actionGroups>

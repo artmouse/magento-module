@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontCustomerLoginOnCartActionGroup">
+        <arguments>
+            <argument name="customer"/>
+        </arguments>
+        <waitForElementVisible selector="{{StorefrontCartSection.LoginPopUp}}" stepKey="waitForFillCardNumber"/>
+        <wait time="1" stepKey="waitBeforeFillFields"/>
+        <fillField selector="{{StorefrontCartSection.EmailLogin}}" userInput="{{customer.email}}"
+                   stepKey="fillCustomerEmail"/>
+        <fillField selector="{{StorefrontCartSection.PasswordLogin}}" userInput="{{customer.password}}"
+                   stepKey="fillCustomerPassword"/>
+        <click selector="{{StorefrontCartSection.SignInButton}}" stepKey="clickToSignIn"/>
+        <waitForPageLoad stepKey="waitForCustomerSignIn"/>
+    </actionGroup>
+</actionGroups>

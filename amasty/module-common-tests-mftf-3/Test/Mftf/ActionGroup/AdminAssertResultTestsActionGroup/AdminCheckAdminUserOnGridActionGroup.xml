@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminCheckAdminUserOnGridActionGroup">
+        <arguments>
+            <argument name="adminUserName"/>
+        </arguments>
+        <amOnPage url="{{AdminUsersPage.url}}" stepKey="navigateToRoleGrid"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenGrid"/>
+        <fillField selector="{{AdminUserGridSection.usernameFilterTextField}}" userInput="{{adminUserName}}"
+                   stepKey="filterByUserName"/>
+        <click selector="{{AdminUserGridSection.searchButton}}" stepKey="clickSearch"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSearch"/>
+        <see selector="{{AdminUserGridSection.usernameInFirstRow}}" userInput="{{adminUserName}}" stepKey="seeNewRole"/>
+    </actionGroup>
+</actionGroups>

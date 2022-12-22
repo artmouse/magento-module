@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminEditRuleAddActionsConditionsActionGroup" extends="AdminEditRuleAddGlobalConditionsActionGroup">
+        <conditionalClick selector="{{AdminActionsCartPriceRuleSection.ActionTab}}"
+                          dependentSelector="{{AdminActionsCartPriceRuleSection.ActionTabOpen}}" visible="false"
+                          stepKey="openConditionsTab"/>
+        <scrollTo selector="{{AdminActionsCartPriceRuleSection.DiscardSubsequentRuleText}}"
+                  stepKey="scrollToConditions"/>
+        <click selector="{{AdminActionsCartPriceRuleSection.ButtonConditions}}" stepKey="clickButtonCondition"/>
+        <waitForElementVisible selector="{{AdminActionsCartPriceRuleSection.ActionConditionSelectOption}}"
+                               stepKey="waitForVisibleSelectConditionOption"/>
+        <selectOption selector="{{AdminActionsCartPriceRuleSection.ActionConditionSelectOption}}"
+                      userInput="{{actionsConditionOptions.optionsText}}" stepKey="selectConditionOption"/>
+    </actionGroup>
+</actionGroups>

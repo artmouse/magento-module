@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AmDefCreateCustomerTest" extends="AdminCreateCustomerTest">
+        <annotations>
+            <features value="Customer"/>
+            <stories value="Create a Customer"/>
+            <title value="Create a Customer on Admin and Storefront"/>
+            <description value="Create a Customer on Admin and Storefront"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmDef-01"/>
+            <group value="Amasty"/>
+            <group value="Customer"/>
+            <group value="AmDef"/>
+            <group value="AmDefCE"/>
+            <group value="AmDefAdmin"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+        </before>
+        <after>
+            <remove keyForRemoval="clearCustomersFilter" />
+            <remove keyForRemoval="resetGrid" />
+            <actionGroup ref="AdminFindAndDeleteCustomerActionGroup" before="adminLogout" stepKey="deleteCustomer">
+                <argument name="customerEmail" value="CustomerEntityOne.email"/>
+            </actionGroup>
+            <actionGroup ref="AdminFindAndDeleteCustomerActionGroup" after="deleteCustomer"
+                         stepKey="deleteCustomerStorefront">
+                <argument name="customerEmail" value="commonCustomerCalifornia.email"/>
+            </actionGroup>
+        </after>
+
+        <remove keyForRemoval="loginAsAdmin1"/>
+        <actionGroup ref="SignUpNewUserFromStorefrontActionGroup" stepKey="signUpNewUser">
+            <argument name="Customer" value="commonCustomerCalifornia"/>
+        </actionGroup>
+        <actionGroup ref="AssertSignedUpNewsletterActionGroup" stepKey="assertSignedUpNewsLetter">
+            <argument name="customer" value="commonCustomerCalifornia"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAddNewCustomerAddressActionGroup" stepKey="addNewCustomerAddress">
+            <argument name="Address" value="common_Address_CA"/>
+        </actionGroup>
+        <actionGroup ref="AdminFilterCustomerByEmail" stepKey="filterTheCustomerByEmail">
+            <argument name="email" value="{{commonCustomerCalifornia.email}}"/>
+        </actionGroup>
+        <actionGroup ref="AdminAssertCustomerDataOnGridActionGroup" stepKey="assertCustomerDataOnGrid">
+            <argument name="customer" value="commonCustomerCalifornia"/>
+            <argument name="customerAddress" value="common_Address_CA"/>
+        </actionGroup>
+        <actionGroup ref="AdminFindAndOpenCustomerByEmailActionGroup" stepKey="openCustomerAccount">
+            <argument name="email" value="{{commonCustomerCalifornia.email}}"/>
+        </actionGroup>
+        <actionGroup ref="AdminAssertCustomerAccountInfoActionGroup" stepKey="assertCustomerDataOnForm">
+            <argument name="customer" value="commonCustomerCalifornia"/>
+        </actionGroup>
+        <actionGroup ref="AdminAssertCustomerAccountBillingAddressActionGroup" stepKey="assertCustomerBillingAddress">
+            <argument name="customer" value="commonCustomerCalifornia"/>
+            <argument name="customerAddress" value="common_Address_CA"/>
+        </actionGroup>
+        <actionGroup ref="AdminAssertCustomerAddressGridActionGroup" stepKey="assertCustomerAddressOnGrid">
+            <argument name="customerAddress" value="common_Address_CA"/>
+        </actionGroup>
+    </test>
+</tests>

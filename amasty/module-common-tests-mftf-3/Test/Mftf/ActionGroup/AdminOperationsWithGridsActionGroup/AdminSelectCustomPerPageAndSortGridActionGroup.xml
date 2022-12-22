@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <!--How to use: by default the group works for 6 records in the table.
+    If you need a different quantity, then set the value of the itemPerPage argument = (your value-2).
+    After using the group, it is recommended to use ResetAdminDataGridToDefaultViewActionGroup.-->
+
+    <actionGroup name="AdminSelectCustomPerPageAndSortGridActionGroup">
+        <arguments>
+            <argument name="urlGrid"/>
+            <argument name="columnNumber" defaultValue="gridNumbers.gridTwo"/>
+        </arguments>
+        <amOnPage url="{{urlGrid}}" stepKey="amOnGridPage"/>
+        <waitForPageLoad stepKey="waitForGridPageLoad"/>
+        <conditionalClick selector="{{AdminGridsSection.GridColumn(columnNumber)}}"
+                          dependentSelector="{{AdminGridsSection.GridColumnAscend(columnNumber)}}" visible="false"
+                          stepKey="sortColumn"/>
+        <seeElement selector="{{AdminGridsSection.GridColumnAscend(columnNumber)}}" stepKey="checkAscendedColumn"/>
+        <grabTextFrom selector="{{AdminGridsSection.FirstRowSortedColumn(columnNumber)}}" stepKey="grabFirstValue"/>
+        <grabTextFrom selector="{{AdminGridsSection.LastRowSortedColumn(columnNumber)}}" stepKey="grabLastValue"/>
+        <click selector="{{AdminGridsSection.GridColumnAscend(columnNumber)}}" stepKey="descendColumn"/>
+        <seeElement selector="{{AdminGridsSection.GridColumnDescend(columnNumber)}}" stepKey="checkDescendedColumn"/>
+        <see selector="{{AdminGridsSection.FirstRowSortedColumn(columnNumber)}}" userInput="{$grabLastValue}"
+             stepKey="checkFirstRow"/>
+        <see selector="{{AdminGridsSection.LastRowSortedColumn(columnNumber)}}" userInput="{$grabFirstValue}"
+             stepKey="checkLastRow"/>
+    </actionGroup>
+</actionGroups>
+

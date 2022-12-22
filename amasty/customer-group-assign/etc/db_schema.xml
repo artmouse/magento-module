@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Customer Group Auto Assign for Magento 2
+*/-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="amasty_groupassign_rule_table" resource="default" engine="innodb"
+           comment="Amasty Customer Group Auto Assign rules table">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+        <column xsi:type="varchar" name="rule_name" nullable="false" length="225" comment="Rule Name"/>
+        <column xsi:type="text" name="conditions_serialized" nullable="false" comment="Serialized Conditions"/>
+        <column xsi:type="int" name="move_to_group" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Destination group id"/>
+        <column xsi:type="int" name="priority" padding="11" unsigned="false" nullable="false" identity="false"
+                comment="Priority of rul"/>
+        <column xsi:type="boolean" name="status" nullable="false" comment="Status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="FK_70E29CA0A470431DBC3A3070E29A50DD"
+                    table="amasty_groupassign_rule_table" column="move_to_group" referenceTable="customer_group"
+                    referenceColumn="customer_group_id" onDelete="CASCADE"/>
+    </table>
+    <table name="amasty_groupassign_customer_group" resource="default" engine="innodb"
+           comment="Amasty Customer Group Auto Assign customer group table">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+        <column xsi:type="int" name="group_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Customer group id"/>
+        <column xsi:type="boolean" name="is_visible_on_storefront" nullable="false"
+                comment="Show customer group status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="AMASTY_GROUPASSIGN_CSTR_GROUP_GROUP_ID_CSTR_GROUP_CSTR_GROUP_ID"
+                    table="amasty_groupassign_customer_group" column="group_id" referenceTable="customer_group"
+                    referenceColumn="customer_group_id" onDelete="CASCADE"/>
+    </table>
+</schema>

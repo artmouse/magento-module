@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqShowAskQuestionButtonForLoggedInCustomerProductPageTest">
+        <annotations>
+            <features value="Show Ask a Question Button"/>
+            <stories value="Assert Show Ask a Question Button On Product Page for Logged in Customer"/>
+            <title value="Logged in Customer Sees Ask a Question Button On Product Page When the Button Is Enabled Only"/>
+            <description value="Logged in Customer Sees Ask a Question Button On Product Page When the Button Is Enabled Only"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-52"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqConfigurations"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="simpleCategory"/>
+            <createData entity="SimpleProductByFusionBackpack" stepKey="simpleProduct">
+                <requiredEntity createDataKey="simpleCategory"/>
+            </createData>
+            <createData entity="apiFaqCategoryAllCustomers" stepKey="faqCategory"/>
+            <createData entity="apiFaqQuestionAllCustomers" stepKey="faqQuestion">
+                <requiredEntity createDataKey="faqCategory"/>
+                <requiredEntity createDataKey="simpleProduct"/>
+            </createData>
+            <createData entity="Simple_US_Customer" stepKey="customer"/>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminFaqProductPageActionGroup" stepKey="setShowAskQuestionButtonProdPage"/>
+        </before>
+        <after>
+            <deleteData createDataKey="faqQuestion" stepKey="deleteFaqQuestion"/>
+            <deleteData createDataKey="faqCategory" stepKey="deleteFaqCategory"/>
+            <deleteData createDataKey="simpleProduct" stepKey="deleteProduct"/>
+            <deleteData createDataKey="simpleCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="customer" stepKey="deleteCustomer"/>
+            <actionGroup ref="AdminDeleteAllQuestionsFromGridActionGroup" stepKey="deleteAllQuestionsFromGrid"/>
+            <actionGroup ref="AdminFaqProductPageActionGroup" stepKey="setDefFaqProductPage"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <!--show ask a question button-->
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginToStorefront">
+            <argument name="Customer" value="$$customer$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="openProductPage">
+            <argument name="productUrl" value="$$simpleProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenQuestionTabActionGroup" stepKey="openQuestionTab"/>
+        <actionGroup ref="StorefrontAskQuestionWithoutNotifyActionGroup" stepKey="askQuestionOnProductPage"/>
+        <!--not show ask a question button-->
+        <actionGroup ref="AdminFaqProductPageActionGroup" stepKey="setNotShowAskQuestionButtonProdPage">
+            <argument name="setting" value="notShowAskQuestionButtonProdPage"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="openProductPageDisabledButton">
+            <argument name="productUrl" value="$$simpleProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenQuestionTabActionGroup" stepKey="openQuestionTabDisabledButton"/>
+        <actionGroup ref="StorefrontAssertNoAskQuestionBlockActionGroup" stepKey="assertNoAskQuestionBlockOnProductPage"/>
+    </test>
+</tests>

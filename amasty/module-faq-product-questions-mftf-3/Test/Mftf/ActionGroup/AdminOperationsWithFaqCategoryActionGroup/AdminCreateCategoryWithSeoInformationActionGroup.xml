@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminCreateCategoryWithSeoInformationActionGroup" extends="AdminCreateCategoryActionGroup">
+        <arguments>
+            <argument name="category" defaultValue="seoCategory"/>
+        </arguments>
+        <conditionalClick selector="{{AdminCategorySection.SeoTab}}"
+                          dependentSelector="{{AdminCategorySection.MetaTitle}}"
+                          after="fillDescription" visible="false" stepKey="openSeoTab"/>
+        <fillField selector="{{AdminCategorySection.MetaTitle}}" userInput="{{category.metaTitle}}" after="openSeoTab" stepKey="fillMetaTitle"/>
+        <fillField selector="{{AdminCategorySection.MetaDescription}}" userInput="{{category.metaDescription}}" after="fillMetaTitle" stepKey="fillMetaDescription"/>
+        <conditionalClick selector="{{AdminCategorySection.Noindex}}"
+                          dependentSelector="{{AdminCategorySection.NoindexEnabled(category.noindex)}}"
+                          visible="false" after="fillMetaDescription" stepKey="setIndex"/>
+        <conditionalClick selector="{{AdminCategorySection.Nofollow}}"
+                          dependentSelector="{{AdminCategorySection.NofollowEnabled(category.noFollow)}}"
+                          visible="false" after="setIndex" stepKey="setFollow"/>
+    </actionGroup>
+</actionGroups>

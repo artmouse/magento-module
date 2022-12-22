@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontChoosePaginationOnCategoryActionGroup" extends="StorefrontOpenCategoryPageActionGroup">
+        <arguments>
+            <argument name="paginationValue" defaultValue="categoryPaginationValues.paginationTwelve"/>
+        </arguments>
+        <scrollTo selector="{{StorefrontCategoryBottomToolbarSection.perPage}}" stepKey="scrollToBottomToolbarSection"/>
+        <selectOption selector="{{StorefrontCategoryBottomToolbarSection.perPage}}" userInput="{{paginationValue}}"
+                      stepKey="selectPerPageOption"/>
+        <waitForPageLoad stepKey="waitForLoadPagination"/>
+    </actionGroup>
+</actionGroups>

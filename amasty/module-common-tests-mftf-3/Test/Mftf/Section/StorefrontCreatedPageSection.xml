@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="StorefrontCreatedPageSection">
+        <element name="CreatedButton" type="button" selector="//div[@data-content-type='buttons']"/>
+        <element name="CreatedHtml" type="block" selector="//div[@data-content-type='html']"/>
+        <element name="PageTitle" type="block" selector="//h1[@class='page-title']"/>
+    </section>
+</sections>

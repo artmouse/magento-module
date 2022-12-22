@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminAddCurrenciesRateActionGroup">
+        <arguments>
+            <argument name="currencyFrom" defaultValue="dollarCurrency.currencyCode"/>
+            <argument name="currencyTo" defaultValue="euroCurrency.currencyCode"/>
+            <argument name="rateValue"/>
+        </arguments>
+        <amOnPage url="{{AdminCurrencyRatesPage.url}}" stepKey="navigateCurrenciesRatesPage"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenPage"/>
+        <fillField selector="{{AdminCurrencyRatesSection.RateForTransfer(currencyFrom, currencyTo)}}"
+                   userInput="{{rateValue}}" stepKey="inputRate"/>
+        <click selector="{{AdminCurrencyRatesSection.Save}}" stepKey="saveChangeInRates"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSave"/>
+    </actionGroup>
+</actionGroups>

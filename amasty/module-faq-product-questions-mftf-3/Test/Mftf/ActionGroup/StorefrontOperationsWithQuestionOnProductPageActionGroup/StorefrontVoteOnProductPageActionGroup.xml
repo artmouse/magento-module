@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontVoteOnProductPageActionGroup">
+        <arguments>
+            <argument name="questionName" defaultValue="ratedQuestion.title"/>
+            <argument name="vote" defaultValue="positiveVoteYesNo.voteAction"/>
+        </arguments>
+        <click selector="{{StorefrontProductSection.ProductQuestionsTab}}" stepKey="openProductQuestionsTab"/>
+        <conditionalClick selector="{{StorefrontProductSection.QuestionTab(questionName)}}"
+                          dependentSelector="{{StorefrontProductSection.VoteAction(vote)}}"
+                          visible="false" stepKey="openQuestionTab"/>
+        <waitForPageLoad stepKey="waitForQuestionTabLoad"/>
+        <click selector="{{StorefrontProductSection.VoteAction(vote)}}" stepKey="voteQuestion"/>
+        <waitForElement selector="{{StorefrontProductSection.RatingResult}}" stepKey="waitForRatingResultBlock"/>
+        <seeElement selector="{{StorefrontProductSection.RatingResult}}" stepKey="assertRatingResultBlock"/>
+    </actionGroup>
+</actionGroups>

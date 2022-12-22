@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontCreateOrderAsCustomerOnCheckoutPaymentPageActionGroup">
+        <amOnPage url="{{StorefrontCheckoutPaymentsPage.url}}" stepKey="navigateToStorefrontCheckoutPaymentsPage"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenPaymentCheckout"/>
+        <click selector="{{StorefrontCheckoutPaymentAddressSection.PlaceOrder}}" stepKey="waitForPlaceOrderButton"/>
+        <waitForPageLoad stepKey="waitForPageAfterPlaceOrder"/>
+        <seeElement selector="{{StorefrontSuccessPageSection.SuccessMessage}}" stepKey="assertSuccessPage"/>
+        <grabTextFrom selector="{{StorefrontSuccessPageSection.OrderNumberAfterPlaceOrder}}" stepKey="grabOrderNumber"/>
+    </actionGroup>
+</actionGroups>

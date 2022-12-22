@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="StorefrontCustomerOrdersSection">
+        <element name="ShippingPrice" type="block" parameterized="true" timeout="10"
+                 selector="//tr[@class='shipping']//span[contains(string(), '{{price}}')]"/>
+        <element name="PaymentMethod" type="block" parameterized="true" timeout="10"
+                 selector="//dl[contains(@class, 'payment-method')]//dt[contains(string(), '{{paymentMethod}}')]"/>
+    </section>
+</sections>

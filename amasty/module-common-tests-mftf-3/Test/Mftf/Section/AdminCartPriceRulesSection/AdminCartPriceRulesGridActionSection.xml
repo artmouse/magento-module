@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminRuleGridActionSection">
+        <element name="AddNewRuleButton" type="button" selector="#add" timeout="30"/>
+        <element name="ResetFilter" type="button" selector="//button[@data-action='grid-filter-reset']" timeout="30"/>
+        <element name="FilterByNameInput" type="input" selector="input[name='name']"/>
+        <element name="SearchButton" type="button" selector="#promo_quote_grid button[title='Search']" timeout="30"/>
+        <element name="TableRowOne" type="text" selector="tr[data-role='row']:nth-of-type(1)" timeout="10"/>
+    </section>
+</sections>

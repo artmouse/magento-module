@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminPageSection">
+        <element name="StoreView" type="select" selector="//select[@name='store_id']"/>
+        <element name="PageTitle" type="input" selector="//input[@name='title']"/>
+        <element name="Header" type="button" selector="//div[@data-index='content']"/>
+        <element name="ContentHeading" type="input" selector="//input[@name='content_heading']"/>
+        <element name="Content" type="input" selector="#cms_page_form_content"/>
+        <element name="URLKey" type="input" selector="//input[@name='identifier']"/>
+        <element name="SeoHeader" type="button" selector="//div[@data-index='search_engine_optimisation']"
+                 timeout="10"/>
+        <element name="HeaderWebsites" type="button" selector="//div[@data-index='websites']" timeout="10"/>
+        <element name="HeaderHierarchy" type="button" selector="//div[@data-index='hierarchy']" timeout="10"/>
+        <element name="SelectHierarchy" type="button" selector="//a/span[contains(text(),'{{hierarchyOption}}')]"
+                 parameterized="true" timeout="10"/>
+        <element name="Save" type="button" selector="#save-button" timeout="10"/>
+        <element name="SuccessMessageSave" type="block"
+                 selector="//div[@id='messages'][contains(string(), 'You saved the page.')]"/>
+        <element name="Delete" type="button" selector="#delete" timeout="10"/>
+        <element name="ConfirmAction" type="button" selector="//button[@class='action-primary action-accept']"
+                 timeout="10"/>
+        <element name="SuccessMessageDelete" type="block"
+                 selector="//div[@id='messages']//div[contains(string(), 'The page has been deleted.')]"/>
+        <element name="ContentTypeContainer" type="button" parameterized="true"
+                 selector="(//div[contains(@class, &quot;pagebuilder-content-type&quot;) and contains(@class, &quot;pagebuilder&quot;)])[{{arg1}}]/descendant::div[contains(@class, &quot;element-children&quot;)]"/>
+    </section>
+</sections>

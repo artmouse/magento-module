@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminFindAndOpenCMSPageActionGroup">
+        <arguments>
+            <argument name="pageTitle" defaultValue="defaultTestCMSPage.pageTitle"/>
+        </arguments>
+        <amOnPage url="{{AdminCMSPagesGridPage.url}}" stepKey="amOnCMSPagesGrid"/>
+        <waitForPageLoad stepKey="waitForPagesGridLoad"/>
+        <conditionalClick selector="{{AdminGridPagesSection.ClearAll}}"
+                          dependentSelector="{{AdminGridPagesSection.ClearAll}}" visible="true" stepKey="clearGrid"/>
+        <click selector="{{AdminGridPagesSection.FiltersButton}}" stepKey="openFilters"/>
+        <fillField selector="{{AdminGridPagesSection.FilterTitle}}" userInput="{{pageTitle}}" stepKey="fillTitlePage"/>
+        <click selector="{{AdminGridPagesSection.FilterApply}}" stepKey="applyFilter"/>
+        <waitForPageLoad stepKey="waitForAppliedFilter"/>
+        <click selector="{{AdminGridPagesSection.TableRowOneSelect}}" stepKey="clickToSelectOnFirstRowGrid"/>
+        <click selector="{{AdminGridPagesSection.TableRowOneEdit}}" stepKey="clickToEditOnFirstRowGrid"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenPage"/>
+    </actionGroup>
+</actionGroups>

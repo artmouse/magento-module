@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Automatic Related Products MFTF 3 for Magento 2 (System)
+*/-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontSelectAddressForProductMultishippingActionGroup">
+        <arguments>
+            <argument name="product"/>
+            <argument name="bundleNumber" type="string" defaultValue="2"/>
+            <argument name="address" type="string" defaultValue="John Doe, 368 Broadway St. Apt. 113, New York, New York 10001, United States"/>
+        </arguments>
+        <selectOption selector="{{StorefrontMultishippingSection.addressForProduct(product, bundleNumber)}}"
+                      userInput="{{address}}" stepKey="selectAddressForProductFromBundlePack"/>
+    </actionGroup>
+</actionGroups>

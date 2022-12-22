@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="StorefrontCustomerAddressBookSection">
+        <element name="AddNewAddress" type="button" selector="//button[@role='add-address']" timeout="10"/>
+        <element name="ButtonDeleteLastAddress" type="button" selector="//tbody//tr[1]//a[@class='action delete']"/>
+        <element name="ButtonConfirmDelete" type="button" timeout="10"
+                 selector="//footer[@class='modal-footer']/button[contains(@class, 'action-accept')]"/>
+    </section>
+</sections>

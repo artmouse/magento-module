@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontAssertNoVoteOnProductPageActionGroup">
+        <arguments>
+            <argument name="questionName" defaultValue="ratedQuestion.title"/>
+            <argument name="voteType" defaultValue="voteType.yesNo"/>
+        </arguments>
+        <click selector="{{StorefrontProductSection.ProductQuestionsTab}}" stepKey="openProductQuestionsTab"/>
+        <conditionalClick selector="{{StorefrontProductSection.QuestionTab(questionName)}}"
+                          dependentSelector="{{StorefrontProductSection.RatingTypeBlock(voteType)}}"
+                          visible="false" stepKey="openQuestionTab"/>
+        <waitForPageLoad stepKey="waitForQuestionTabLoad"/>
+        <dontSeeElement selector="{{StorefrontProductSection.RatingResult}}" stepKey="assertRatingResult"/>
+    </actionGroup>
+</actionGroups>

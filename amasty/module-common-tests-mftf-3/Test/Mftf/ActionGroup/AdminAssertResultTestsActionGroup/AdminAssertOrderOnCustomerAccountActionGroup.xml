@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminAssertOrderOnCustomerAccountActionGroup">
+        <arguments>
+            <argument name="customer"/>
+        </arguments>
+        <click selector="{{AdminEditCustomerInformationSection.orders}}" stepKey="clickToOrdersTab"/>
+        <see selector="{{AdminEditCustomerOrdersSection.orderGrid}}" userInput="{{customer.firstname}}"
+             stepKey="assertFirstName"/>
+        <see selector="{{AdminEditCustomerOrdersSection.orderGrid}}" userInput="{{customer.lastname}}"
+             stepKey="assertLastName"/>
+    </actionGroup>
+</actionGroups>

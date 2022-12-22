@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AmDefCreateSimpleProductTest" extends="AdminCreateSimpleProductTest">
+        <annotations>
+            <features value="Simple Product"/>
+            <stories value="Create Simple Product via Admin"/>
+            <title value="Create Simple Product and Assert on Product Grid"/>
+            <description value="Create Simple Product and Assert on Product Grid by Name"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmDef-07"/>
+            <group value="Amasty"/>
+            <group value="SimpleProduct"/>
+            <group value="AmDef"/>
+            <group value="AmDefCE"/>
+            <group value="AmDefAdmin"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+        </before>
+        <after>
+            <actionGroup ref="AdminDeleteCreatedProductActionGroup" stepKey="deleteProduct">
+                <argument name="product" value="_defaultProduct"/>
+            </actionGroup>
+            <actionGroup ref="AdminClearProductGridActionGroup" stepKey="clearFilterAfterDeleteProduct"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <remove keyForRemoval="loginAsAdmin1"/>
+        <actionGroup ref="FillAdminSimpleProductFormActionGroup" stepKey="fillProductFieldsInAdmin">
+            <argument name="category" value="$$createPreReqCategory$$"/>
+            <argument name="simpleProduct" value="_defaultProduct"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertProductPageActionGroup" stepKey="assertProductInStorefront2">
+            <argument name="product" value="_defaultProduct"/>
+        </actionGroup>
+        <actionGroup ref="AdminFindAndOpenCreatedProductActionGroup" stepKey="openCreatedProduct">
+            <argument name="product" value="_defaultProduct"/>
+        </actionGroup>
+        <actionGroup ref="AdminClearProductGridActionGroup" stepKey="clearFilterAfterAssertProductOptionsOnGrid"/>
+    </test>
+</tests>

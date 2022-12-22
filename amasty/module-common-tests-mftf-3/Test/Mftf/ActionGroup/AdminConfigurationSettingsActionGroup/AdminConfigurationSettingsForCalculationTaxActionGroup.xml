@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminConfigurationSettingsForCalculationTaxActionGroup">
+        <arguments>
+            <argument name="calculationTax" defaultValue="defaultTaxSetting"/>
+        </arguments>
+        <amOnPage url="{{AdminConfigurationsTaxPage.url}}" stepKey="navigateAdminTaxConfiguration"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenPage"/>
+        <conditionalClick selector="{{AdminConfigurationsTaxSection.TaxClassesTab}}"
+                          dependentSelector="{{AdminConfigurationsTaxSection.TaxClassesTabOpen}}" visible="false"
+                          stepKey="openTaxClassesTab"/>
+        <uncheckOption selector="{{AdminConfigurationsTaxSection.TaxClassForShippingSystemValue}}"
+                       stepKey="uncheckUseSystemValueForClassShipping"/>
+        <selectOption selector="{{AdminConfigurationsTaxSection.TaxClassForShipping}}"
+                      userInput="{{calculationTax.taxClassForShipping}}" stepKey="selectTaxClassForShipping"/>
+        <uncheckOption selector="{{AdminConfigurationsTaxSection.TaxClassForProductSystemValue}}"
+                       stepKey="uncheckUseSystemValueForClassProduct"/>
+        <selectOption selector="{{AdminConfigurationsTaxSection.TaxClassForProduct}}"
+                      userInput="{{calculationTax.taxClassForProduct}}" stepKey="selectTaxClassForProduct"/>
+        <conditionalClick selector="{{AdminConfigurationsTaxSection.CalculationSettingsTab}}"
+                          dependentSelector="{{AdminConfigurationsTaxSection.CalculationSettingsTabOpen}}"
+                          visible="false" stepKey="openCalculationSettingsTab"/>
+        <uncheckOption selector="{{AdminConfigurationsTaxSection.CalculationCatalogPricesSystemValue}}"
+                       stepKey="uncheckUseSystemValueForCatalogPrices"/>
+        <selectOption selector="{{AdminConfigurationsTaxSection.CalculationCatalogPrices}}"
+                      userInput="{{calculationTax.calculationCatalogPrices}}" stepKey="selectTaxClassForCatalogPrices"/>
+        <uncheckOption selector="{{AdminConfigurationsTaxSection.CalculationShippingPricesSystemValue}}"
+                       stepKey="uncheckUseSystemValueForShippingPrices"/>
+        <selectOption selector="{{AdminConfigurationsTaxSection.CalculationShippingPrices}}"
+                      userInput="{{calculationTax.calculationShippingPrices}}"
+                      stepKey="selectTaxClassForShippingPrices"/>
+        <selectOption selector="{{AdminConfigurationsTaxSection.CalculationEnableCrossBorderTrade}}"
+                      userInput="{{crossBorderValues.crossBorderEnable}}" stepKey="chooseCrossBorderValue"/>
+        <click selector="{{AdminConfigurationsTaxSection.Save}}" stepKey="clickSaveButton"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSave"/>
+    </actionGroup>
+</actionGroups>

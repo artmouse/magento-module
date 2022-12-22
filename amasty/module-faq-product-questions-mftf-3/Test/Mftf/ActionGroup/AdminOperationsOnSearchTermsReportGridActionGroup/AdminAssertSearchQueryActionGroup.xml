@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminAssertSearchQueryActionGroup">
+        <arguments>
+            <argument name="searchQuery"/>
+            <argument name="storeView" defaultValue="faqDefStoreView.name"/>
+            <argument name="result"/>
+            <argument name="hits"/>
+        </arguments>
+        <see selector="{{AdminSearchTermsReportGridSection.Cell(searchTermsReportGrid.searchQuery)}}"
+             userInput="{{searchQuery}}" stepKey="seeSearchQuery"/>
+        <see selector="{{AdminSearchTermsReportGridSection.Cell(searchTermsReportGrid.storeView)}}"
+             userInput="{{storeView}}" stepKey="seeStoreView"/>
+        <see selector="{{AdminSearchTermsReportGridSection.Cell(searchTermsReportGrid.result)}}"
+             userInput="{{result}}" stepKey="seeResult"/>
+        <see selector="{{AdminSearchTermsReportGridSection.Cell(searchTermsReportGrid.hits)}}"
+             userInput="{{hits}}" stepKey="seeHits"/>
+    </actionGroup>
+</actionGroups>

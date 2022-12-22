@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqShowAskQuestionButtonForGuestTest" extends="FaqShowAskQuestionButtonForLoggedInCustomerTest">
+        <annotations>
+            <features value="Show Ask a Question Button"/>
+            <stories value="Assert Show Ask a Question Button for Guest"/>
+            <title value="Guest Sees Ask a Question Button When the Button Is Enabled Only"/>
+            <description value="Guest Sees Ask a Question Button On Category And Question Pages When the Button Is Enabled Only"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-40"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqConfigurations"/>
+        </annotations>
+
+        <before>
+            <remove keyForRemoval="customer"/>
+            <actionGroup ref="AdminFaqGeneralSettingsActionGroup" stepKey="setAllowGuestAskQuestion">
+                <argument name="setting" value="allowGuestAskQuestion"/>
+            </actionGroup>
+        </before>
+        <after>
+            <remove keyForRemoval="deleteCustomer"/>
+            <actionGroup ref="AdminFaqGeneralSettingsActionGroup" after="setDefSearchNavigationSorting" stepKey="setDefFaqGeneralSettings"/>
+        </after>
+
+        <remove keyForRemoval="loginToStorefront"/>
+    </test>
+</tests>

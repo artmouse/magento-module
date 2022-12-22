@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqBackToProductButtonTest">
+        <annotations>
+            <features value="Back to Product Button"/>
+            <stories value="Back to Product Button"/>
+            <title value="Assert Back to Product Button"/>
+            <description value="Assert Back to Product Button Is on FAQ Home, Category, Question Pages Only After Product Page Has Been Opened"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-71"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqWidget"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="simpleCategory"/>
+            <createData entity="SimpleProductByFusionBackpack" stepKey="simpleProduct">
+                <requiredEntity createDataKey="simpleCategory"/>
+            </createData>
+            <createData entity="apiFaqCategory" stepKey="faqCategory"/>
+            <createData entity="apiFaqQuestionWithCategory" stepKey="faqQuestion">
+                <requiredEntity createDataKey="faqCategory"/>
+                <requiredEntity createDataKey="simpleProduct"/>
+            </createData>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+        </before>
+        <after>
+            <deleteData createDataKey="faqQuestion" stepKey="deleteFaqQuestion"/>
+            <deleteData createDataKey="faqCategory" stepKey="deleteFaqCategory"/>
+            <deleteData createDataKey="simpleProduct" stepKey="deleteProduct"/>
+            <deleteData createDataKey="simpleCategory" stepKey="deleteCategory"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <!--assert No Back to Product button-->
+        <actionGroup ref="StorefrontOpenFaqPageActionGroup" stepKey="openFaqPage"/>
+        <actionGroup ref="StorefrontAssertNoBackToProductButtonActionGroup" stepKey="assertNoBackToProductButtonOnFaq"/>
+        <actionGroup ref="StorefrontOpenFaqCategoryPageActionGroup" stepKey="openCategoryPage">
+            <argument name="category" value="$$faqCategory$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertNoBackToProductButtonActionGroup" stepKey="assertNoBackToProductButtonOnCategory"/>
+        <actionGroup ref="StorefrontOpenFaqQuestionPageActionGroup" stepKey="openQuestionPage">
+            <argument name="question" value="$$faqQuestion$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertNoBackToProductButtonActionGroup" stepKey="assertNoBackToProductButtonOnQuestion"/>
+        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="openProductPage">
+            <argument name="productUrl" value="$$simpleProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <!--assert Back to Product button-->
+        <actionGroup ref="StorefrontOpenFaqPageActionGroup" stepKey="openFaqPageAfterProduct"/>
+        <actionGroup ref="StorefrontAssertBackToProductButtonActionGroup" stepKey="assertBackToProductButtonOnFaq"/>
+        <actionGroup ref="StorefrontOpenFaqCategoryPageActionGroup" stepKey="openCategoryPageAfterProduct">
+            <argument name="category" value="$$faqCategory$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertBackToProductButtonActionGroup" stepKey="assertBackToProductButtonOnCategory"/>
+        <actionGroup ref="StorefrontOpenFaqQuestionPageActionGroup" stepKey="openQuestionPageAfterProduct">
+            <argument name="question" value="$$faqQuestion$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertBackToProductButtonActionGroup" stepKey="assertBackToProductButtonOnQuestion"/>
+        <!--use Back to Product Button-->
+        <actionGroup ref="StorefrontUseBackToProductButtonActionGroup" stepKey="clickBackToProductButton"/>
+        <actionGroup ref="StorefrontAssertProductNameOnProductPageActionGroup" stepKey="assertProductName">
+            <argument name="productName" value="$$simpleProduct.name$$" />
+        </actionGroup>
+    </test>
+</tests>

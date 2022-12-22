@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Automatic Related Products MFTF 3 for Magento 2 (System)
+*/-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontDisplayBundlePackStoreViewTest">
+        <annotations>
+            <stories value="Bundle Pack"/>
+            <title value="Check display Bundle Pack on different Store Views"/>
+            <description value="Check display Bundle Pack on different Store Views"/>
+            <testCaseId value="ARP-2"/>
+            <severity value="CRITICAL"/>
+            <group value="mostviewed"/>
+        </annotations>
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <!-- Create sample data -->
+            <createData entity="ApiCategory" stepKey="createCategory"/>
+            <createData entity="ApiSimpleProduct" stepKey="createSimpleProductOne">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="ApiSimpleProduct" stepKey="createSimpleProductTwo">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="allBundlesCmsPageEnabled" stepKey="enableAllBundlesPage"/>
+            <actionGroup ref="AdminCreateStoreViewActionGroup" stepKey="createStoreView">
+                <argument name="customStore" value="customStoreARP"/>
+            </actionGroup>
+            <actionGroup ref="AdminConfigurationUrlOptionsActionGroup" stepKey="enableStoreCodeInURL"/>
+            <magentoCLI command="indexer:reindex" stepKey="reindexPreconditions"/>
+        </before>
+        <!-- Delete sample data -->
+        <after>
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createSimpleProductOne" stepKey="deleteSimpleProduct"/>
+            <deleteData createDataKey="createSimpleProductTwo" stepKey="deleteSimpleProductOne"/>
+            <actionGroup ref="AdminConfigurationUrlOptionsActionGroup" stepKey="disableStoreCodeInURL">
+                <argument name="configValue" value="StorefrontDisableAddStoreCodeToUrls.value"/>
+            </actionGroup>
+            <actionGroup ref="AdminDeleteStoreViewActionGroup" stepKey="deleteStoreView">
+                <argument name="customStore" value="customStoreARP"/>
+            </actionGroup>
+            <magentoCLI command="indexer:reindex" stepKey="reindex"/>
+            <!-- Delete Bundle Pack -->
+            <actionGroup ref="AdminDeleteGridItemActionGroup" stepKey="goToBundlePacksGridForDelete"/>
+            <createData entity="allBundlesCmsPageDisabled" stepKey="disableAllBundlesPage"/>
+            <magentoCLI command="cache:clean" stepKey="cacheClean"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+        <!-- Configure Bundle Pack -->
+        <actionGroup ref="AdminBundlePackConfigurationActionGroup" stepKey="goToRelatedProductsConfigurePage"/>
+        <magentoCLI command="cache:clean" stepKey="cacheCleanAfterSetConfig"/>
+        <!-- Create Bundle Pack -->
+        <actionGroup ref="AdminCreateBundlePackActionGroup" stepKey="goToBundlePacksGridForCreate"/>
+        <actionGroup ref="AdminAddMainProductForPackActionGroup" stepKey="addMainProduct">
+            <argument name="mainProduct" value="$$createSimpleProductTwo.product[name]$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminAddBundleProductForPackActionGroup" stepKey="addBundleProduct">
+            <argument name="bundleProduct" value="$$createSimpleProductOne.product[name]$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminSaveBundlePackActionGroup" stepKey="saveBundlePack"/>
+        <!-- Check Bundle Pack Block On Different Store Views-->
+        <actionGroup ref="StorefrontCheckBundlePackStoreViewActionGroup"
+                     stepKey="goToStoreFrontToCheckBundlePackOnDifferentStoreView"/>
+    </test>
+</tests>

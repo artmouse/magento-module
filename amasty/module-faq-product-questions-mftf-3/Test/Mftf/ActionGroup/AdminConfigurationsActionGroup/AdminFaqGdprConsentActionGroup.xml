@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminFaqGdprConsentActionGroup">
+        <annotations>
+            <description>Сonsent Text is not added yet</description>
+        </annotations>
+        <arguments>
+            <argument name="setting" defaultValue="defGdpr"/>
+        </arguments>
+        <amOnPage url="{{AdminFaqConfigurationPage.url}}" stepKey="openConfigurationPage"/>
+        <waitForPageLoad stepKey="waitForConfigurationPageLoad"/>
+        <conditionalClick selector="{{AdminFaqConfigurationSection.GdprTab}}" dependentSelector="{{AdminFaqConfigurationSection.EnableConsent}}"
+                          visible="false" stepKey="openGdprTab"/>
+        <selectOption selector="{{AdminFaqConfigurationSection.EnableConsent}}" userInput="{{setting.isEnabled}}"
+                      stepKey="setGdprTab"/>
+        <click selector="{{AdminFaqConfigurationSection.SaveConfig}}" stepKey="saveConfig"/>
+        <waitForPageLoad stepKey="waitForConfigSave"/>
+        <conditionalClick selector="{{AdminFaqConfigurationSection.GdprTab}}" dependentSelector="{{AdminFaqConfigurationSection.EnableConsent}}"
+                          visible="true" stepKey="closeGdprTab"/>
+        <magentoCLI command="cache:flush" arguments="config" stepKey="flushCache"/>
+    </actionGroup>
+</actionGroups>

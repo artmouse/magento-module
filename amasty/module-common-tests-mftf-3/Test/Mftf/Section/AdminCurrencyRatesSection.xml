@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminCurrencyRatesSection">
+        <element name="RateForTransfer" type="input" parameterized="true"
+                 selector="//div[@class='admin__control-table-wrapper']//input[@name='rate[{{currencyFrom}}][{{currencyTo}}]']"/>
+        <element name="Rate_USD_BYR" type="input"
+                 selector="//div[@class='admin__control-table-wrapper']//input[@name='rate[USD][BYR]']"/>
+        <element name="Rate_USD_EUR" type="input"
+                 selector="//div[@class='admin__control-table-wrapper']//input[@name='rate[USD][EUR]']"/>
+        <element name="Save" type="button"
+                 selector="//div[@class='page-actions-buttons']//button[@title='Save Currency Rates']" timeout="10"/>
+    </section>
+</sections>

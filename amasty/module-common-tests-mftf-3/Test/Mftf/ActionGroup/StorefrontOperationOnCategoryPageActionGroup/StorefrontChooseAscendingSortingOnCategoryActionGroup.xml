@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontChooseAscendingSortingOnCategoryActionGroup" extends="StorefrontOpenCategoryPageActionGroup">
+        <arguments>
+            <argument name="sortValue" defaultValue="sortOnCategory.price"/>
+        </arguments>
+        <selectOption selector="{{StorefrontCategoryProductSection.CategorySortBySelect}}" userInput="{{sortValue}}"
+                      stepKey="selectSortByValue"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSorting"/>
+        <conditionalClick selector="{{StorefrontCategoryProductSection.SetAscendingDirection}}"
+                          dependentSelector="{{StorefrontCategoryProductSection.SetAscendingDirectionAsc}}"
+                          visible="true" stepKey="clickToChangeAscending"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterAscending"/>
+    </actionGroup>
+</actionGroups>

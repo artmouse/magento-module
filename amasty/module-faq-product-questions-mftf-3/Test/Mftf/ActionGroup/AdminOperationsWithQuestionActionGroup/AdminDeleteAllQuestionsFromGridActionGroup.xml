@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminDeleteAllQuestionsFromGridActionGroup">
+        <amOnPage url="{{AdminQuestionGridPage.url}}" stepKey="openFaqQuestionGrid"/>
+        <waitForPageLoad stepKey="waitForFaqQuestionGridLoad"/>
+        <conditionalClick selector="{{AdminQuestionGridSection.ClearAllFilters}}" dependentSelector="{{AdminQuestionGridSection.ActiveFilters}}"
+                          visible="true" stepKey="clearAllFilters"/>
+        <waitForPageLoad stepKey="waitForCLearFilterDataLoad"/>
+        <click selector="{{AdminQuestionGridSection.MultiCheck}}" stepKey="selectAll"/>
+        <click selector="{{AdminQuestionGridSection.MassActions}}" stepKey="clickMassActionsButton"/>
+        <click selector="{{AdminQuestionGridSection.DeleteMassAction}}" stepKey="clickDeleteMassActionButton"/>
+        <waitForPageLoad stepKey="waitForAcceptDeleteQuestionButton"/>
+        <click selector="{{AdminQuestionGridSection.AcceptDeleteButton}}" stepKey="acceptDeleteQuestionButton"/>
+        <waitForPageLoad stepKey="waitForDeleteQuestion"/>
+    </actionGroup>
+</actionGroups>

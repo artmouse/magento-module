@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+<!--
+    Group to create many entities with require keys.
+    Example, for create categories, products, product attribute options and other...
+
+    Arguments:
+            1. entitiesName - names array of xml entity to create.
+                 Format: >Entity_1,Entity_2,...,Entity_N< .
+                 Example using in test (will be create two type entities) :
+                    - value="SimpleProductByFusionBackpack,SimpleProductByWatchClamber"
+                 You can pass the value of one or more values if you need different entity.
+                 If using default value -> will be create only "_defaultCategory" entity.
+
+            3. entitiesCount - count of entity to create for each product type.
+                 Format: >1,14,...,4<, then will be created: Entity_1 -> 1, Entity_2 -> 14,..., Entity_N -> 4.
+                 Example using in test (will be create 6 Fusion Backpack and 3 Watch Clamber):
+                    - value="{{number.six}},{{number.three}}"
+                 If using default value -> create 10 first entity and one by one other object, if they are passed.
+
+            2. createStep - stepKey of the createData action.
+                 Format: >stepKey< .
+                 Example using in test (will be create entities with steps "createProduct") :
+                    - value="createProduct"
+
+            4. createFromStepNumber - the sequence number (suffix) of the stepKey from which needs begin to create entity.
+                 Format: >number< .
+                 Example using in test (will be create entities from step "createProd5") :
+                    - value="{{number.five}}"
+                 If using default value -> entity will be create from step with number 1.
+
+            5. requiredKeys - stepKeys of other createData actions that are required.
+                Format: >required_key_1,required_key_2,...,required_key_N< .
+                Example using in test (will be create entities with requiredKeys - "createProd5") :
+                    - value="createAttribute5,getAttributeOption3"
+                If using default value -> entity will be create without required keys.
+-->
+
+    <actionGroup name="AmastyCreateDataActionGroup">
+        <arguments>
+            <argument name="entitiesNameList" type="string" defaultValue="_defaultCategory"/>
+            <argument name="entitiesCountList" type="string" defaultValue="{{number.ten}}"/>
+            <argument name="createStep" type="string" />
+            <argument name="createFromStepNumber" type="string" defaultValue="{{number.one}}"/>
+            <argument name="requiredKeysList" type="string" defaultValue="empty"/>
+        </arguments>
+        <helper class="\Amasty\CommonTestsMFTF3\Test\Mftf\Helper\AmastyDataHelper" method="amastyCreateEntities"
+                stepKey="amCreateData">
+            <argument name="entitiesName">{{entitiesNameList}}</argument>
+            <argument name="entitiesCountSeparators">{{entitiesCountList}}</argument>
+            <argument name="createStep">{{createStep}}</argument>
+            <argument name="createFrom">{{createFromStepNumber}}</argument>
+            <argument name="requiredKeys">{{requiredKeysList}}</argument>
+        </helper>
+    </actionGroup>
+</actionGroups>

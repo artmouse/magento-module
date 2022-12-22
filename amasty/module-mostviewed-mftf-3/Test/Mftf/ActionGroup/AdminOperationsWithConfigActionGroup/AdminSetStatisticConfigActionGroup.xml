@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Automatic Related Products MFTF 3 for Magento 2 (System)
+*/-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminSetStatisticConfigActionGroup">
+        <arguments>
+            <argument name="am_related_config" defaultValue="relatedStatisticConfig"/>
+        </arguments>
+        <magentoCLI command="config:set {{relatedProductsConfigCLISettingsPaths.statistic_status}} {{am_related_config.statistic_status}}"
+                    stepKey="setOrdersStatusForStatistic"/>
+        <magentoCLI command="config:set {{relatedProductsConfigCLISettingsPaths.statistic_recommendation}} {{am_related_config.statistic_recommendation}}"
+                    stepKey="setOrdersStatusForRecommendations"/>
+        <magentoCLI command="cache:clean" stepKey="cleanClean"/>
+    </actionGroup>
+</actionGroups>

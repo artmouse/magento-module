@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="questionGridOnCategory" type="column">
+        <data key="title">Title</data>
+    </entity>
+
+    <entity name="productGridOnQuestion" type="column">
+        <data key="name">Name</data>
+    </entity>
+
+    <entity name="searchTermsReportGrid" type="column">
+        <data key="searchQuery">Search query</data>
+        <data key="storeView">Store View</data>
+        <data key="result">Result</data>
+        <data key="hits">Hits</data>
+    </entity>
+
+    <entity name="categoryGrid" type="column">
+        <data key="title">Title</data>
+        <data key="urlKey">Url Key</data>
+        <data key="status">Status</data>
+        <data key="position">Position</data>
+    </entity>
+
+    <entity name="questionGrid" type="column">
+        <data key="question">Question</data>
+        <data key="urlKey">Url Key</data>
+        <data key="senderEmail">Sender Email</data>
+        <data key="status">Status</data>
+        <data key="visibility">Visibility</data>
+        <data key="position">Position</data>
+    </entity>
+</entities>

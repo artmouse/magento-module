@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontCheckPriceShippingWithCountryStateZipActionGroup">
+        <arguments>
+            <argument name="shippingPrices"/>
+            <argument name="shippingMethods" defaultValue="flatRateMethodOnCart"/>
+            <argument name="country"/>
+            <argument name="state"/>
+            <argument name="zip"/>
+        </arguments>
+        <amOnPage url="{{StorefrontCartPage.url}}" stepKey="navigateToShoppingCart"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenCart"/>
+        <conditionalClick selector="{{StorefrontCartSection.EstimateShippingAndTax}}"
+                          dependentSelector="{{StorefrontCartSection.ZipShipping}}" visible="false"
+                          stepKey="OpenTabWithShippingInCart"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenEstimate"/>
+        <selectOption selector="{{StorefrontCartSection.SelectCountryShipping}}" userInput="{{country}}"
+                      stepKey="selectShippingCountry"/>
+        <selectOption selector="{{StorefrontCartSection.SelectStateShipping}}" userInput="{{state}}"
+                      stepKey="selectShippingState"/>
+        <fillField selector="{{StorefrontCartSection.ZipShipping}}" userInput="{{zip}}" stepKey="enterZip"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoadAfterEnterZip"/>
+        <waitForElementNotVisible selector="{{StorefrontCartSection.CartTotalLoader}}"
+                                  stepKey="waitWhenNotVisibleLoaderTotals"/>
+        <waitForPageLoad stepKey="waitForPageLoadBeforeCheckShipping"/>
+        <see selector="{{StorefrontCartSection.ShippingMethodPrice(shippingMethods.shippingMethodsName)}}"
+             userInput="{{shippingPrices}}" stepKey="checkFreeShipping"/>
+        <conditionalClick selector="{{StorefrontCartSection.EstimateShippingAndTax}}"
+                          dependentSelector="{{StorefrontCartSection.ZipShipping}}" visible="true"
+                          stepKey="CloseTabWithShippingInCart"/>
+    </actionGroup>
+</actionGroups>

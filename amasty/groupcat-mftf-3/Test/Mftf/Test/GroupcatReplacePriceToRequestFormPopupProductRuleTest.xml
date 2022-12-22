@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="GroupcatReplacePriceToRequestFormPopupProductRuleTest" extends="GroupcatReplacePriceToRequestFormTextAndImageProductRuleTest">
+        <annotations>
+            <features value="Creation Replace Price To Request Form Pop-up Customer Group Catalog Rule"/>
+            <stories value="Check Replace Price To Request Form Pop-up Customer Group Catalog Rule"/>
+            <title value="Check Replace Price To Request Form Pop-up Customer Group Catalog Rule at Storefront Product Page"/>
+            <description value="Check Replace Price To Request Form Pop-up Customer Group Catalog Rule at Storefront Product Page"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="AmGroupCatalog-27"/>
+            <group value="AmGroupCatalog"/>
+            <group value="AmReplacePriceToRequestFormRule"/>
+        </annotations>
+
+        <remove keyForRemoval="storefrontCheckReplaceWithTextAndImageProductPrice"/>
+        <actionGroup ref="StorefrontAssertReplacePriceWithPopupOnCategoryPageActionGroup" after="addProduct" stepKey="storefrontCheckReplaceWithPopupProductPriceOnCategoryPage">
+            <argument name="category" value="$category$"/>
+            <argument name="product" value="$$firstSimpleProduct.name$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertReplacePriceWithPopupOnProductPageActionGroup" after="storefrontCheckReplaceWithPopupProductPriceOnCategoryPage"
+                     stepKey="storefrontCheckReplaceWithPopupProductPriceOnProductPage">
+            <argument name="category" value="$category$"/>
+            <argument name="product" value="$$firstSimpleProduct.name$$"/>
+        </actionGroup>
+    </test>
+</tests>

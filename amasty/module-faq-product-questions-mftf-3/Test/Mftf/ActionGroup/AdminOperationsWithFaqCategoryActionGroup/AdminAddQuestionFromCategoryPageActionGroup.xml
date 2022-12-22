@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminAddQuestionFromCategoryPageActionGroup">
+        <arguments>
+            <argument name="questionName" defaultValue="defaultQuestion.title"/>
+        </arguments>
+        <conditionalClick selector="{{AdminCategorySection.QuestionsTab}}"
+                          dependentSelector="{{AdminCategorySection.AddQuestions}}"
+                          visible="false" stepKey="openAddQuestionsTab"/>
+        <waitForPageLoad stepKey="waitForQuestionTabLoad"/>
+        <click selector="{{AdminCategorySection.AddQuestions}}" stepKey="clickAddQuestions"/>
+        <waitForPageLoad stepKey="waitForAddQuestionsWindowLoad"/>
+        <conditionalClick selector="{{AdminCategorySection.ClearAllFilters}}" dependentSelector="{{AdminCategorySection.ActiveFilters}}"
+                          visible="true" stepKey="clearAllFilters"/>
+        <waitForPageLoad stepKey="waitForCLearFilterDataLoad"/>
+        <conditionalClick selector="{{AdminCategorySection.Filters}}" dependentSelector="{{AdminCategorySection.ApplyFilters}}"
+                          visible="false" stepKey="openFilterSection"/>
+        <fillField selector="{{AdminCategorySection.QuestionTitle}}" userInput="{{questionName}}" stepKey="fillQuestionTitle"/>
+        <click selector="{{AdminCategorySection.ApplyFilters}}" stepKey="clickApplyFiltersButton"/>
+        <waitForPageLoad stepKey="waitForFilteredDataLoad"/>
+        <checkOption selector="{{AdminCategorySection.QuestionCheckbox(questionName)}}" stepKey="selectQuestion"/>
+        <click selector="{{AdminCategorySection.AddSelectedQuestions}}" stepKey="clickAddSelectedQuestions"/>
+        <waitForPageLoad stepKey="waitForAddQuestionToCategory"/>
+        <click selector="{{AdminCategorySection.SaveAndContinueEdit}}" stepKey="saveAndContinueEdit"/>
+        <seeElement selector="{{AdminCategorySection.SaveSuccessMsg}}" stepKey="seeSaveSuccessMsg"/>
+    </actionGroup>
+</actionGroups>

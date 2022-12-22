@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminAssertCustomerAccountBillingAddressActionGroup">
+        <arguments>
+            <argument name="customer"/>
+            <argument name="customerAddress"/>
+        </arguments>
+        <click selector="{{AdminCustomerAccountInformationSection.addressesButton}}" stepKey="clickOnAddressButton"/>
+        <waitForPageLoad stepKey="waitForAddressGridToLoad"/>
+        <see selector="{{AdminCustomerAddressesDefaultBillingSection.addressDetails}}"
+             userInput="{{customer.firstname}}" stepKey="seeAFirstNameInDefaultAddressSection"/>
+        <see selector="{{AdminCustomerAddressesDefaultBillingSection.addressDetails}}"
+             userInput="{{customer.lastname}}" stepKey="seeLastNameInDefaultAddressSection"/>
+        <see selector="{{AdminCustomerAddressesDefaultBillingSection.addressDetails}}"
+             userInput="{{customerAddress.street[0]}}" stepKey="seeStreetInDefaultAddressSection"/>
+        <see selector="{{AdminCustomerAddressesDefaultBillingSection.addressDetails}}"
+             userInput="{{customerAddress.city}}" stepKey="seeLCityInDefaultAddressSection"/>
+        <see selector="{{AdminCustomerAddressesDefaultBillingSection.addressDetails}}"
+             userInput="{{customerAddress.country}}" stepKey="seeCountryDefaultAddressSection"/>
+        <see selector="{{AdminCustomerAddressesDefaultBillingSection.addressDetails}}"
+             userInput="{{customerAddress.postcode}}" stepKey="seePostCodeInDefaultAddressSection"/>
+        <see selector="{{AdminCustomerAddressesDefaultBillingSection.addressDetails}}"
+             userInput="{{customerAddress.telephone}}" stepKey="seePhoneNumberInDefaultAddressSection"/>
+    </actionGroup>
+</actionGroups>

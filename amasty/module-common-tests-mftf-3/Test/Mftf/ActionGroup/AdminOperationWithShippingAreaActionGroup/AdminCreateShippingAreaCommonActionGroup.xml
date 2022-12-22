@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminCreateShippingAreaCommonActionGroup">
+        <arguments>
+            <argument name="shippingArea"/>
+        </arguments>
+        <amOnPage url="{{AdminShippingAreaGridPage.url}}" stepKey="navigateToShippingAreaGrid"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpen"/>
+        <conditionalClick selector="{{AdminShippingAreaGridSection.FiltersClearAll}}"
+                          dependentSelector="{{AdminShippingAreaGridSection.FiltersClearAll}}" visible="true"
+                          stepKey="clearAllFilters"/>
+        <click selector="{{AdminShippingAreaGridSection.AddShippingAreaButton}}" stepKey="addNewArea"/>
+        <waitForPageLoad stepKey="waitForLoadAreaForm"/>
+        <conditionalClick selector="{{AdminShippingAreaRuleSection.GeneralTab}}"
+                          dependentSelector="{{AdminShippingAreaRuleSection.GeneralTabOpen}}" visible="false"
+                          stepKey="openGeneralTab"/>
+        <fillField selector="{{AdminShippingAreaRuleSection.ShippingAreaName}}" userInput="{{shippingArea.name}}"
+                   stepKey="enterNameArea"/>
+        <conditionalClick selector="{{AdminShippingAreaRuleSection.ShippingAreaStatus}}"
+                          dependentSelector="{{AdminShippingAreaRuleSection.ShippingAreaStatusEnable}}" visible="false"
+                          stepKey="activateArea"/>
+        <conditionalClick selector="{{AdminShippingAreaRuleSection.AreaConditionsTab}}"
+                          dependentSelector="{{AdminShippingAreaRuleSection.AreaConditionsTabOpen}}" visible="false"
+                          stepKey="openAreaConditionsTab"/>
+        <selectOption selector="{{AdminShippingAreaRuleSection.ForCountries}}" userInput="{{shippingAreaValue.include}}"
+                      stepKey="chooseValueForCountries"/>
+        <searchAndMultiSelectOption selector="{{AdminShippingAreaRuleSection.CountriesMultiSelect}}"
+                                    parameterArray="[{{shippingArea.country}}]" stepKey="enterCountryName"/>
+        <waitForAjaxLoad stepKey="waitAfterChooseCountry"/>
+        <click selector="{{AdminShippingAreaRuleSection.SaveAndContinueEdit}}" stepKey="clickOnSave"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSave"/>
+    </actionGroup>
+</actionGroups>

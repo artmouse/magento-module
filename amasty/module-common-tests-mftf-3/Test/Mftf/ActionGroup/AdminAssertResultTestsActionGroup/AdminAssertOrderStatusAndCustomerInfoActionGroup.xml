@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminAssertOrderStatusAndCustomerInfoActionGroup">
+        <arguments>
+            <argument name="orderStatus" defaultValue="statusOrders.isPending"/>
+            <argument name="customer"/>
+            <argument name="product"/>
+        </arguments>
+        <see selector="{{AdminOrderDetailsInformationSection.orderStatus}}" userInput="{{orderStatus}}"
+             stepKey="assertStatus"/>
+        <see selector="{{AdminOrderDetailsInformationSection.accountInformation}}" userInput="{{customer.email}}"
+             stepKey="assertEmail"/>
+        <see selector="{{AdminOrderDetailsInformationSection.billingAddress}}" userInput="{{customer.street[0]}}"
+             stepKey="assertBillStreet"/>
+        <see selector="{{AdminOrderDetailsInformationSection.shippingAddress}}" userInput="{{customer.street[0]}}"
+             stepKey="assertShipStreet"/>
+        <see selector="{{AdminOrderDetailsInformationSection.itemsOrdered}}" userInput="{{product.name}}"
+             stepKey="assertProduct"/>
+    </actionGroup>
+</actionGroups>

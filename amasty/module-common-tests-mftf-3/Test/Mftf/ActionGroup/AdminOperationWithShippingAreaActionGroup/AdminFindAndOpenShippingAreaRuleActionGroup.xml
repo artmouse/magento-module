@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminFindAndOpenShippingAreaRuleActionGroup">
+        <arguments>
+            <argument name="shippingArea"/>
+        </arguments>
+        <amOnPage url="{{AdminShippingAreaGridPage.url}}" stepKey="navigateToShippingAreaGridPage"/>
+        <waitForPageLoad stepKey="waitForGridLoad"/>
+        <conditionalClick selector="{{AdminShippingAreaGridSection.FiltersClearAll}}"
+                          dependentSelector="{{AdminShippingAreaGridSection.FiltersClearAll}}" visible="true"
+                          stepKey="clearAllFilters"/>
+        <waitForAjaxLoad stepKey="waitForAjaxPageAfterClearFields"/>
+        <conditionalClick selector="{{AdminShippingAreaGridSection.FiltersButton}}"
+                          dependentSelector="{{AdminShippingAreaGridSection.FiltersNameInput}}" visible="false"
+                          stepKey="openFiltersBlockIfClose"/>
+        <fillField selector="{{AdminShippingAreaGridSection.FiltersNameInput}}" userInput="{{shippingArea.name}}"
+                   stepKey="enterNameOfRule"/>
+        <click selector="{{AdminShippingAreaGridSection.FiltersApplyButton}}" stepKey="clickButtonAppleFilter"/>
+        <click selector="{{AdminShippingAreaGridSection.TableRowOne}}" stepKey="openFirstFoundRule"/>
+        <waitForPageLoad stepKey="waitForPageOpenRuleLoad"/>
+    </actionGroup>
+</actionGroups>

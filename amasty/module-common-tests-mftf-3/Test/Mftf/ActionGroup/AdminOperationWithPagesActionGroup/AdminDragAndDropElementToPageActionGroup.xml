@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminDragAndDropElementToPageActionGroup" extends="dragContentTypeToStage">
+        <dragAndDrop selector1="{{PageBuilderPanel.draggableContentTypeInPanel(contentType.name)}}"
+                     selector2="{{AdminPageSection.ContentTypeContainer(containerTargetIndex)}}"
+                     stepKey="dropContentTypeIntoStage"/>
+    </actionGroup>
+</actionGroups>

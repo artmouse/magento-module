@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="defaultCategory" type="faqCategory">
+        <data key="isEnabled">1</data>
+        <data key="title" unique="suffix">DefCategory-</data>
+        <data key="url_key" unique="suffix">def-category-</data>
+        <data key="storeView">All Store Views</data>
+        <data key="customerGroups">0,1,2,3</data>
+        <data key="position">1</data>
+        <data key="icon">faqCategory.jpg</data>
+        <data key="iconFileName">faqCategory</data>
+        <data key="description">Default faq category description.</data>
+        <data key="metaTitle"></data>
+        <data key="metaDescription"></data>
+        <data key="robots">INDEX,FOLLOW</data>
+        <data key="noindex">0</data>
+        <data key="noFollow">0</data>
+    </entity>
+
+    <entity name="secondCategory" extends="defaultCategory">
+        <data key="title" unique="suffix">SecondCategory-</data>
+        <data key="url_key" unique="suffix">second-category-</data>
+        <data key="description">Second faq category description.</data>
+    </entity>
+
+    <entity name="storeViewCategory" extends="defaultCategory">
+        <data key="title" unique="suffix">StoreViewCategory-</data>
+        <data key="url_key" unique="suffix">store-view-category-</data>
+        <data key="description">Custom Store View faq category description.</data>
+    </entity>
+
+    <entity name="generalCustomerCategory" extends="defaultCategory">
+        <data key="title" unique="suffix">generalCustomerCategory-</data>
+        <data key="url_key" unique="suffix">general-customer-category-</data>
+        <data key="customerGroups">1</data>
+        <data key="description">General customer faq category description.</data>
+    </entity>
+
+    <entity name="secondPositionCategory" extends="defaultCategory">
+        <data key="title" unique="suffix">secondPositionCategory-</data>
+        <data key="url_key" unique="suffix">second-position-category-</data>
+        <data key="position">2</data>
+        <data key="description">Second position faq category description.</data>
+    </entity>
+
+    <entity name="seoCategory" extends="defaultCategory">
+        <data key="title" unique="suffix">seoCategory-</data>
+        <data key="url_key" unique="suffix">seo-category-</data>
+        <data key="description">SEO faq category description.</data>
+        <data key="metaTitle">categoryMetaTitle</data>
+        <data key="metaDescription">categoryMetaDescription</data>
+        <data key="robots">NOINDEX,NOFOLLOW</data>
+        <data key="noindex">1</data>
+        <data key="noFollow">1</data>
+    </entity>
+
+    <entity name="editedCategory" extends="defaultCategory">
+        <data key="title" unique="suffix">EditedCategory-</data>
+        <data key="url_key" unique="suffix">edited-category-</data>
+        <data key="isEnabled">0</data>
+        <data key="status">Disabled</data>
+        <data key="position">2</data>
+    </entity>
+
+    <entity name="apiFaqCategory" type="faqCategory">
+        <data key="title" unique="suffix">ApiCategory-</data>
+        <data key="position">1</data>
+        <data key="url_key" unique="suffix">api-category-</data>
+        <data key="status">1</data>
+        <data key="meta_title">meta title api category</data>
+        <data key="meta_description">meta description api category</data>
+        <data key="visit_count">0</data>
+        <data key="exclude_sitemap">false</data>
+        <data key="canonical_url" unique="suffix">api-category-</data>
+        <data key="description">API faq category description.</data>
+        <data key="stores">0</data>
+        <data key="customer_groups">0</data>
+    </entity>
+
+    <entity name="apiFaqCategoryAllCustomers" extends="apiFaqCategory">
+        <data key="customer_groups">0,1,2,3</data>
+    </entity>
+
+    <!--data for sorting category by name-->
+    <entity name="firstApiFaqCategory" extends="apiFaqCategory">
+        <data key="title" unique="suffix">FirstApiCategory-</data>
+        <data key="position">2</data>
+        <data key="url_key" unique="suffix">first-api-category-</data>
+        <data key="canonical_url" unique="suffix">first-api-category-</data>
+        <data key="customer_groups">0,1,2,3</data>
+    </entity>
+
+    <entity name="secondApiFaqCategory" extends="apiFaqCategory">
+        <data key="title" unique="suffix">SecondApiCategory-</data>
+        <data key="position">1</data>
+        <data key="url_key" unique="suffix">second-api-category-</data>
+        <data key="canonical_url" unique="suffix">second-api-category-</data>
+        <data key="customer_groups">0,1,2,3</data>
+    </entity>
+
+    <entity name="apiFaqCategoryWithQuestion" extends="apiFaqCategory">
+        <data key="title" unique="suffix">ApiCategoryWithQuestion-</data>
+        <data key="url_key" unique="suffix">api-category-with-question-</data>
+        <data key="description">API faq category with question description.</data>
+        <var key="questions" entityKey="question_id" entityType="faqQuestion"/>
+    </entity>
+
+    <entity name="apiFaqCategoryData" type="faqCategory">
+        <data key="store">All Store Views</data>
+        <data key="customerGroup">NOT LOGGED IN</data>
+    </entity>
+</entities>

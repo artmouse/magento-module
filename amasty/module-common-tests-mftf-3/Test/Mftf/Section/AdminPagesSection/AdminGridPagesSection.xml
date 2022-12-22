@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminGridPagesSection">
+        <element name="ClearAll" type="button"
+                 selector="//div[@class='admin__data-grid-header']//button[@class='action-tertiary action-clear']"
+                 timeout="30"/>
+        <element name="FiltersButton" type="button"
+                 selector="//div[@class='data-grid-filters-action-wrap']/button[text()='Filters']" timeout="30"/>
+        <element name="FilterTitle" type="input" selector="//input[@name='title']"/>
+        <element name="FilterApply" type="button" selector="//button[@data-action='grid-filter-apply']"/>
+        <element name="TableRowOneSelect" type="button"
+                 selector="//tr[@data-repeat-index='0']//button[@class='action-select']//parent::div"/>
+        <element name="TableRowOneEdit" type="button"
+                 selector="//tr[@data-repeat-index='0']//a[@data-action='item-edit']"/>
+    </section>
+</sections>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminCreateShippingAreaOnlyWithRegionsActionGroup" extends="AdminCreateShippingAreaCommonActionGroup">
+        <arguments>
+            <argument name="forStatesValue"/>
+        </arguments>
+        <selectOption selector="{{AdminShippingAreaRuleSection.ForStateRegions}}" userInput="{{forStatesValue}}"
+                      after="waitAfterChooseCountry" stepKey="selectActionsForStates"/>
+        <waitForAjaxLoad after="selectActionsForStates" stepKey="waitWhileShowsRegion"/>
+        <selectOption selector="{{AdminShippingAreaRuleSection.StateRegions}}"
+                      parameterArray="[{{shippingArea.states}}]" after="waitWhileShowsRegion" stepKey="selectStates"/>
+    </actionGroup>
+</actionGroups>

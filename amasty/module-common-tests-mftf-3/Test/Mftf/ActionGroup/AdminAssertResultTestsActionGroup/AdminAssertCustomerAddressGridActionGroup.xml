@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminAssertCustomerAddressGridActionGroup">
+        <arguments>
+            <argument name="customerAddress"/>
+        </arguments>
+        <click selector="{{AdminCustomerAccountInformationSection.addressesButton}}" stepKey="clickOnAddressButton"/>
+        <waitForPageLoad stepKey="waitForAddressGridToLoad"/>
+        <conditionalClick selector="{{AdminCustomerAddressesGridActionsSection.clearFilter}}"
+                          dependentSelector="{{AdminCustomerAddressesGridActionsSection.clearFilter}}"
+                          visible="true" stepKey="clearAddressesGridFilter"/>
+        <see selector="{{AdminCustomerAddressesGridSection.customerAddressGrid}}"
+             userInput="{{customerAddress.street[0]}}" stepKey="seeStreetAddress"/>
+        <see selector="{{AdminCustomerAddressesGridSection.customerAddressGrid}}"
+             userInput="{{customerAddress.city}}" stepKey="seeCity"/>
+        <see selector="{{AdminCustomerAddressesGridSection.customerAddressGrid}}"
+             userInput="{{customerAddress.country}}" stepKey="seeCountry"/>
+        <see selector="{{AdminCustomerAddressesGridSection.customerAddressGrid}}"
+             userInput="{{customerAddress.state}}" stepKey="seeState"/>
+        <see selector="{{AdminCustomerAddressesGridSection.customerAddressGrid}}"
+             userInput="{{customerAddress.postcode}}" stepKey="seePostCode"/>
+        <see selector="{{AdminCustomerAddressesGridSection.customerAddressGrid}}"
+             userInput="{{customerAddress.telephone}}" stepKey="seePhoneNumber"/>
+    </actionGroup>
+</actionGroups>

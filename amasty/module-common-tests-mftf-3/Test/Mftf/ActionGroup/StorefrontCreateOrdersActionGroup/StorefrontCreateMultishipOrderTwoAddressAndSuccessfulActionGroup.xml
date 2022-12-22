@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontCreateMultishipOrderTwoAddressAndSuccessfulActionGroup"
+                 extends="StorefrontMultishippingFillAddressAndShippingMethodsActionGroup">
+        <arguments>
+            <argument name="billingMethod"/>
+        </arguments>
+        <click selector="{{StorefrontMultishippingBillingSection.BillingMethod(billingMethod)}}"
+               stepKey="chooseBillingMethod"/>
+        <click selector="{{StorefrontMultishippingBillingSection.GoToReviewYourOrderButton}}" stepKey="GoToReviewOrder"/>
+        <waitForPageLoad stepKey="waitPageLoadAfterOpenReview"/>
+        <click selector="{{StorefrontMultishippingReviewSection.PlaceOrderButton}}" stepKey="SubmitPlaceOrder"/>
+        <waitForPageLoad stepKey="waitPageLoadAfterPlaceOrder"/>
+        <seeElement selector="{{StorefrontMultishippingReviewSection.MultiCheckoutSuccess}}" stepKey="assertSuccessPage"/>
+        <grabTextFrom selector="{{StorefrontSuccessPageSection.OrderNumberMultiShippingFirst}}" stepKey="grabOrderNumberFirst"/>
+        <grabTextFrom selector="{{StorefrontSuccessPageSection.OrderNumberMultiShippingTwo}}" stepKey="grabOrderNumberSecond"/>
+    </actionGroup>
+</actionGroups>

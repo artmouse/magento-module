@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Automatic Related Products MFTF 3 for Magento 2 (System)
+*/-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="amTestBundlePack" type="am_test_bundle">
+        <data key="bundle_name" unique="suffix">testBundle</data>
+        <data key="product_qty">2</data>
+        <data key="product_price">50</data>
+        <data key="second_price">100</data>
+        <data key="discount5">-$5</data>
+        <data key="discount10">-$10</data>
+        <data key="discount15">-$15</data>
+        <data key="discount18">-$18</data>
+        <data key="discount20">-$20</data>
+        <data key="discount25">-$25</data>
+        <data key="discount30">-$30</data>
+        <data key="discount40">-$40</data>
+        <data key="discount50">-$50</data>
+        <data key="discount60">-$60</data>
+        <data key="discount65">-$65</data>
+        <data key="bundle_tax">$6.70</data>
+        <data key="bundle_discount">15</data>
+        <data key="default_discount">10</data>
+    </entity>
+    <entity name="amTestBundlePackTwo" extends="amTestBundlePack" type="am_test_bundle">
+        <data key="bundle_name" unique="suffix">testBundleTwo</data>
+    </entity>
+    <entity name="amTestBundlePackThree" extends="amTestBundlePack" type="am_test_bundle">
+        <data key="bundle_name" unique="suffix">testBundleThree</data>
+    </entity>
+    <entity name="amTestBundlePackFour" extends="amTestBundlePack" type="am_test_bundle">
+        <data key="bundle_name" unique="suffix">testBundleFour</data>
+    </entity>
+    <entity name="amTestBundlePackFive" extends="amTestBundlePack" type="am_test_bundle">
+        <data key="bundle_name" unique="suffix">testBundleFive</data>
+    </entity>
+    <entity name="amTestBundlePackSix" extends="amTestBundlePack" type="am_test_bundle">
+        <data key="bundle_name" unique="suffix">testBundleSix</data>
+    </entity>
+    <entity name="allBundlesCmsPageEnabled" type="am_cms_page">
+        <data key="id">10</data>
+        <data key="identifier">bundles</data>
+        <data key="title">All Bundle Packs Page</data>
+        <data key="active">true</data>
+    </entity>
+    <entity name="allBundlesCmsPageDisabled" extends="allBundlesCmsPageEnabled" type="am_cms_page">
+        <data key="active">false</data>
+    </entity>
+</entities>

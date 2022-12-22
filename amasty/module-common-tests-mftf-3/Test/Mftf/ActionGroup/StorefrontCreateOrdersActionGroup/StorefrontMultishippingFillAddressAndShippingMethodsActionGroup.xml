@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontMultishippingFillAddressAndShippingMethodsActionGroup">
+        <arguments>
+            <argument name="product"/>
+            <argument name="address"/>
+            <argument name="shippingMethodOne" defaultValue="FlatRateMethod.shippingMethodsNameOnCheckout"/>
+            <argument name="shippingMethodTwo" defaultValue="BestWayMethod.shippingMethodsNameOnCheckout"/>
+        </arguments>
+        <amOnPage url="{{StorefrontMultishippingAddressPage.url}}" stepKey="navigateToMultiShippingAddress"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterOpenMultiShipping"/>
+        <selectOption selector="{{StorefrontMultishippingAddressSection.ProductAddress(product.name)}}"
+                      userInput="{{address}}" stepKey="selectAddressForProduct"/>
+        <click selector="{{StorefrontMultishippingAddressSection.GoToShippingInformationButton}}" stepKey="GoToShipInform"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterNavigateToShipping"/>
+        <click selector="{{StorefrontMultishippingAddressSection.FirstMultiShippingAddress(shippingMethodOne)}}"
+               stepKey="chooseFirstMethod"/>
+        <waitForAjaxLoad stepKey="waitAjaxAfterChooseFirstShipping"/>
+        <scrollTo selector="{{StorefrontMultishippingShippingSection.ContinueToBillingInformation}}" stepKey="scrollToBottom"/>
+        <click selector="{{StorefrontMultishippingAddressSection.SecondMultiShippingAddress(shippingMethodTwo)}}"
+               stepKey="chooseSecondMethod"/>
+        <waitForAjaxLoad stepKey="waitAjaxAfterChooseSecondShipping"/>
+        <click selector="{{StorefrontMultishippingShippingSection.ContinueToBillingInformation}}" stepKey="GoToBillingPage"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterNavigateToBilling"/>
+    </actionGroup>
+</actionGroups>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminFaqHomePageActionGroup">
+        <arguments>
+            <argument name="status" defaultValue="status.isEnabled"/>
+            <argument name="cmsPage" defaultValue="defFaqHomePage.title"/>
+        </arguments>
+        <amOnPage url="{{AdminFaqConfigurationPage.url}}" stepKey="openConfigurationPage"/>
+        <waitForPageLoad stepKey="waitForConfigurationPageLoad"/>
+        <conditionalClick selector="{{AdminFaqConfigurationSection.FaqHomePageTab}}" dependentSelector="{{AdminFaqConfigurationSection.UseFaqHomePage}}"
+                          visible="false" stepKey="openFaqHomePageTab"/>
+        <selectOption selector="{{AdminFaqConfigurationSection.UseFaqHomePage}}" userInput="{{status}}" stepKey="setUseFaqHomePage"/>
+        <selectOption selector="{{AdminFaqConfigurationSection.SelectCmsPage}}" userInput="{{cmsPage}}" stepKey="setCmsPage"/>
+        <click selector="{{AdminFaqConfigurationSection.SaveConfig}}" stepKey="saveConfig"/>
+        <waitForPageLoad stepKey="waitForConfigSave"/>
+        <conditionalClick selector="{{AdminFaqConfigurationSection.FaqHomePageTab}}" dependentSelector="{{AdminFaqConfigurationSection.UseFaqHomePage}}"
+                          visible="true" stepKey="closeFaqHomePageTab"/>
+        <magentoCLI command="cache:flush" arguments="config" stepKey="flushCache"/>
+    </actionGroup>
+</actionGroups>

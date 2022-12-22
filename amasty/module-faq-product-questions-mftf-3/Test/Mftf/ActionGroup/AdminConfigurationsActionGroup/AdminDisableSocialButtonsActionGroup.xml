@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminDisableSocialButtonsActionGroup">
+        <arguments>
+            <argument name="setting" defaultValue="disableSocialButtons"/>
+        </arguments>
+        <amOnPage url="{{AdminFaqConfigurationPage.url}}" stepKey="openConfigurationPage"/>
+        <waitForPageLoad stepKey="waitForConfigurationPageLoad"/>
+        <conditionalClick selector="{{AdminFaqConfigurationSection.SocialButtonsTab}}" dependentSelector="{{AdminFaqConfigurationSection.EnableSocialButtons}}"
+                          visible="false" stepKey="openSocialButtonsTab"/>
+        <selectOption selector="{{AdminFaqConfigurationSection.EnableSocialButtons}}" userInput="{{setting.isEnabled}}"
+                      stepKey="setSocialButtons"/>
+        <click selector="{{AdminFaqConfigurationSection.SaveConfig}}" stepKey="saveConfig"/>
+        <waitForPageLoad stepKey="waitForConfigSave"/>
+        <conditionalClick selector="{{AdminFaqConfigurationSection.SocialButtonsTab}}" dependentSelector="{{AdminFaqConfigurationSection.EnableSocialButtons}}"
+                          visible="true" stepKey="closeSocialButtonsTab"/>
+        <magentoCLI command="cache:flush" arguments="config" stepKey="flushCache"/>
+    </actionGroup>
+</actionGroups>

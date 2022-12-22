@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontAssertHideProductActionGroup">
+        <arguments>
+            <argument name="category"/>
+            <argument name="product" type="string"/>
+        </arguments>
+        <amOnPage url="{{StorefrontCategoryPage.url(category.custom_attributes[url_path])}}" stepKey="navigateToCategoryPage"/>
+        <waitForPageLoad stepKey="waitForCategoryPageLoad"/>
+        <dontSeeElement selector="{{StorefrontSection.ProductName(product)}}" stepKey="dontAssertProductName"/>
+    </actionGroup>
+</actionGroups>

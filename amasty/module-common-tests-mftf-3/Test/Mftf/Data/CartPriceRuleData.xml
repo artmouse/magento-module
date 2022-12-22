@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="defaultCartPriceRuleDiscountWhole10" type="cartPriceRule">
+        <data key="name" unique="suffix">Default Rule </data>
+        <data key="websites">Main Website</data>
+        <data key="customerGroups">'NOT LOGGED IN', 'General', 'Wholesale', 'Retailer'</data>
+        <data key="apply">Fixed amount discount for whole cart</data>
+        <data key="discountAmount">10</data>
+        <data key="code">AmDefTestCart</data>
+    </entity>
+
+    <entity name="defaultCartPriceRuleDiscountPercent10" extends="defaultCartPriceRuleDiscountWhole10" type="cartPriceRule">
+        <data key="apply">Percent of product price discount</data>
+        <data key="code">AmDefTestPercent</data>
+    </entity>
+
+    <entity name="showBannersForValue" type="cartPriceRuleBanner">
+        <data key="allProducts">0</data>
+        <data key="productSku">1</data>
+        <data key="categories">2</data>
+    </entity>
+
+</entities>

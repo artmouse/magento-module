@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AmDefCreateOrderWithZeroSubtotalTest" extends="CreateInvoiceWithZeroSubtotalCheckoutTest">
+        <annotations>
+            <features value="Create Order"/>
+            <stories value="Create Order with Zero Subtotal"/>
+            <title value="Check Create Order with Zero Subtotal"/>
+            <description value="Check Create Order with Product and Discount to All Price on Storefront"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmDef-26"/>
+            <group value="Amasty"/>
+            <group value="Checkout"/>
+            <group value="AmDef"/>
+            <group value="AmDefCE"/>
+            <group value="AmDefStorefront"/>
+        </annotations>
+
+        <before>
+            <createData entity="CommonCustomerArizona" stepKey="createCustomer"/>
+            <actionGroup ref="AdminCreateCartPriceRuleActionGroup" stepKey="createCartPriceRule">
+                <argument name="ruleName" value="defaultCartPriceRuleDiscountWhole10"/>
+            </actionGroup>
+            <actionGroup ref="AdminEditCartPriceRuleAddCouponCodeActionGroup" stepKey="createCouponForCartPriceRule">
+                <argument name="cartRuleName" value="defaultCartPriceRuleDiscountWhole10.name"/>
+                <argument name="couponCode" value="defaultCartPriceRuleDiscountWhole10.code"/>
+            </actionGroup>
+            <magentoCLI command="config:set {{EnableFreeShippingConfigData.path}} {{EnableFreeShippingConfigData.value}}"
+                        stepKey="enableFreeShippingMethod"/>
+            <magentoCLI command="config:set carriers/freeshipping/free_shipping_subtotal 0"
+                        stepKey="setFreeShippingSubtotal"/>
+        </before>
+        <after>
+            <magentoCLI command="config:set {{DisableFreeShippingConfigData.path}} {{DisableFreeShippingConfigData.value}}"
+                        stepKey="disableFreeShippingMethod"/>
+            <magentoCLI command="config:set carriers/freeshipping/free_shipping_subtotal 0"
+                        stepKey="setFreeShippingSubtotalToDefault"/>
+            <actionGroup ref="DeleteCartPriceRuleByName" stepKey="deleteCartPriceRule">
+                <argument name="ruleName" value="{{defaultCartPriceRuleDiscountWhole10.name}}"/>
+            </actionGroup>
+        </after>
+
+        <remove keyForRemoval="goToMyAccountPage"/>
+        <remove keyForRemoval="waitForPageLoad"/>
+        <remove keyForRemoval="clickViewOrder"/>
+        <grabTextFrom selector="|Order # (\d+)|" after="submitOrder" stepKey="number"/>
+        <actionGroup ref="AdminApplyCouponToOrderActionGroup" stepKey="applyCoupon">
+            <argument name="couponCode" value="{{defaultCartPriceRuleDiscountWhole10.code}}"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenOrderFromMyAccountByIdActionGroup" stepKey="goToSidebarMenu">
+            <argument name="orderId" value="{$number}"/>
+        </actionGroup>
+    </test>
+</tests>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="GroupcatFillReplacePriceToRequestFormPopupOnProductPageRuleTest"
+          extends="GroupcatReplacePriceToRequestFormTextAndImageProductRuleTest">
+        <annotations>
+            <features value="Creation Fill Pop-up Form On Product Page Customer Group Catalog Rule"/>
+            <stories value="Check Fill Pop-up Form On Product Page Customer Group Catalog Rule"/>
+            <title value="Check Fill Pop-up Form Customer Group Catalog Rule at Storefront Product Page"/>
+            <description value="Check Fill Pop-up Form Customer Group Catalog Rule at Storefront Product Page"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="AmGroupCatalog-31"/>
+            <group value="AmGroupCatalog"/>
+            <group value="AmReplacePriceToRequestFormRule"/>
+        </annotations>
+
+        <remove keyForRemoval="storefrontCheckReplaceWithTextAndImageProductPrice"/>
+        <actionGroup ref="StorefrontFillPopupFormOnProductPageActionGroup" after="addProduct" stepKey="storefrontFillPopupFormOnProductPage">
+            <argument name="category" value="$category$"/>
+            <argument name="product" value="$$firstSimpleProduct.name$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckRequestActionGroup" after="storefrontFillPopupFormOnProductPage" stepKey="checkRequest"/>
+        <actionGroup ref="AdminDeleteRequestOnGetAQuoteRequestsGridActionGroup" after="checkRequest" stepKey="deleteRequest"/>
+    </test>
+</tests>

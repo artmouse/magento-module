@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminCreateQuestionActionGroup">
+        <arguments>
+            <argument name="question" defaultValue="defaultQuestion"/>
+            <argument name="storeView" defaultValue="defaultQuestion.storeView"/>
+        </arguments>
+        <amOnPage url="{{AdminQuestionGridPage.url}}" stepKey="openQuestionGridPage"/>
+        <waitForPageLoad stepKey="waitForQuestionGridPageLoad"/>
+        <click selector="{{AdminQuestionGridSection.AddNewQuestion}}" stepKey="clickAddNewQuestion"/>
+        <waitForPageLoad stepKey="waitForNewFaqQuestionPageLoad"/>
+        <fillField selector="{{AdminQuestionSection.Question}}" userInput="{{question.title}}" stepKey="fillQuestionName"/>
+        <selectOption selector="{{AdminQuestionSection.DontShowDirectUrl}}" userInput="{{question.dontShowDirectUrl}}" stepKey="selectDontShowDirectUrl"/>
+        <clickWithLeftButton selector="{{AdminQuestionSection.StoreView(storeView)}}" stepKey="setStoreView"/>
+        <selectOption selector="{{AdminQuestionSection.CustomerGroups}}" parameterArray="[{{question.customerGroups}}]" stepKey="selectCustomerGroups"/>
+        <fillField selector="{{AdminQuestionSection.ShortAnswer}}" userInput="{{question.shortAnswer}}" stepKey="fillShortAnswer"/>
+        <conditionalClick selector="{{AdminQuestionSection.ShowHideEditor}}"
+                          dependentSelector="{{AdminQuestionSection.FullAnswerIframe}}"
+                          visible="true" stepKey="showEditor"/>
+        <fillField selector="{{AdminQuestionSection.FullAnswer}}" userInput="{{question.fullAnswer}}" stepKey="fillFullAnswer"/>
+        <selectOption selector="{{AdminQuestionSection.Status}}" userInput="{{question.status}}" stepKey="selectStatus"/>
+        <selectOption selector="{{AdminQuestionSection.Visibility}}" userInput="{{question.visibility}}" stepKey="selectVisibility"/>
+        <fillField selector="{{AdminQuestionSection.UrlKey}}" userInput="{{question.url_key}}" stepKey="fillUrlKey"/>
+        <click selector="{{AdminQuestionSection.SaveAndContinueEdit}}" stepKey="saveAndContinueEdit"/>
+        <waitForPageLoad stepKey="waitForQuestionSaved"/>
+        <seeElement selector="{{AdminQuestionSection.SaveSuccessMsg}}" stepKey="seeSaveSuccessMsg"/>
+    </actionGroup>
+</actionGroups>

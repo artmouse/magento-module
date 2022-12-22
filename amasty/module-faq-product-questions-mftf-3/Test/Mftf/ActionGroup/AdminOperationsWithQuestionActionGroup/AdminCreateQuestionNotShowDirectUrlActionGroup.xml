@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminCreateQuestionNotShowDirectUrlActionGroup" extends="AdminCreateQuestionActionGroup">
+        <arguments>
+            <argument name="question" defaultValue="notShowDirectUrlQuestion"/>
+        </arguments>
+        <selectOption selector="{{AdminQuestionSection.DontShowDirectUrl}}" userInput="{{question.dontShowDirectUrl}}" stepKey="selectDontShowDirectUrl"/>
+        <dontSeeElement selector="{{AdminQuestionSection.UrlKey}}" stepKey="fillUrlKey"/>
+        <dontSeeElement selector="{{AdminQuestionSection.ShortAnswer}}" stepKey="fillShortAnswer"/>
+    </actionGroup>
+</actionGroups>

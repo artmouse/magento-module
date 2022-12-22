@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminProductEditBackordersDefaultSettingActionGroup" extends="AdminProductEditBackordersSettingActionGroup">
+        <remove keyForRemoval="selectValueBackorders"/>
+        <conditionalClick selector="{{AdminProductSection.BackordersConfigSetting}}"
+                          dependentSelector="{{AdminProductSection.BackordersConfigSettingYes}}" visible="false"
+                          stepKey="useConfigBackorders"/>
+    </actionGroup>
+</actionGroups>

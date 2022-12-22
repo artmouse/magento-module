@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqShortAnswerBehaviorOnCategoryTest">
+        <annotations>
+            <features value="Short Answer Behavior"/>
+            <stories value="Show Short Answer and Cut Full Answer"/>
+            <title value="Assert Show Short Answer and Cut Full Answer"/>
+            <description value="Show Short Answer: Short Answer Is on Category Page if Question Has Short Answer.
+                                Cut Full Answer: Cut Answer Is on Category Page Even if Question Has Short Answer"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-49"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqConfigurations"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="simpleCategory"/>
+            <createData entity="SimpleProductByFusionBackpack" stepKey="simpleProduct">
+                <requiredEntity createDataKey="simpleCategory"/>
+            </createData>
+            <createData entity="apiFaqCategory" stepKey="faqCategory"/>
+            <createData entity="apiFaqQuestionWithCategory" stepKey="faqQuestionWithShortAnswer">
+                <requiredEntity createDataKey="faqCategory"/>
+                <requiredEntity createDataKey="simpleProduct"/>
+            </createData>
+            <createData entity="apiFaqQuestionNoShortAnswer" stepKey="faqQuestionNoShortAnswer">
+                <requiredEntity createDataKey="faqCategory"/>
+                <requiredEntity createDataKey="simpleProduct"/>
+            </createData>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminFaqSearchNavigationSortingActionGroup" stepKey="setShowShortAnswer">
+                <argument name="setting" value="limitDisplayedAnswerLength"/>
+            </actionGroup>
+        </before>
+        <after>
+            <deleteData createDataKey="faqQuestionWithShortAnswer" stepKey="deleteQuestionWithShortAnswer"/>
+            <deleteData createDataKey="faqQuestionNoShortAnswer" stepKey="deleteQuestionNoShortAnswer"/>
+            <deleteData createDataKey="faqCategory" stepKey="deleteFaqCategory"/>
+            <deleteData createDataKey="simpleProduct" stepKey="deleteProduct"/>
+            <deleteData createDataKey="simpleCategory" stepKey="deleteCategory"/>
+            <actionGroup ref="AdminFaqSearchNavigationSortingActionGroup" stepKey="setDefSearchNavigationSorting"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <!--show short answer-->
+        <actionGroup ref="StorefrontOpenFaqCategoryPageActionGroup" stepKey="openFaqCategoryPageConfShortAnswer">
+            <argument name="category" value="$$faqCategory$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionAnswerOnCategoryPageActionGroup" stepKey="assertQuestionWithShortAnswerConfShortAnswer">
+            <argument name="questionName" value="$$faqQuestionWithShortAnswer.title$$"/>
+            <argument name="questionAnswer" value="$$faqQuestionWithShortAnswer.short_answer$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionAnswerOnCategoryPageActionGroup" stepKey="assertQuestionNoShortAnswerConfShortAnswer">
+            <argument name="questionName" value="$$faqQuestionNoShortAnswer.title$$"/>
+            <argument name="questionAnswer" value="faqQuestionNoShortAnswer.cut_answer"/>
+        </actionGroup>
+        <!--show cut full answer-->
+        <actionGroup ref="AdminFaqSearchNavigationSortingActionGroup" stepKey="setShowCutFullAnswer">
+            <argument name="setting" value="cutFullAnswer"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenFaqCategoryPageActionGroup" stepKey="openFaqCategoryPageConfCutFullAnswer">
+            <argument name="category" value="$$faqCategory$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionAnswerOnCategoryPageActionGroup" stepKey="assertQuestionWithShortAnswerConfCutFullAnswer">
+            <argument name="questionName" value="$$faqQuestionWithShortAnswer.title$$"/>
+            <argument name="questionAnswer" value="faqQuestionCutFullAnswer.cut_answer"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionAnswerOnCategoryPageActionGroup" stepKey="assertQuestionNoShortAnswerConfCutFullAnswer">
+            <argument name="questionName" value="$$faqQuestionNoShortAnswer.title$$"/>
+            <argument name="questionAnswer" value="faqQuestionNoShortAnswer.cut_answer"/>
+        </actionGroup>
+    </test>
+</tests>

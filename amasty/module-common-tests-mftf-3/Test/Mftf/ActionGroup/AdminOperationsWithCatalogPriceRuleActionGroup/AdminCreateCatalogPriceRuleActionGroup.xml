@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminCreateCatalogPriceRulesActionGroup">
+        <arguments>
+            <argument name="catalogRule" defaultValue="defaultCatalogPriceRuleFixedDiscount"/>
+        </arguments>
+        <amOnPage url="{{AdminNewCatalogPriceRulePage.url}}" stepKey="openNewCatalogPriceRulePage"/>
+        <waitForPageLoad stepKey="waitForPageToLoad"/>
+        <fillField selector="{{AdminNewCatalogPriceRule.ruleName}}" userInput="{{catalogRule.name}}"
+                   stepKey="fillName"/>
+        <fillField selector="{{AdminNewCatalogPriceRule.description}}" userInput="{{catalogRule.description}}"
+                   stepKey="fillDescription"/>
+        <click selector="{{AdminNewCatalogPriceRule.isActive}}" stepKey="activateRule"/>
+        <selectOption selector="{{AdminNewCatalogPriceRule.websites}}" userInput="{{catalogRule.websites}}"
+                      stepKey="selectWebSite"/>
+        <selectOption selector="{{AdminNewCatalogPriceRule.customerGroups}}"
+                      parameterArray="[{{catalogRule.customerGroups}}]" stepKey="selectCustomerGroup"/>
+        <scrollTo selector="{{AdminNewCatalogPriceRule.actionsTab}}" stepKey="scrollToActionTab"/>
+        <click selector="{{AdminNewCatalogPriceRule.actionsTab}}" stepKey="openActionDropdown"/>
+        <selectOption selector="{{AdminNewCatalogPriceRuleActions.apply}}" userInput="{{catalogRule.action}}"
+                      stepKey="discountType"/>
+        <fillField selector="{{AdminNewCatalogPriceRuleActions.discountAmount}}"
+                   userInput="{{catalogRule.discountAmount}}" stepKey="fillDiscountValue"/>
+        <click selector="{{AdminNewCatalogPriceRule.save}}" stepKey="saveTheCatalogRule"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSave"/>
+        <seeElement selector="{{AdminNewCatalogPriceRule.successMessage}}" stepKey="seeSuccessMessage"/>
+    </actionGroup>
+</actionGroups>

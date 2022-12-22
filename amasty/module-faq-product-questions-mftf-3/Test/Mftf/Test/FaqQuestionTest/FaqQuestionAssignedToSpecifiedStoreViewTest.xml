@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqQuestionAssignedToSpecifiedStoreViewTest">
+        <annotations>
+            <features value="Question Is Assigned to Specified Store View"/>
+            <stories value="Assert Question Is Assigned to Specified Store View"/>
+            <title value="Assert Question Is Available on Specified Store View. Question Is Not Available on Other Store View"/>
+            <description value="Assert Question Is Available on Specified Store View. Question Is Not Available on Other Store View"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-12"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqQuestion"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="firstCategory"/>
+            <createData entity="SimpleProductByFusionBackpack" stepKey="firstProduct">
+                <requiredEntity createDataKey="firstCategory"/>
+            </createData>
+            <createData entity="SimpleSubCategory" stepKey="secondCategory"/>
+            <createData entity="SimpleProductByDrivenBackpack" stepKey="secondProduct">
+                <requiredEntity createDataKey="secondCategory"/>
+            </createData>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminCreateStoreViewActionGroup" stepKey="createStoreView">
+                <argument name="StoreGroup" value="faqStoreGroup"/>
+                <argument name="customStore" value="faqStoreView"/>
+            </actionGroup>
+            <actionGroup ref="AdminCreateCategoryActionGroup" stepKey="createCatForAllStoreView"/>
+            <!--create question for all stores view-->
+            <actionGroup ref="AdminCreateQuestionActionGroup" stepKey="createQuestForAllStoreView"/>
+            <actionGroup ref="AdminAssignQuestionToFaqCategoryActionGroup" stepKey="assignQuestForAllStoreViewToCategory"/>
+            <actionGroup ref="AdminAssignProductToQuestionActionGroup" stepKey="assignFirstProdToQuestForAllStoreView">
+                <argument name="productName" value="$$firstProduct.product[name]$$"/>
+            </actionGroup>
+            <actionGroup ref="AdminAssignCategoryToQuestionActionGroup" stepKey="assignSecondCatToQuestForAllStoreView">
+                <argument name="categoryName" value="$$secondCategory.name$$"/>
+            </actionGroup>
+            <!--create question for custom store view-->
+            <actionGroup ref="AdminCreateQuestionActionGroup" stepKey="createQuestForCustomStoreView">
+                <argument name="question" value="storeViewQuestion"/>
+                <argument name="storeView" value="faqStoreView.name"/>
+            </actionGroup>
+            <actionGroup ref="AdminAssignQuestionToFaqCategoryActionGroup" stepKey="assignQuestForCustomStoreViewToCategory"/>
+            <actionGroup ref="AdminAssignProductToQuestionActionGroup" stepKey="assignFirstProdToQuestForCustomStoreView">
+                <argument name="productName" value="$$firstProduct.product[name]$$"/>
+            </actionGroup>
+            <actionGroup ref="AdminAssignCategoryToQuestionActionGroup" stepKey="assignSecondCatToQuestForCustomStoreView">
+                <argument name="categoryName" value="$$secondCategory.name$$"/>
+            </actionGroup>
+        </before>
+        <after>
+            <deleteData createDataKey="firstProduct" stepKey="deleteFirstProduct"/>
+            <deleteData createDataKey="secondProduct" stepKey="deleteSecondProduct"/>
+            <deleteData createDataKey="firstCategory" stepKey="deleteFirstCategory"/>
+            <deleteData createDataKey="secondCategory" stepKey="deleteSecondCategory"/>
+            <actionGroup ref="AdminDeleteQuestionFromGridActionGroup" stepKey="deleteQuestForAllStoreView"/>
+            <actionGroup ref="AdminDeleteQuestionFromGridActionGroup" stepKey="deleteQuestForCustomStoreView">
+                <argument name="questionTitle" value="storeViewQuestion.title"/>
+            </actionGroup>
+            <actionGroup ref="AdminDeleteCategoryFromGridActionGroup" stepKey="deleteCatForAllStoreView"/>
+            <actionGroup ref="AdminDeleteStoreViewActionGroup" stepKey="deleteStoreView">
+                <argument name="customStore" value="faqStoreView"/>
+            </actionGroup>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <!--assert questions on FAQ page (default store view)-->
+        <actionGroup ref="StorefrontOpenFaqPageActionGroup" stepKey="openFaqPage"/>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnFaqPageActionGroup" stepKey="assertQuestForAllViewOnFaqPageDefView"/>
+        <actionGroup ref="StorefrontAssertNoQuestionTitleOnFaqPageActionGroup" stepKey="assertNoQuestForCustomViewOnFaqPageDefView">
+            <argument name="questionTitle" value="storeViewQuestion.title"/>
+        </actionGroup>
+        <!--assert questions on FAQ page (custom store view)-->
+        <actionGroup ref="StorefrontSwitchStoreViewActionGroup" stepKey="switchToCustomStoreView">
+            <argument name="storeView" value="faqStoreView"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnFaqPageActionGroup" stepKey="assertQuestForAllViewOnFaqPageCustomView"/>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnFaqPageActionGroup" stepKey="assertQuestForCustomViewOnFaqPageCustomView">
+            <argument name="questionTitle" value="storeViewQuestion.title"/>
+        </actionGroup>
+
+        <!--assert questions on Category page (default store view)-->
+        <actionGroup ref="StorefrontOpenCategoryFromFaqPageActionGroup" stepKey="openCatFromFaqPage"/>
+        <actionGroup ref="StorefrontSwitchStoreViewActionGroup" stepKey="switchToDefStoreView">
+            <argument name="storeView" value="faqDefStoreView"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnCategoryPageActionGroup" stepKey="assertQuestForAllViewOnCatPageDefView"/>
+        <actionGroup ref="StorefrontAssertNoQuestionTitleOnCategoryPageActionGroup" stepKey="assertNoQuestForCustomViewOnCatPageDefView">
+            <argument name="questionTitle" value="storeViewQuestion.title"/>
+        </actionGroup>
+        <!--assert questions on Category page (custom store view)-->
+        <actionGroup ref="StorefrontSwitchStoreViewActionGroup" stepKey="switchToCustomStoreViewOnCatPage">
+            <argument name="storeView" value="faqStoreView"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnCategoryPageActionGroup" stepKey="assertQuestForAllViewOnCatPageCustomView"/>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnCategoryPageActionGroup" stepKey="assertQuestForCustomViewOnCatPageCustomView">
+            <argument name="questionTitle" value="storeViewQuestion.title"/>
+        </actionGroup>
+
+        <!--assert question for custom store view on custom store view and default store view-->
+        <actionGroup ref="StorefrontOpenQuestionFromCategoryPageActionGroup" stepKey="openCustomQuestFromCatPage">
+            <argument name="question" value="storeViewQuestion.title"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnQuestionPageActionGroup" stepKey="assertQuestTitleOnQuestPage">
+            <argument name="question" value="storeViewQuestion"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontSwitchStoreViewActionGroup" stepKey="switchToDefStoreViewOnQuestPage">
+            <argument name="storeView" value="faqDefStoreView"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertErrorOnFaqPageActionGroup" stepKey="assertErrorOnFaqPage"/>
+
+        <!--assert questions on Product page (default store view)-->
+        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="openFirstProdPage">
+            <argument name="productUrl" value="$$firstProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnProductPageActionGroup" stepKey="assertQuestForAllViewOnFirstProdDefView"/>
+        <actionGroup ref="StorefrontAssertNoQuestionTitleOnProductPageActionGroup" stepKey="assertNoQuestForCustomViewOnFirstProdDefView">
+            <argument name="questionTitle" value="storeViewQuestion.title"/>
+        </actionGroup>
+        <!--assert questions on Product page (custom store view)-->
+        <actionGroup ref="StorefrontSwitchStoreViewActionGroup" stepKey="switchToCustomStoreViewOnProdPage">
+            <argument name="storeView" value="faqStoreView"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnProductPageActionGroup" stepKey="assertQuestForAllViewOnFirstProdCustomView"/>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnProductPageActionGroup" stepKey="assertQuestForCustomViewOnFirstProdCustomView">
+            <argument name="questionTitle" value="storeViewQuestion.title"/>
+        </actionGroup>
+
+        <!--assert questions on Category Product page (default store view)-->
+        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="openSecondProdPage">
+            <argument name="productUrl" value="$$secondProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontSwitchStoreViewActionGroup" stepKey="switchToDefStoreViewOnCatProdPage">
+            <argument name="storeView" value="faqDefStoreView"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnProductPageActionGroup" stepKey="assertQuestForAllViewOnSecondProdDefView"/>
+        <actionGroup ref="StorefrontAssertNoQuestionTitleOnProductPageActionGroup" stepKey="assertNoQuestForCustomViewOnSecondProdDefView">
+            <argument name="questionTitle" value="storeViewQuestion.title"/>
+        </actionGroup>
+        <!--assert questions on Category Product page (custom store view)-->
+        <actionGroup ref="StorefrontSwitchStoreViewActionGroup" stepKey="switchToCustomStoreViewOnCatProdPage">
+            <argument name="storeView" value="faqStoreView"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnProductPageActionGroup" stepKey="assertQuestForAllViewOnSecondProdCustomView"/>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnProductPageActionGroup" stepKey="assertQuestForCustomViewOnSecondProdCustomView">
+            <argument name="questionTitle" value="storeViewQuestion.title"/>
+        </actionGroup>
+    </test>
+</tests>

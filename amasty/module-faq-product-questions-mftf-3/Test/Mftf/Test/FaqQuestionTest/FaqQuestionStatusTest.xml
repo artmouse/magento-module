@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="FaqQuestionStatusTest">
+        <annotations>
+            <features value="Question Status"/>
+            <stories value="Assert Question Status"/>
+            <title value="Assert Different Question Statuses"/>
+            <description value="Assert Pending and Answered Question on FAQ, Category, Product, Category Product Pages. Direct Pending Question URL"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AmFaq-15"/>
+            <group value="AmFaq"/>
+            <group value="AmFaqQuestion"/>
+        </annotations>
+
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="firstCategory"/>
+            <createData entity="SimpleProductByFusionBackpack" stepKey="firstProduct">
+                <requiredEntity createDataKey="firstCategory"/>
+            </createData>
+            <createData entity="SimpleSubCategory" stepKey="secondCategory"/>
+            <createData entity="SimpleProductByDrivenBackpack" stepKey="secondProduct">
+                <requiredEntity createDataKey="secondCategory"/>
+            </createData>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminCreateCategoryActionGroup" stepKey="createDefCategory"/>
+            <!--create answered question customers-->
+            <actionGroup ref="AdminCreateQuestionActionGroup" stepKey="createAnsweredQuestion"/>
+            <actionGroup ref="AdminAssignQuestionToFaqCategoryActionGroup" stepKey="assignAnsweredQuestionToCategory"/>
+            <actionGroup ref="AdminAssignProductToQuestionActionGroup" stepKey="assignFirstProductToAnsweredQuestion">
+                <argument name="productName" value="$$firstProduct.product[name]$$"/>
+            </actionGroup>
+            <actionGroup ref="AdminAssignCategoryToQuestionActionGroup" stepKey="assignSecondCategoryToAnsweredQuestion">
+                <argument name="categoryName" value="$$secondCategory.name$$"/>
+            </actionGroup>
+            <!--create pending question customers-->
+            <actionGroup ref="AdminCreateQuestionActionGroup" stepKey="createPendingQuestion">
+                <argument name="question" value="pendingQuestion"/>
+            </actionGroup>
+            <actionGroup ref="AdminAssignQuestionToFaqCategoryActionGroup" stepKey="assignPendingQuestionToCategory"/>
+            <actionGroup ref="AdminAssignProductToQuestionActionGroup" stepKey="assignFirstProductToPendingQuestion">
+                <argument name="productName" value="$$firstProduct.product[name]$$"/>
+            </actionGroup>
+            <actionGroup ref="AdminAssignCategoryToQuestionActionGroup" stepKey="assignSecondCategoryToPendingQuestion">
+                <argument name="categoryName" value="$$secondCategory.name$$"/>
+            </actionGroup>
+        </before>
+        <after>
+            <deleteData createDataKey="firstProduct" stepKey="deleteFirstProduct"/>
+            <deleteData createDataKey="secondProduct" stepKey="deleteSecondProduct"/>
+            <deleteData createDataKey="firstCategory" stepKey="deleteFirstCategory"/>
+            <deleteData createDataKey="secondCategory" stepKey="deleteSecondCategory"/>
+            <actionGroup ref="AdminDeleteQuestionFromGridActionGroup" stepKey="deleteQuestionForAllCustomers"/>
+            <actionGroup ref="AdminDeleteQuestionFromGridActionGroup" stepKey="deleteQuestionForGeneralCustomer">
+                <argument name="questionTitle" value="pendingQuestion.title"/>
+            </actionGroup>
+            <actionGroup ref="AdminDeleteCategoryFromGridActionGroup" stepKey="deleteDefCategory"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <!--assert questions on Faq page-->
+        <actionGroup ref="StorefrontOpenFaqPageActionGroup" stepKey="openFaqPageAsGuest"/>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnFaqPageActionGroup" stepKey="assertAnsweredQuestionOnFaqPage"/>
+        <actionGroup ref="StorefrontAssertNoQuestionTitleOnFaqPageActionGroup" stepKey="assertNoPendingQuestionOnFaqPage">
+            <argument name="questionTitle" value="pendingQuestion.title"/>
+        </actionGroup>
+        <!--assert questions on Category page-->
+        <actionGroup ref="StorefrontOpenCategoryFromFaqPageActionGroup" stepKey="openCategoryPage"/>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnCategoryPageActionGroup" stepKey="assertAnsweredQuestionOnCategoryPage"/>
+        <actionGroup ref="StorefrontAssertNoQuestionTitleOnCategoryPageActionGroup" stepKey="assertNoPendingQuestionOnCategoryPage">
+            <argument name="questionTitle" value="pendingQuestion.title"/>
+        </actionGroup>
+        <!--assert questions on added product-->
+        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="openFirstProductPage">
+            <argument name="productUrl" value="$$firstProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnProductPageActionGroup" stepKey="assertAnsweredQuestionOnFirstProductPage"/>
+        <actionGroup ref="StorefrontAssertNoQuestionTitleOnProductPageActionGroup" stepKey="assertNoPendingQuestionOnFirstProductPage">
+            <argument name="questionTitle" value="pendingQuestion.title"/>
+        </actionGroup>
+        <!--assert questions on added category product-->
+        <actionGroup ref="StorefrontOpenProductPageActionGroup" stepKey="openSecondProductPage">
+            <argument name="productUrl" value="$$secondProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAssertQuestionTitleOnProductPageActionGroup" stepKey="assertAnsweredQuestionOnSecondProductPage"/>
+        <actionGroup ref="StorefrontAssertNoQuestionTitleOnProductPageActionGroup" stepKey="assertNoPendingQuestionOnSecondProductPage">
+            <argument name="questionTitle" value="pendingQuestion.title"/>
+        </actionGroup>
+        <!--assert pending question direct url-->
+        <actionGroup ref="StorefrontOpenNotAvailableDirectUrlQuestionActionGroup" stepKey="openPendingQuestionDirectUrl">
+            <argument name="question" value="pendingQuestion"/>
+        </actionGroup>
+    </test>
+</tests>

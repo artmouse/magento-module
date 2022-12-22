@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="amFaqCategoriesListWidget" type="widget">
+        <data key="type">Amasty FAQ Categories List</data>
+        <data key="design_theme">Magento Luma</data>
+        <data key="name" unique="suffix">AmFaqCatList-</data>
+        <array key="store_ids">
+            <item>All Store Views</item>
+        </array>
+        <data key="sort_order">0</data>
+        <data key="display_on">All Pages</data>
+        <data key="container">Main Content Area</data>
+    </entity>
+
+    <entity name="amBackToProductWidget" extends="amFaqCategoriesListWidget">
+        <data key="type">Amasty Back to Product Button</data>
+        <data key="name" unique="suffix">BackToProductButton-</data>
+    </entity>
+
+    <entity name="amFaqQuestionsListWidget" extends="amFaqCategoriesListWidget">
+        <data key="type">Amasty FAQ Questions List</data>
+        <data key="name" unique="suffix">AmFaqQuestList-</data>
+        <data key="blockTitle">amQuestion</data>
+        <data key="answerLength">5</data>
+    </entity>
+
+    <entity name="amFaqSearchBoxWidget" extends="amFaqCategoriesListWidget">
+        <data key="type">Amasty FAQ Search Box</data>
+        <data key="name" unique="suffix">AmFaqSearchBox-</data>
+        <data key="boxWidth">300</data>
+    </entity>
+
+    <entity name="amFaqTagsBlockWidget" extends="amFaqCategoriesListWidget">
+        <data key="type">Amasty FAQ Tags Block</data>
+        <data key="name" unique="suffix">AmFaqTagsBlock-</data>
+        <data key="tagsLimit">5</data>
+    </entity>
+</entities>

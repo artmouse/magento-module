@@ -1,0 +1,16 @@
+<?php
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package AMP for Magento 2
+*/
+?>
+<?php
+/** @var \Amasty\Amp\Block\AmpLink $block */
+
+$ampUrl = $block->getAmpLink();
+?>
+
+<?php if ($ampUrl): ?>
+    <link rel="amphtml" href="<?= $block->escapeUrl($ampUrl); ?>">
+<?php endif; ?>
