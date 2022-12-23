@@ -1,2 +1,0 @@
-# Gdpr Faq Sample Data
-

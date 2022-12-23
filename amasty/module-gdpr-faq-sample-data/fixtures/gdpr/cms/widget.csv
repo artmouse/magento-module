@@ -1,2 +1,0 @@
-instance_type,instance_code,theme_id,title,store_ids,widget_parameters.block_title,widget_parameters.widget_type,widget_parameters.short_answer_behavior,widget_parameters.limit_short_answer,widget_parameters.show_ask,widget_parameters.faq_categories,page_groups
-Amasty\Faq\Block\Widgets\QuestionsList,amasty_faq_questions_list,Magento Luma,Privacy FAQ,0,Privacy FAQ,1,1,250,0,gdpr,"[{""page_group"":""pages"",""pages"":{""page_id"":""0"",""for"":""all"",""layout_handle"":""gdpr_customer_settings"",""block"":""content.bottom""},""page_layouts"":{""layout_handle"":""""}}]"

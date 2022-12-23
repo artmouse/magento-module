@@ -1,8 +1,0 @@
-"""model"" value should be specified","""model"" value should be specified"
-"Please log in to ask a question.","Please log in to ask a question."
-"The question was sent. We'll notify you about the answer via email.","The question was sent. We'll notify you about the answer via email."
-"The question was sent.","The question was sent."
-"Question doesn't exists.","Question doesn't exists."
-"You successfully voted.","You successfully voted."
-"currentPage value must be greater than 0.","currentPage value must be greater than 0."
-"pageSize value must be greater than 0.","pageSize value must be greater than 0."
